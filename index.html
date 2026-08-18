@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Acompanhamento Prioridades FD TIKTOK</title>
+<style>
+:root{
+  --bg:#031c17; --bg2:#062b23; --panel:#06261f; --panel2:#08342a;
+  --line:#176447; --line2:#0e6f91; --text:#f4f8f6; --muted:#a9c0b9;
+  --green:#34c759; --green2:#123f28; --yellow:#ffd21f; --yellow2:#4e4600;
+  --blue:#1398d4; --blue2:#082f4b; --cyan:#22c6d9; --purple:#8b5cf6; --orange:#ff7a20;
+  --pink:#e83e8c; --shadow:0 12px 28px rgba(0,0,0,.24);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:linear-gradient(135deg,#021712,#062a22 48%,#04243a);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+button,select,input{font:inherit}
+.shell{min-height:100vh}
+.header{display:grid;grid-template-columns:190px 1fr 240px;align-items:center;border-bottom:1px solid #15523f;background:rgba(1,21,17,.95);padding:12px 20px;position:sticky;top:0;z-index:10}
+.logo{font-size:28px;font-weight:900;letter-spacing:-1px;background:#0755a8;color:#fff;padding:8px 14px;border-radius:10px;text-align:center;line-height:.85} .logo small{display:block;font-size:9px;font-weight:600;text-align:center;margin-top:4px;letter-spacing:.3px}
+.title{font-size:28px;font-weight:900;text-align:center;letter-spacing:.4px} .title span{color:var(--yellow)}
+.dateBox{text-align:right;font-weight:800} .dateBox small{display:block;color:var(--muted);font-weight:500;margin-top:4px}
+.body{display:grid;grid-template-columns:132px 1fr;min-height:calc(100vh - 74px)}
+.sidebar{border-right:1px solid #15523f;padding:18px 9px;background:rgba(3,29,23,.95)}
+.navbtn{width:100%;border:1px solid transparent;background:transparent;color:#d9e7e3;border-radius:10px;padding:16px 8px;margin-bottom:8px;cursor:pointer;font-size:11px;font-weight:800}
+.navbtn.active{color:var(--yellow);background:#073929;border-color:#176447;box-shadow:inset 4px 0 var(--yellow)}
+.sideCard{border:1px solid #176447;border-radius:12px;padding:12px 8px;text-align:center;margin-top:24px;color:#d8e9e3;font-size:11px}
+.sideCard strong{display:block;font-size:28px;color:#fff;margin-top:6px}
+.main{padding:16px;max-width:1500px;width:100%;margin:auto}
+.toolbar{display:grid;grid-template-columns:1fr 1fr 220px 250px;gap:12px;align-items:end;margin-bottom:14px}
+.filter{border:1px solid #176447;border-radius:12px;padding:10px 12px;background:#041f19}
+.filter label{display:block;color:var(--yellow);font-size:11px;font-weight:900;margin-bottom:6px}
+select,input[type=file]{width:100%;background:#08251f;color:#fff;border:1px solid #315d52;border-radius:9px;padding:10px}
+.action{border:0;border-radius:10px;padding:12px 14px;font-weight:900;cursor:pointer}
+.blue{background:#0755a8;color:#fff} .yellowBtn{background:var(--yellow);color:#1d1d00}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.card{border:1px solid #75b99a;background:linear-gradient(145deg,#eaf8f0,#d8f1e4);color:#123b30;border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.card.yellow{border-color:#d7bd27;background:linear-gradient(145deg,#fff9d8,#f7e99a)}
+.card.blueCard{border-color:#6aa9c7;background:linear-gradient(145deg,#eaf7fb,#cfeaf4)}
+.card .label{font-size:14px;font-weight:900;letter-spacing:.3px}
+.card .value{font-size:42px;font-weight:900;margin:7px 0 4px}
+.card .sub{font-size:12px;color:#49675e}
+.greenText{color:var(--green)} .yellowText{color:var(--yellow)} .blueText{color:#28b6ee}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.panel{border:1px solid #6fae93;background:linear-gradient(145deg,#eaf7ef,#d8eee2);color:#12382f;border-radius:14px;padding:14px;box-shadow:var(--shadow)}
+.panel h2{margin:0;color:#0b5b49;font-size:16px} .panel p{margin:4px 0 12px;color:#567168;font-size:11px}
+.statusWrap{display:grid;grid-template-columns:.72fr 1.28fr;gap:14px;align-items:center}
+.donut{width:260px;height:260px;margin:auto;position:relative} .donut canvas{width:100%;height:100%}
+.centerText{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:900;font-size:24px}
+.tableWrap{overflow:auto;max-height:360px}
+table{width:100%;border-collapse:collapse} th{background:#074b7a;color:white;text-align:left;padding:9px;font-size:11px} td{padding:8px 9px;border-bottom:1px solid #b9d7c8;font-size:11px}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px}
+canvas.chart{display:block;width:100%;height:280px}
+.view{display:none} .view.active{display:block}
+.imageControls{display:grid;grid-template-columns:1fr 1fr 230px;gap:12px;margin-bottom:14px}
+.imagePreview{background:#f7faf9;color:#162c26;border-radius:14px;padding:22px;min-height:480px}
+.imageHead{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.imageHead h2{font-size:28px;margin:0 0 8px} .imageHead .sup{font-size:22px;color:#0c6c8c;font-weight:900}
+.imageGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;margin-top:18px}
+.imageTable table{color:#111} .imageTable th{background:#4f86bd} .imageTable td{border-bottom:1px solid #b9c9d8;font-size:14px}
+.summaryBox{border-top:5px solid #4f86bd;padding-top:12px} .summaryBox .big{font-size:38px;font-weight:900;color:#188f50}
+.summaryBox .yellowLine{background:#fff0a8;border:1px solid #e2c448;border-radius:9px;padding:10px;margin:10px 0;font-weight:800}
+.imageNote{font-size:12px;color:#60736d;margin-top:14px}
+
+.driverControls{display:grid;grid-template-columns:1fr 1fr 230px;gap:12px;margin-bottom:14px}
+.driverSummary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.driverStat{background:linear-gradient(145deg,#ecfaf2,#d6f0e1);color:#123b30;border:1px solid #73b797;border-radius:13px;padding:14px}
+.driverStat .n{font-size:28px;font-weight:900;margin-top:6px}
+.driverTableWrap{overflow:auto;max-height:500px}
+.driverTable{width:100%;border-collapse:collapse}
+.driverTable th{background:#0d6a91;color:#fff;padding:10px;font-size:11px}
+.driverTable td{padding:10px;border-bottom:1px solid #b8d6c7;font-size:11px;color:#17382f}
+.driverTable tr:hover{background:#d9efe4}
+.logoBadgeBlue{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;background:#0755a8;color:#fff;border-radius:8px;padding:8px 14px;font-weight:900;line-height:.9}
+.logoBadgeBlue small{font-size:9px;margin-top:4px}
+
+
+.opsControls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+
+.opsImageActions{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}
+.opsImageBtn{border:0;border-radius:10px;padding:11px 15px;font-weight:900;cursor:pointer}
+.opsImageBtn.yellow{background:#ffd21f;color:#2c2a00}
+.opsImageBtn.blue{background:#0d6a91;color:#fff}
+
+.opsSwitch{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.opsBtn{border:1px solid #76b89a;background:#e8f6ee;color:#164536;border-radius:10px;padding:11px 16px;font-weight:900;cursor:pointer}
+.opsBtn.active{background:#0d6a91;color:#fff;border-color:#0d6a91}
+.opsCards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.opsCard{background:linear-gradient(145deg,#edf9f2,#d8eee2);color:#12382f;border:1px solid #74b596;border-radius:13px;padding:14px}
+.opsCard .n{font-size:30px;font-weight:900;margin-top:5px}
+.opsTableWrap{overflow:auto;max-height:560px;border-radius:12px;border:1px solid #b8d4c7}
+.opsTable{width:100%;border-collapse:collapse;min-width:900px}
+.opsTable th{position:sticky;top:0;background:#0d6a91;color:#fff;padding:10px;font-size:11px;text-align:left}
+.opsTable td{padding:10px;border-bottom:1px solid #c5ddd1;font-size:11px;color:#17382f}
+.opsTable tr:nth-child(even){background:#e8f4ed}
+@media(max-width:700px){.opsControls,.opsCards{grid-template-columns:1fr}}
+
+
+.fdFullReportActions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 8px}
+.fdFullReportBtn{border:0;border-radius:10px;padding:12px 17px;font-weight:900;cursor:pointer;background:#0d6a91;color:#fff;box-shadow:0 6px 14px rgba(13,106,145,.18)}
+.fdFullReportHint{font-size:11px;color:#58736a;margin:0 0 16px}
+
+
+.reportPreviewWrap{background:#0b3f33;border:1px solid #176447;border-radius:16px;padding:14px;margin-top:14px}
+.reportPreviewToolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.reportPreviewToolbar .title{font-size:16px;font-weight:900;color:#f4f8f6}
+.reportPreviewCanvas{width:100%;max-height:78vh;overflow:auto;background:#d7eee2;border-radius:12px;padding:12px}
+.reportPreviewCanvas canvas{width:100%;height:auto;display:block;background:#fff;border-radius:10px}
+
+@media(max-width:1050px){.body{grid-template-columns:1fr}.sidebar{display:none}.header{grid-template-columns:1fr}.logo,.dateBox{display:none}.toolbar,.cards,.grid2,.imageGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.toolbar,.cards,.grid2,.imageControls,.driverControls,.driverSummary,.imageGrid,.statusWrap{grid-template-columns:1fr}.title{font-size:20px}.main{padding:10px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="header">
+  <div class="logo">iMile<small>Delivery</small></div>
+  <div class="title">ACOMPANHAMENTO PRIORIDADES <span>FD TIKTOK</span></div>
+  <div class="dateBox" id="headerDate">13/08/2026<small>Dados carregados localmente</small></div>
+</header>
+
+<div class="body">
+<aside class="sidebar">
+  <button class="navbtn active" data-view="dashboard">⌂<br>PAINEL<br>GERAL</button>
+  <button class="navbtn" data-view="drivers">🚚<br>RELATÓRIO<br>MOTORISTAS</button>
+  <button class="navbtn" data-view="awb">🔎<br>AWBs<br>PENDENTES</button>
+  <button class="navbtn" data-view="image">🖼️<br>GERADOR<br>FINAL</button>
+  <div class="sideCard">TOTAL DE PEDIDOS<strong id="sideTotal">0</strong></div>
+</aside>
+
+<main class="main">
+<section id="view-dashboard" class="view active">
+  <div class="toolbar">
+    <div class="filter"><label>SUPERVISOR</label><select id="supFilter"></select></div>
+    <div class="filter"><label>DS</label><select id="dsFilter"></select></div>
+    <button id="loadBtn" class="action blue">↻ CARREGAR NOVO EXCEL</button>
+    <button id="goImageBtn" class="action yellowBtn">▧ GERAR IMAGEM TOTAL POR BASE PARA COBRANÇA</button>
+    <input id="fileInput" type="file" accept=".xlsx" style="display:none">
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="label">ENTREGUES</div><div id="kDelivered" class="value greenText">0</div><div class="sub">Pedidos entregues</div></div>
+    <div class="card yellow"><div class="label">RECEBIDOS NO DS</div><div id="kReceived" class="value yellowText">0</div><div class="sub">Pedidos recebidos no DS</div></div>
+    <div class="card"><div class="label">DEMAIS STATUS</div><div id="kOther" class="value">0</div><div class="sub">Pedidos em outros status</div></div>
+    <div class="card blueCard"><div class="label">% ENTREGUE</div><div id="kPct" class="value blueText">0,00%</div><div class="sub">Entregues / Recebidos no DS</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h2>DISTRIBUIÇÃO POR STATUS</h2>
+      <p>Todos os status da planilha, com quantidade e percentual sobre o total.</p>
+      <div class="statusWrap">
+        <div class="donut"><canvas id="donutCanvas"></canvas><div class="centerText" id="donutCenter">0<br><span style="font-size:11px;color:#a9c0b9">pedidos</span></div></div>
+        <div class="tableWrap"><table><thead><tr><th>STATUS</th><th>QTDADE</th><th>% SOBRE TOTAL</th></tr></thead><tbody id="statusTable"></tbody><tfoot><tr><th>TOTAL GERAL</th><th id="statusTotal">0</th><th>100,00%</th></tr></tfoot></table></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>STATUS EM LINHA</h2>
+      <p>Quantidade de pedidos status por status, seguindo a distribuição atual.</p>
+      <canvas id="statusLineChart" class="chart"></canvas>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h2>MOTORISTAS MAIS OFENSORES</h2>
+      <p>Ranking dos motoristas com maior quantidade de pedidos ainda não entregues.</p>
+      <canvas id="driverOffenderChart" class="chart"></canvas>
+    </div>
+    <div class="panel">
+      <h2>RANKING DS · RECEBIDOS NO DS</h2>
+      <p>Da DS com mais pedidos em “recebido no DS” para a com menos.</p>
+      <canvas id="dsReceivedChart" class="chart"></canvas>
+    </div>
+  </div>
+</section>
+
+
+<section id="view-drivers" class="view">
+  <div class="driverControls">
+    <div class="filter"><label>SUPERVISOR</label><select id="driverSup"></select></div>
+    <div class="filter"><label>DS</label><select id="driverDs"></select></div>
+    <button id="downloadDriverReportBtn" class="action yellowBtn">▧ GERAR IMAGEM DO RELATÓRIO</button>
+  </div>
+
+  <div class="driverSummary">
+    <div class="driverStat"><div>Motoristas com pendência</div><div id="driverCount" class="n">0</div></div>
+    <div class="driverStat"><div>Pedidos em rota</div><div id="driverPendingTotal" class="n">0</div></div>
+    <div class="driverStat"><div>Total em rota</div><div id="driverRouteTotal" class="n">0</div></div>
+    <div class="driverStat"><div>Status analisado</div><div class="n" style="font-size:18px">Em rota de entrega</div><div id="driverReceivedTotal" style="display:none">0</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h2>MOTORISTAS MAIS OFENSORES · ROTAS NÃO FINALIZADAS</h2>
+      <p>Somente pedidos com status “Em rota de entrega” e motorista preenchido entram nesta análise.</p>
+      <canvas id="driverReportChart" class="chart"></canvas>
+    </div>
+    <div class="panel">
+      <h2>DETALHAMENTO POR MOTORISTA</h2>
+      <p>Separação por status para facilitar a cobrança operacional.</p>
+      <div class="driverTableWrap">
+        <table class="driverTable">
+          <thead><tr><th>Motorista</th><th>DS</th><th>Pedidos em rota</th></tr></thead>
+          <tbody id="driverReportBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="view-awb" class="view">
+  <div class="opsControls">
+    <div class="filter"><label>SUPERVISOR</label><select id="awbSup"></select></div>
+    <div class="filter"><label>DS</label><select id="awbDs"></select></div>
+    <div class="filter"><label>BUSCAR AWB</label><input id="awbSearch" type="text" placeholder="Digite parte ou toda a AWB" style="width:100%;background:#eef7f2;color:#153c31;border:1px solid #8fb9a5;border-radius:9px;padding:10px"></div>
+  </div>
+
+  <div class="opsSwitch">
+    <button id="awbRouteBtn" class="opsBtn active" type="button">🚚 Motoristas em rota</button>
+    <button id="awbDsInvBtn" class="opsBtn" type="button">📦 Recebido no DS / Inventário</button>
+  </div>
+
+  <div class="opsImageActions">
+    <button id="downloadAwbDsInvImageBtn" class="opsImageBtn yellow" type="button">📦 Imagem Recebido no DS / Inventário</button>
+    <button id="downloadAwbDriversImageBtn" class="opsImageBtn blue" type="button">🚚 Imagem Motoristas Ofensores</button>
+  </div>
+
+  <div class="opsCards">
+    <div class="opsCard"><div>AWBs nesta visão</div><div id="awbTotal" class="n">0</div></div>
+    <div class="opsCard"><div>Motoristas</div><div id="awbDrivers" class="n">0</div></div>
+    <div class="opsCard"><div>DSs envolvidas</div><div id="awbBases" class="n">0</div></div>
+  </div>
+
+  <div class="panel">
+    <h2 id="awbViewTitle">MOTORISTAS EM ROTA · AWB POR AWB</h2>
+    <p id="awbViewSub">Somente status “Em rota de entrega” com motorista preenchido.</p>
+    <div class="opsTableWrap">
+      <table class="opsTable">
+        <thead id="awbTableHead"></thead>
+        <tbody id="awbTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="view-image" class="view">
+  <div class="imageControls">
+    <div class="filter"><label>SUPERVISOR</label><select id="imgSup"></select></div>
+    <div class="filter"><label>DS</label><select id="imgDs"></select></div>
+    <button id="refreshFinalPreviewBtn" class="action blue">↻ ATUALIZAR PRÉVIA</button>
+    <button id="downloadFinalReportBtn" class="action yellowBtn">▧ BAIXAR IMAGEM FINAL</button>
+  </div>
+
+  <div class="reportPreviewWrap">
+    <div class="reportPreviewToolbar">
+      <div>
+        <div class="title">PRÉVIA FINAL DO RELATÓRIO</div>
+        <div style="font-size:11px;color:#a9c0b9;margin-top:4px">Confira todos os números antes do envio.</div>
+      </div>
+      <div id="finalPreviewSummary" style="font-size:12px;color:#d7f2e6">Selecione os filtros e atualize a prévia.</div>
+    </div>
+    <div class="reportPreviewCanvas">
+      <canvas id="finalReportPreviewCanvas"></canvas>
+    </div>
+  </div>
+
+  <div id="imagePreview" style="display:none">
+    <div id="imageSupName"></div><div id="imageDsName"></div><div id="imageTotal"></div>
+    <div id="imageGrandTotal"></div><div id="imageDelivered"></div><div id="imageReceived"></div><div id="imagePct"></div>
+    <table><tbody id="imageStatusTable"></tbody></table>
+  </div>
+  <button id="downloadImageBtn" type="button" style="display:none"></button>
+</section>
+</main>
+</div>
+</div>
+
+<script src="jszip.min.js"></script>
+<script>
+const SUPERVISOR_MAP={"DS PIX":"Andre Luis Silveira Pinheiro","DS AIF":"José Henrique","DS VTP":"Jose Lucas de Freitas Carvalho","DS CPQ":"Andre Luis Silveira Pinheiro","DS JDP":"Daniel Da Silva Coutinho","DS TBT":"Nelson de Siqueira","DS SPL":"Dennis Pereira dos Santos","DS SAM":"Eduardo Mendes Rocha","DS OUR":"José Henrique","DS GJU":"Carlos Augusto Oliveira Teixeira","DS JAU":"José Henrique","DS PSD":"Jose Lucas de Freitas Carvalho","DS MOG":"Cassio Cesar Ferreira","DS TAMI":"Jefferson Silva Trevizan","DS BUXI":"José Henrique","DS SBD":"Carlos Augusto Oliveira Teixeira","DS RBI":"Dennis Pereira dos Santos","DS ITE":"Alex Dantas Marçal","DS MCC":"Gustavo Vilares de Souza","DS PMB":"Nelson de Siqueira","DS RBT":"Renan Burger da Silva","DS AVR":"José Henrique","DS IND":"Valber Da Silva Santos","DS MGI":"Cassio Cesar Ferreira","DS FRC":"Renan Burger da Silva","DS SFS":"Jose Lucas de Freitas Carvalho","DS STZ":"Renan Burger da Silva","DS IPR":"Daniel Da Silva Coutinho","DS VZP":"Valber Da Silva Santos","DS BTV":"Felippe Campos Vieira da Silva","DS VLM":"Daniel Da Silva Coutinho","DS SJP":"Jose Lucas de Freitas Carvalho","DS IGA":"Felippe Campos Vieira da Silva","DS UBT":"Nelson de Siqueira","DS JER":"Leonardo Oliveira da Silva Bezerra","DS CTD":"Jose Lucas de Freitas Carvalho","DS TAS":"Leonardo Oliveira da Silva Bezerra","DS GPG":"Jefferson Silva Trevizan","DS MRA":"José Henrique","DS JIR":"Dennis Pereira dos Santos","DS EBG":"Jefferson Silva Trevizan","DS GUA":"Eduardo Mendes Rocha","DS VLB":"Eduardo Mendes Rocha","DS GLS":"Eduardo Mendes Rocha","DS BER":"Bruno Souza Da Silva","DS CQL":"Felippe Campos Vieira da Silva","DS SCP":"Alex Gomes da Silva Cunha","DS AQR":"Willian Gabriel Guedes de Brito Magalhaes","DS CTI":"Alex Dantas Marçal","DS RCA":"Cassio Cesar Ferreira","DS PIB":"Andre Luis Silveira Pinheiro","DS PQR":"Jefferson Silva Trevizan","DS AMN":"Carlos Augusto Oliveira Teixeira","DS BJP":"Alex Gomes da Silva Cunha","DS SVT":"Daniel Rubio Tavares","DS JIP":"Eduardo Mendes Rocha","DS SBC":"Daniel Rubio Tavares","DS SAS":"Daniel Rubio Tavares","DS SBB":"Carlos Augusto Oliveira Teixeira","DS MSL":"Alex Gomes da Silva Cunha","DS VAR":"Bruno Souza Da Silva","DS SRQ":"Alex Dantas Marçal","DS SVM":"Leonardo Oliveira da Silva Bezerra","DS SUZ":"Cassio Cesar Ferreira","DS RCL":"Gustavo Vilares de Souza","DS SCL":"Willian Gabriel Guedes de Brito Magalhaes","DS FCR":"Valber Da Silva Santos","DS SLT":"Valber Da Silva Santos","DS CPJ":"Nelson de Siqueira","DS TAI":"Felippe Campos Vieira da Silva","DS NOV":"Andre Luis Silveira Pinheiro","DS ATB":"Alex Gomes da Silva Cunha","DS MGN":"Gustavo Vilares de Souza","DS CPX":"Andre Luis Silveira Pinheiro","DS SRO":"Felippe Campos Vieira da Silva","DS STL":"Eduardo Mendes Rocha","DS GRT":"Nelson de Siqueira","DS VRE":"Eduardo Mendes Rocha","DS WSC":"Leonardo Oliveira da Silva Bezerra","DS ARO":"Alex Gomes da Silva Cunha","DS MAU":"Dennis Pereira dos Santos","DS ADL":"Alex Gomes da Silva Cunha","DS ARU":"Jose Lucas de Freitas Carvalho","DS GRUI":"Daniel Da Silva Coutinho","DS MRP":"Valber Da Silva Santos","DS VTT":"Felippe Campos Vieira da Silva","DS SRP":"Jose Lucas de Freitas Carvalho","DS IIG":"Willian Gabriel Guedes de Brito Magalhaes","DS SVL":"Eduardo Mendes Rocha","DS LBD":"Daniel Da Silva Coutinho","DS MAT":"Willian Gabriel Guedes de Brito Magalhaes","DS RST":"Daniel Rubio Tavares","DS IVV":"Renan Burger da Silva","DS BLV":"Daniel Da Silva Coutinho","DS JRF":"Jefferson Silva Trevizan","DS CPB":"Bruno Souza Da Silva","DS GHO":"Eduardo Mendes Rocha","DS MGZ":"Cassio Cesar Ferreira","DS CDR":"Leonardo Oliveira da Silva Bezerra","DS IDT":"Valber Da Silva Santos","DS BRT":"Jose Lucas de Freitas Carvalho","DS MTS":"Eduardo Mendes Rocha","DS RRA":"Renan Burger da Silva","DS LIM":"Gustavo Vilares de Souza","DS SJO":"Alex Gomes da Silva Cunha","DS CTT":"Nelson de Siqueira","DS SCM":"Alex Gomes da Silva Cunha","DS ARJ":"Cassio Cesar Ferreira","DS GRS":"José Henrique","DS MSO":"Jose Lucas de Freitas Carvalho","DS CBV":"Valber Da Silva Santos","DS CSA":"Carlos Augusto Oliveira Teixeira","DS LSV":"Daniel Rubio Tavares","DS GTS":"Dennis Pereira dos Santos","DS PSS":"Willian Gabriel Guedes de Brito Magalhaes","DS PRJ":"José Henrique","DS DDE":"Daniel Rubio Tavares","DS MTL":"Willian Gabriel Guedes de Brito Magalhaes","DS JVC":"Eduardo Mendes Rocha","DS MBI":"Daniel Da Silva Coutinho","DS CZR":"Nelson de Siqueira","DS FRZ":"Cassio Cesar Ferreira","DS IVA":"Valber Da Silva Santos","DS ADD":"Jose Lucas de Freitas Carvalho","DS GOS":"Eduardo Mendes Rocha","DS BAT":"Renan Burger da Silva","DS STD":"Dennis Pereira dos Santos","DS EAR":"Jefferson Silva Trevizan","DS CBL":"Carlos Augusto Oliveira Teixeira","DS JDI":"Valber Da Silva Santos","DS AET":"Dennis Pereira dos Santos","DS CUI":"Bruno Souza Da Silva","DS JBC":"Willian Gabriel Guedes de Brito Magalhaes","DS IQQ":"Cassio Cesar Ferreira","DS ITC":"Jefferson Silva Trevizan","DS SDS":"Alex Gomes da Silva Cunha","DS PQP":"Jefferson Silva Trevizan","DS API":"José Henrique","DS TPR":"Alex Gomes da Silva Cunha","DS SRG":"Alex Gomes da Silva Cunha","DS BBD":"Renan Burger da Silva","DS GNZ":"Cassio Cesar Ferreira","DS CPC":"Bruno Souza Da Silva","DS ORL":"Renan Burger da Silva","DS BCC":"Leonardo Oliveira da Silva Bezerra","DS FVC":"Dennis Pereira dos Santos","DS HOT":"Andre Luis Silveira Pinheiro","DS IGP":"Daniel Rubio Tavares","DS OCO":"Jefferson Silva Trevizan","DS SCR":"Alex Gomes da Silva Cunha","DS PAR":"Carlos Augusto Oliveira Teixeira","DS GAU":"Carlos Augusto Oliveira Teixeira","DS PSC":"Daniel Da Silva Coutinho","DS VOT":"Jose Lucas de Freitas Carvalho","DS AMR":"Andre Luis Silveira Pinheiro","DS AAR":"Gustavo Vilares de Souza","DS JDA":"Alex Dantas Marçal","DS SMO":"Andre Luis Silveira Pinheiro","DS JPL":"Jefferson Silva Trevizan","DS PGD":"Daniel Rubio Tavares","DS TBA":"Valber Da Silva Santos","DS JDS":"Leonardo Oliveira da Silva Bezerra","DS RPT":"Renan Burger da Silva","DS ILS":"Jose Lucas de Freitas Carvalho","DS LNS":"Jose Lucas de Freitas Carvalho","DS JANI":"Leonardo Oliveira da Silva Bezerra","DS ACM":"Daniel Da Silva Coutinho","DS PDR":"Alex Gomes da Silva Cunha"};
+let DATA=[{"awb":"6073026713614","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:21","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"3320093798483","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:25","lastStation":"DS JDP","receivingBase":"DS FM BLU"},{"awb":"3320087791079","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:22","lastStation":"DS JDP","receivingBase":"Drop FRA 36"},{"awb":"3320082794659","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:34","lastStation":"DS JDP","receivingBase":"TP NOF"},{"awb":"3320079799414","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:42","lastStation":"DS JDP","receivingBase":"TP BRA 2"},{"awb":"3320061795147","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:27","lastStation":"DS JDP","receivingBase":"Drop PNU"},{"awb":"3320046794317","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:23","lastStation":"DS JDP","receivingBase":"TP NOF"},{"awb":"3320018805380","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:19","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320012793322","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:31","lastStation":"DS JDP","receivingBase":"TP CLC"},{"awb":"3320003809051","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"atribuído","driver":"WANDERSON FELIX","lastRead":"2026-08-08 12:26:20","lastStation":"DS JDP","receivingBase":"Drop VNC"},{"awb":"3320082791369","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"devolução consolidada","driver":"Pedro da Silva Ferreira","lastRead":"2026-08-11 05:49:43","lastStation":"DS BLV","receivingBase":"TP BRA 2"},{"awb":"6080126335041","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Em rota de entrega","driver":"Pedro da Silva Ferreira","lastRead":"2026-08-10 18:17:55","lastStation":"DS BLV","receivingBase":"PA GUA2"},{"awb":"3320051787155","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Em rota de entrega","driver":"OTACILIO ALMEIDA SANTANA NETO","lastRead":"2026-08-07 07:22:36","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320027791275","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Em rota de entrega","driver":"Leonardo Khouri do Amaral","lastRead":"2026-08-07 09:36:31","lastStation":"DS IPR","receivingBase":"TP BRA 2"},{"awb":"3320062779999","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Em rota de entrega","driver":"Pedro da Silva Ferreira","lastRead":"2026-08-10 18:03:33","lastStation":"DS BLV","receivingBase":"Drop STN 2"},{"awb":"6073026813705","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Em rota de entrega","driver":"Pedro da Silva Ferreira","lastRead":"2026-08-10 17:59:20","lastStation":"DS BLV","receivingBase":"Drop BRA 19"},{"awb":"6072726806738","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"Pedro da Silva Ferreira","lastRead":"2026-08-13 18:46:34","lastStation":"DS BLV","receivingBase":"CDC-GU"},{"awb":"6072726658808","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"Pedro da Silva Ferreira","lastRead":"2026-08-13 18:45:26","lastStation":"DS BLV","receivingBase":"CDC-GU"},{"awb":"3320025765975","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"Pedro da Silva Ferreira","lastRead":"2026-08-13 18:43:41","lastStation":"DS BLV","receivingBase":"Drop BRA 68"},{"awb":"3320085796230","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"paulo henrique","lastRead":"2026-08-13 11:26:57","lastStation":"DS VLM","receivingBase":"TP BRA 2"},{"awb":"3320085790423","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"Jéssica Alves","lastRead":"2026-08-13 12:32:39","lastStation":"DS BLV","receivingBase":"TP IMN"},{"awb":"3320045808739","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"Jéssica Alves","lastRead":"2026-08-13 15:29:58","lastStation":"DS BLV","receivingBase":"Drop DID 2"},{"awb":"3320010795450","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"Jéssica Alves","lastRead":"2026-08-13 12:32:08","lastStation":"DS BLV","receivingBase":"TP IMN"},{"awb":"3320046790180","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"Danilo da Silva","lastRead":"2026-08-13 14:59:33","lastStation":"DS VLM","receivingBase":"TP SRP 2"},{"awb":"3320054764720","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"Jéssica Alves","lastRead":"2026-08-13 10:39:15","lastStation":"DS BLV","receivingBase":"RDC-RJ1"},{"awb":"3320047769850","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Entregue","driver":"Jéssica Alves","lastRead":"2026-08-13 10:39:15","lastStation":"DS BLV","receivingBase":"TP IMN"},{"awb":"6080826532662","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Leitura do inventário","driver":"","lastRead":"2026-08-13 12:34:11","lastStation":"DS VLM","receivingBase":"PA SAT"},{"awb":"3320046766523","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Leitura do inventário","driver":"ISABELLA MARIA","lastRead":"2026-08-13 07:48:08","lastStation":"DS PSC","receivingBase":"TP IMN"},{"awb":"3320050760119","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Pedido finalizado anormal","driver":"MURILLO DOUGLAS BICAIO","lastRead":"2026-08-12 19:29:30","lastStation":"DS MBI","receivingBase":"Drop SAI 2"},{"awb":"3320082750278","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Pedido finalizado anormal","driver":"MURILLO DOUGLAS BICAIO","lastRead":"2026-08-12 19:29:29","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320076755477","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Pedido finalizado anormal","driver":"","lastRead":"2026-08-10 20:17:14","lastStation":"DS JDP","receivingBase":"TP BRA 2"},{"awb":"6080326331104","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-08 07:22:31","lastStation":"DS IPR","receivingBase":"PA GUA2"},{"awb":"6073126303466","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-08 07:23:44","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"6073026396341","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-08 07:35:28","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"3320066805333","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-09 05:45:35","lastStation":"DS VLM","receivingBase":"TP IMN"},{"awb":"3320057796271","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-08 07:45:43","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320032800509","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-09 05:43:40","lastStation":"DS VLM","receivingBase":"TP BRA 2"},{"awb":"3320013803653","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"SAMUEL BURGOA","lastRead":"2026-08-13 09:17:10","lastStation":"DS GRUI","receivingBase":"TP BAR"},{"awb":"3320010764260","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-01 05:42:41","lastStation":"DS VLM","receivingBase":"TP BRA 2"},{"awb":"3320001806512","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-09 05:34:59","lastStation":"DS VLM","receivingBase":"TP CLC"},{"awb":"3320085799783","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-08 05:45:50","lastStation":"DS VLM","receivingBase":"TP BAR"},{"awb":"3320081793476","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-08 05:49:19","lastStation":"DS VLM","receivingBase":"TP SPS"},{"awb":"3320029805185","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-08 05:49:22","lastStation":"DS VLM","receivingBase":"TP EXT"},{"awb":"3320014797635","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-07 07:31:43","lastStation":"DS JDP","receivingBase":"TP BAR"},{"awb":"6080426541642","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-07 05:36:19","lastStation":"DS VLM","receivingBase":"DS FM BLI"},{"awb":"3320091782834","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-06 08:53:02","lastStation":"DS JDP","receivingBase":"Drop PAR 5"},{"awb":"3320058796730","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-07 05:54:51","lastStation":"DS VLM","receivingBase":"TP IMN"},{"awb":"3320055779452","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-06 08:34:02","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320000784637","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-06 08:24:35","lastStation":"DS JDP","receivingBase":"TP BRA 2"},{"awb":"6080326309678","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-05 07:59:21","lastStation":"DS JDP","receivingBase":"Drop BRA 29"},{"awb":"3320087776276","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-05 07:48:01","lastStation":"DS JDP","receivingBase":"TP SPS"},{"awb":"3320056781675","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-05 07:43:56","lastStation":"DS JDP","receivingBase":"TP BAR"},{"awb":"3320054771569","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-05 07:55:38","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320039774209","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-05 08:03:59","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320034781379","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-05 07:48:20","lastStation":"DS JDP","receivingBase":"Drop SJP 10"},{"awb":"3320064768301","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-02 08:05:12","lastStation":"DS JDP","receivingBase":"TP BRA 2"},{"awb":"6072826867355","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-01 07:18:05","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"3320096765634","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-08-01 08:26:09","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320061724186","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"recebido no DS","driver":"","lastRead":"2026-07-31 07:43:19","lastStation":"DS JDP","receivingBase":"TP BRA 2"},{"awb":"6072926552459","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ROBERT NOGEUIRA FELIX","lastRead":"2026-08-04 09:38:57","lastStation":"DS GRUI","receivingBase":"PA SAT"},{"awb":"6080626871379","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MURILLO DOUGLAS BICAIO","lastRead":"2026-08-12 14:08:26","lastStation":"DS MBI","receivingBase":"Drop BRA 53"},{"awb":"6080626475413","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-12 15:09:49","lastStation":"DS JDP","receivingBase":"PA GUA2"},{"awb":"6080626356884","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MURILLO DOUGLAS BICAIO","lastRead":"2026-08-12 14:07:47","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"6080626166096","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Fernanda Siqueira Tavares","lastRead":"2026-08-13 07:27:06","lastStation":"DS VLM","receivingBase":"DS FM BLI"},{"awb":"6080426864770","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Roberto Orosg Filho","lastRead":"2026-08-12 11:55:31","lastStation":"DS IPR","receivingBase":"PA GUA2"},{"awb":"6080226535260","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"LAYSLLA CELESTINO DA SILVA","lastRead":"2026-08-11 16:55:25","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"6072826863099","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"LAYSLLA CELESTINO DA SILVA","lastRead":"2026-08-11 16:55:23","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"3320078807679","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"João Pedro Ravanelli","lastRead":"2026-08-12 10:52:08","lastStation":"DS VLM","receivingBase":"Drop BRA 52"},{"awb":"3320076794436","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-10 10:15:57","lastStation":"DS JDP","receivingBase":"TP SPS"},{"awb":"3320071792938","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"João Pedro Ravanelli","lastRead":"2026-08-12 10:52:06","lastStation":"DS VLM","receivingBase":"TP BRA 2"},{"awb":"3320063806264","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-10 16:44:29","lastStation":"DS JDP","receivingBase":"Drop CAR 2"},{"awb":"3320063797474","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MURILLO DOUGLAS BICAIO","lastRead":"2026-08-12 14:08:03","lastStation":"DS MBI","receivingBase":"TP SUM"},{"awb":"3320059791099","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-11 10:08:46","lastStation":"DS JDP","receivingBase":"Drop SMP 2"},{"awb":"3320057797542","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"PEDRO HENRIQUE DE OLIVEIRA","lastRead":"2026-08-11 10:00:39","lastStation":"DS JDP","receivingBase":"Drop MGC 3"},{"awb":"3320053805130","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Roberto Orosg Filho","lastRead":"2026-08-12 11:58:08","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320048806138","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-12 13:45:04","lastStation":"DS JDP","receivingBase":"Drop JAL"},{"awb":"6080726677839","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Mariah Barbosa","lastRead":"2026-08-11 08:50:23","lastStation":"DS ACM","receivingBase":"Drop VLG 6"},{"awb":"6080626768552","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-09 12:34:49","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"6080426129088","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Roberto Orosg Filho","lastRead":"2026-08-12 11:56:53","lastStation":"DS IPR","receivingBase":"PA GUA2"},{"awb":"3320095799382","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"victor hugo ravanelli","lastRead":"2026-08-12 07:31:31","lastStation":"DS VLM","receivingBase":"Drop BRA 80"},{"awb":"3320091794208","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Mariah Barbosa","lastRead":"2026-08-11 08:53:18","lastStation":"DS ACM","receivingBase":"TP BRA 2"},{"awb":"3320085793978","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MURILLO DOUGLAS BICAIO","lastRead":"2026-08-12 14:07:26","lastStation":"DS MBI","receivingBase":"TP SPS"},{"awb":"3320073785803","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"FLAVIO BERBEL DE FREITAS","lastRead":"2026-08-11 09:44:34","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320067799824","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"João Pedro Ravanelli","lastRead":"2026-08-12 07:31:30","lastStation":"DS VLM","receivingBase":"Drop VLE"},{"awb":"3320063797860","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-10 10:27:25","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320059796695","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-11 16:54:28","lastStation":"DS VLM","receivingBase":"TP IMN"},{"awb":"3320053794261","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Luan Nagliati dos Santos","lastRead":"2026-08-12 11:44:42","lastStation":"DS IPR","receivingBase":"TP PDR"},{"awb":"3320051794202","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Luan Nagliati dos Santos","lastRead":"2026-08-10 16:03:31","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320037779014","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-11 13:43:41","lastStation":"DS VLM","receivingBase":"TP IMN"},{"awb":"3320016806982","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"João Pedro Ravanelli","lastRead":"2026-08-12 10:52:08","lastStation":"DS VLM","receivingBase":"TP IMN"},{"awb":"3320004791812","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"FLAVIO BERBEL DE FREITAS","lastRead":"2026-08-11 09:44:40","lastStation":"DS JDP","receivingBase":"TP SUM"},{"awb":"6080426159050","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"RICARDO BATAGLIOTTI MARQUES","lastRead":"2026-08-11 09:45:06","lastStation":"DS JDP","receivingBase":"Drop JJP 3"},{"awb":"6080426150920","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-11 15:16:42","lastStation":"DS JDP","receivingBase":"DROP SCL 3"},{"awb":"3320086776138","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"LUCIANO SANTOS SILVA","lastRead":"2026-08-11 16:58:42","lastStation":"DS JDP","receivingBase":"Drop FRA"},{"awb":"3320078789562","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"WAGNER RODRIGUES","lastRead":"2026-08-10 08:18:19","lastStation":"DS JDP","receivingBase":"TP SPS"},{"awb":"3320076781638","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-10 11:32:53","lastStation":"DS PSC","receivingBase":"TP BRA 2"},{"awb":"3320052782521","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"FLAVIO BERBEL DE FREITAS","lastRead":"2026-08-11 09:44:43","lastStation":"DS JDP","receivingBase":"TP SPS"},{"awb":"3320038781233","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"PEDRO HENRIQUE DE OLIVEIRA","lastRead":"2026-08-10 15:06:06","lastStation":"DS JDP","receivingBase":"Drop BRA 26"},{"awb":"6073126453633","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MURILLO DOUGLAS BICAIO","lastRead":"2026-08-12 13:59:22","lastStation":"DS MBI","receivingBase":"CDC-GU"},{"awb":"3320055765381","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Lucas Mota da Silva - IPR","lastRead":"2026-08-08 08:14:32","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320007775706","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Roberto Orosg Filho","lastRead":"2026-08-12 12:10:09","lastStation":"DS IPR","receivingBase":"Drop FRA 5"},{"awb":"3320007771382","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Roberto Orosg Filho","lastRead":"2026-08-12 12:10:06","lastStation":"DS IPR","receivingBase":"Drop FRA 5"},{"awb":"3320003775763","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Roberto Orosg Filho","lastRead":"2026-08-12 11:57:58","lastStation":"DS IPR","receivingBase":"Drop PQN 2"},{"awb":"6072726484594","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Roberto Orosg Filho","lastRead":"2026-08-12 11:03:01","lastStation":"DS IPR","receivingBase":"CDC-GU"},{"awb":"3320002771907","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Roberto Orosg Filho","lastRead":"2026-08-12 12:10:07","lastStation":"DS IPR","receivingBase":"Drop FRA 5"},{"awb":"3320016776274","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-07 11:43:05","lastStation":"DS MBI","receivingBase":"Drop MOC"},{"awb":"3320027781673","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-07 10:17:55","lastStation":"DS JDP","receivingBase":"TP SPS"},{"awb":"3320090789678","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-10 17:46:39","lastStation":"DS VLM","receivingBase":"Drop SMP 2"},{"awb":"3320025762046","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-04 10:32:26","lastStation":"DS ACM","receivingBase":"Drop CAR 2"},{"awb":"3320045785461","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MURILLO DOUGLAS BICAIO","lastRead":"2026-08-10 10:56:44","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"6080626774236","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-10 11:34:03","lastStation":"DS PSC","receivingBase":"Drop FGO 2"},{"awb":"6080626723513","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-10 11:37:43","lastStation":"DS PSC","receivingBase":"TP IMN"},{"awb":"3320002762463","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:59","lastStation":"DS MBI","receivingBase":"TP BRA 2"},{"awb":"3320094783923","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-11 08:42:19","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320004756313","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320004769336","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"CDC-GU"},{"awb":"3320006761877","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"GUSTAVO RODRIGUES","lastRead":"2026-08-03 10:39:53","lastStation":"DS VLM","receivingBase":"Drop SBC 7"},{"awb":"3320026805816","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-11 06:46:36","lastStation":"DS PSC","receivingBase":"TP IMN"},{"awb":"3320012767492","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-06 18:15:58","lastStation":"DS JDP","receivingBase":"TP SPS"},{"awb":"3320078782013","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-09 11:33:51","lastStation":"DS JDP","receivingBase":"Drop FRA 36"},{"awb":"3320049782967","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-11 08:44:43","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320027790137","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-07 10:50:01","lastStation":"DS JDP","receivingBase":"TP SPS"},{"awb":"3320020795706","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-09 11:38:35","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320019797649","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-10 11:35:24","lastStation":"DS PSC","receivingBase":"TP BRA 2"},{"awb":"3320016763332","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"Drop PDR 2"},{"awb":"6080526746159","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 10:58:17","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320017769648","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"TP SRP"},{"awb":"6080426498441","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 10:54:01","lastStation":"DS MBI","receivingBase":"Drop FRA 35"},{"awb":"3320098782628","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:09:59","lastStation":"DS JDP","receivingBase":"Drop DID 2"},{"awb":"3320092764136","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:10:01","lastStation":"DS JDP","receivingBase":"Drop SJP 8"},{"awb":"3320021754682","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"WIGO RODIGUES ROCHA","lastRead":"2026-08-05 10:15:07","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320088776950","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 11:00:37","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320086777704","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-11 08:42:42","lastStation":"DS MBI","receivingBase":"Drop FRA 49"},{"awb":"3320085778797","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 14:08:07","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320085764916","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"LUCIANO SANTOS SILVA","lastRead":"2026-08-08 15:41:38","lastStation":"DS JDP","receivingBase":"Drop PSL"},{"awb":"3320080776176","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 10:59:40","lastStation":"DS MBI","receivingBase":"Drop FRA 5"},{"awb":"3320075788407","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-07 11:00:48","lastStation":"DS ACM","receivingBase":"TP IMN"},{"awb":"3320073780318","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:10:06","lastStation":"DS JDP","receivingBase":"Drop BAR 4"},{"awb":"3320026760592","ds":"DS LBD","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-01 12:26:30","lastStation":"DS LBD","receivingBase":"TP BRA 2"},{"awb":"3320067773675","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"JOSIMAR PEREIRA","lastRead":"2026-08-08 15:20:03","lastStation":"DS JDP","receivingBase":"Drop BRA 64"},{"awb":"3320064775761","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 11:00:34","lastStation":"DS MBI","receivingBase":"Drop FRA 47"},{"awb":"3320060782714","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-09 11:43:28","lastStation":"DS JDP","receivingBase":"TP BRA 2"},{"awb":"3320060781653","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 11:00:21","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320059794951","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-10 17:45:13","lastStation":"DS GRUI","receivingBase":"TP IMN"},{"awb":"3320059787024","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 10:47:33","lastStation":"DS MBI","receivingBase":"TP BRA 2"},{"awb":"3320027763942","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-03 17:09:37","lastStation":"DS JDP","receivingBase":"Drop FRV 3"},{"awb":"3320044797871","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 14:08:06","lastStation":"DS JDP","receivingBase":"Drop BRA 52"},{"awb":"3320029754122","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"LAYSLLA CELESTINO DA SILVA","lastRead":"2026-08-05 18:11:26","lastStation":"DS JDP","receivingBase":"Drop RDJ 14"},{"awb":"3320031779740","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:09:58","lastStation":"DS JDP","receivingBase":"TP BRG"},{"awb":"3320028783411","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:10:02","lastStation":"DS JDP","receivingBase":"Drop VNC"},{"awb":"3320028775053","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-07 10:17:55","lastStation":"DS ACM","receivingBase":"Drop GRU 3"},{"awb":"3320026782102","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 11:00:14","lastStation":"DS MBI","receivingBase":"TP SPS"},{"awb":"3320022788757","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"LUCIANO SANTOS SILVA","lastRead":"2026-08-08 15:41:37","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320012789051","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:10:09","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320002796960","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-09 11:35:27","lastStation":"DS JDP","receivingBase":"Drop VMB 3"},{"awb":"3320095773259","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-07 10:48:05","lastStation":"DS IPR","receivingBase":"CDC-GU"},{"awb":"3320047778738","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 10:52:58","lastStation":"DS MBI","receivingBase":"CDC-SP"},{"awb":"3320046770786","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-07 11:43:07","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320034765179","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:59","lastStation":"DS MBI","receivingBase":"TP BAR"},{"awb":"3320009783296","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-11 12:07:41","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320005788822","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-07 06:43:45","lastStation":"DS PSC","receivingBase":"TP SUM"},{"awb":"3320005787919","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-07 06:41:37","lastStation":"DS PSC","receivingBase":"TP SPS"},{"awb":"3320002789066","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-06 16:53:35","lastStation":"DS VLM","receivingBase":"Drop GRU 17"},{"awb":"3320095773835","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Mariah Barbosa","lastRead":"2026-08-08 11:19:20","lastStation":"DS ACM","receivingBase":"Drop JRI"},{"awb":"3320066785062","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Mariah Barbosa","lastRead":"2026-08-07 09:12:03","lastStation":"DS ACM","receivingBase":"TP IMN"},{"awb":"3320052778163","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-06 18:16:10","lastStation":"DS JDP","receivingBase":"TP BAR"},{"awb":"3320028788869","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-10 10:56:53","lastStation":"DS MBI","receivingBase":"Drop GRU 10"},{"awb":"3320025732481","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-07 11:27:47","lastStation":"DS MBI","receivingBase":"TP SRP"},{"awb":"3320013774728","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-06 18:16:28","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320011786712","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ARTHUR FELIPE DE SOUZA","lastRead":"2026-08-09 11:41:38","lastStation":"DS JDP","receivingBase":"TP SPS"},{"awb":"3320004781552","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Mariah Barbosa","lastRead":"2026-08-07 09:12:01","lastStation":"DS ACM","receivingBase":"Drop CAN 5"},{"awb":"6080326891647","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-06 07:39:32","lastStation":"DS PSC","receivingBase":"CDC-SP"},{"awb":"3320041711457","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"LUIS EDUARDO DOS SANTOS CAMPOS","lastRead":"2026-08-03 11:18:19","lastStation":"DS JDP","receivingBase":"TP BRA 2"},{"awb":"6071026322137","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MARCELO DA SILVA  OLIVEIRA","lastRead":"2026-08-04 08:09:49","lastStation":"DS GRUI","receivingBase":"TP BRA 2"},{"awb":"3320085776242","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-07 14:46:37","lastStation":"DS JDP","receivingBase":"TP BAR"},{"awb":"3320035783933","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"João Pedro Ravanelli","lastRead":"2026-08-11 07:30:14","lastStation":"DS VLM","receivingBase":"TP BAR"},{"awb":"6073126140495","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:09:49","lastStation":"DS JDP","receivingBase":"Drop FRA 6"},{"awb":"3320042768119","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"TP BRA 2"},{"awb":"3320098768013","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MATHEUIS RUAN DE OLIVEIRA","lastRead":"2026-08-05 11:03:48","lastStation":"DS JDP","receivingBase":"Drop LAJ"},{"awb":"3320097767667","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-06 18:15:57","lastStation":"DS JDP","receivingBase":"Drop JEL"},{"awb":"3320093761757","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MATHEUIS RUAN DE OLIVEIRA","lastRead":"2026-08-05 11:03:48","lastStation":"DS JDP","receivingBase":"TP BRA 2"},{"awb":"3320079761927","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-07 14:37:33","lastStation":"DS JDP","receivingBase":"Drop FRA 36"},{"awb":"3320037762377","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-07 11:43:12","lastStation":"DS MBI","receivingBase":"Drop GRU 3"},{"awb":"3320026779987","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MATHEUIS RUAN DE OLIVEIRA","lastRead":"2026-08-05 11:13:31","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320016775790","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-07 14:51:26","lastStation":"DS JDP","receivingBase":"Drop FRA 6"},{"awb":"3320049759079","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-03 17:09:36","lastStation":"DS JDP","receivingBase":"TP BRA 2"},{"awb":"3320049769175","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"victor hugo ravanelli","lastRead":"2026-08-03 08:59:14","lastStation":"DS VLM","receivingBase":"TP BRA 2"},{"awb":"3320090762212","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-04 11:30:47","lastStation":"DS VLM","receivingBase":"TP SPS"},{"awb":"3320089757281","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-04 10:04:12","lastStation":"DS JDP","receivingBase":"TP IMN"},{"awb":"3320048763300","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"SAMUEL BURGOA","lastRead":"2026-08-04 09:07:54","lastStation":"DS GRUI","receivingBase":"TP IMN"},{"awb":"3320046766579","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-07 14:46:35","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"3320036767062","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-07 11:28:46","lastStation":"DS MBI","receivingBase":"Drop FRA 49"},{"awb":"3320051763617","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Willians dos Santos Moura","lastRead":"2026-08-04 13:56:52","lastStation":"DS VLM","receivingBase":"Drop VLE"},{"awb":"3320003765446","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-03 21:59:10","lastStation":"DS PSC","receivingBase":"TP AUR"},{"awb":"3320051766917","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"Drop STP 3"},{"awb":"6072826818620","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-03 15:18:52","lastStation":"DS JDP","receivingBase":"Drop BRA 51"},{"awb":"6072726383642","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"FRANCISCO GARCIA NETO","lastRead":"2026-08-04 14:57:51","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320096759886","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320092764033","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Jaqueline Marcelino","lastRead":"2026-08-05 09:38:21","lastStation":"DS ACM","receivingBase":"TP BAR"},{"awb":"3320088767834","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-03 21:58:29","lastStation":"DS PSC","receivingBase":"TP SUM"},{"awb":"3320086750438","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Matheus henrique alves cavalcante","lastRead":"2026-08-03 17:39:44","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320085767533","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-04 10:27:40","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320054760512","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"GUSTAVO RODRIGUES","lastRead":"2026-08-05 11:02:15","lastStation":"DS VLM","receivingBase":"Drop GRU 4"},{"awb":"3320075769605","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Denis Rodrigues","lastRead":"2026-08-05 09:38:19","lastStation":"DS ACM","receivingBase":"TP IMN"},{"awb":"3320075754823","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"TP BRG"},{"awb":"3320072764073","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"João Pedro Ravanelli","lastRead":"2026-08-04 11:23:34","lastStation":"DS VLM","receivingBase":"TP BRA 2"},{"awb":"3320071766669","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"João Pedro Ravanelli","lastRead":"2026-08-04 11:23:11","lastStation":"DS VLM","receivingBase":"TP BRA 2"},{"awb":"3320070753857","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:38:34","lastStation":"DS MBI","receivingBase":"TP BRA 2"},{"awb":"3320064766045","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-04 06:29:57","lastStation":"DS PSC","receivingBase":"Drop BRA 68"},{"awb":"3320064764650","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-01 12:41:59","lastStation":"DS IPR","receivingBase":"TP IMN"},{"awb":"3320062754395","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"Drop MOC 3"},{"awb":"3320061766223","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"victor hugo ravanelli","lastRead":"2026-08-06 08:48:30","lastStation":"DS VLM","receivingBase":"TP IMN"},{"awb":"3320057765554","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-07-31 11:36:58","lastStation":"DS MBI","receivingBase":"TP BRA 2"},{"awb":"3320061764561","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Wallace Santana dos Santos","lastRead":"2026-08-04 09:07:53","lastStation":"DS IPR","receivingBase":"Drop FRA 5"},{"awb":"3320084796713","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ROBERT NOGUEIRA FELIX","lastRead":"2026-08-12 09:12:17","lastStation":"DS GRUI","receivingBase":"TP IMN"},{"awb":"3320031796350","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-10 18:16:31","lastStation":"DS GRUI","receivingBase":"CDC-SP"},{"awb":"6080426493076","ds":"DS LBD","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Lucas Gandra Koga","lastRead":"2026-08-12 06:45:36","lastStation":"DS LBD","receivingBase":"PA SAT"},{"awb":"3320004766890","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-03 21:58:11","lastStation":"DS PSC","receivingBase":"Drop ARU 2"},{"awb":"3320085781669","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-12 09:44:55","lastStation":"DS GRUI","receivingBase":"Drop CAR 2"},{"awb":"3320005794692","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-12 12:16:47","lastStation":"DS GRUI","receivingBase":"Drop SJP 10"},{"awb":"3320011786878","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-12 12:13:58","lastStation":"DS GRUI","receivingBase":"TP SPS"},{"awb":"3320000767687","ds":"DS LBD","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"José Alan Tenório Dos Santos","lastRead":"2026-08-01 20:06:54","lastStation":"DS LBD","receivingBase":"TP IMN"},{"awb":"3320053804165","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-10 18:16:31","lastStation":"DS VLM","receivingBase":"TP IMN"},{"awb":"6080126340400","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:09:57","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"6072526850870","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:09:51","lastStation":"DS JDP","receivingBase":"PA GUA2"},{"awb":"6072526262850","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:10:07","lastStation":"DS JDP","receivingBase":"PA GUA2"},{"awb":"3320081780359","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-10 17:27:20","lastStation":"DS GRUI","receivingBase":"Drop SMP 2"},{"awb":"6080526776344","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Bruno Evangelista de Almeida","lastRead":"2026-08-09 08:24:28","lastStation":"DS GRUI","receivingBase":"CDC-SP"},{"awb":"6080426527580","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"João Pedro Ravanelli","lastRead":"2026-08-11 07:30:16","lastStation":"DS VLM","receivingBase":"Drop PAR"},{"awb":"6080126772520","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Alexandre Giustino","lastRead":"2026-08-08 07:33:25","lastStation":"DS VLM","receivingBase":"CDC-GU"},{"awb":"6073126471400","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-07 14:26:19","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"6073026350985","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-07 11:42:51","lastStation":"DS MBI","receivingBase":"CDC-GU"},{"awb":"6072926786250","ds":"DS IPR","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"LEOPOLDO FERRARI NOBRE","lastRead":"2026-08-06 09:14:31","lastStation":"DS IPR","receivingBase":"CDC-SP"},{"awb":"6073126786637","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-07 06:51:57","lastStation":"DS PSC","receivingBase":"CDC-GU"},{"awb":"6073026773244","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-06 07:41:52","lastStation":"DS PSC","receivingBase":"PA GUA2"},{"awb":"6073026306829","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-06 07:45:16","lastStation":"DS PSC","receivingBase":"CDC-GU"},{"awb":"6072926362129","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 12:09:48","lastStation":"DS JDP","receivingBase":"CDC-SP"},{"awb":"6072826740274","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-06 18:16:08","lastStation":"DS JDP","receivingBase":"CDC-SP"},{"awb":"6072826168670","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-06 18:16:00","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"6072426844759","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-08 11:45:52","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"6071926279403","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-06 18:16:04","lastStation":"DS JDP","receivingBase":"CDC-SP"},{"awb":"6072926697528","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ROBERT NOGEUIRA FELIX","lastRead":"2026-08-04 12:53:48","lastStation":"DS GRUI","receivingBase":"PA GUA2"},{"awb":"6072626198538","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-11 08:45:22","lastStation":"DS MBI","receivingBase":"CDC-GU"},{"awb":"6072526831372","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-06 18:16:06","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"6072226625510","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MATHEUIS RUAN DE OLIVEIRA","lastRead":"2026-08-05 11:03:51","lastStation":"DS JDP","receivingBase":"CDC-GU"},{"awb":"6080526148267","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-09 11:33:49","lastStation":"DS JDP","receivingBase":"PA GUA2"},{"awb":"3320043798216","ds":"DS LBD","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-07 10:20:36","lastStation":"DS LBD","receivingBase":"CDC-SP"},{"awb":"3320026792201","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Luiz David","lastRead":"2026-08-07 10:17:54","lastStation":"DS BLV","receivingBase":"Drop POA 3"},{"awb":"3320010787913","ds":"DS LBD","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Lucas Gandra Koga","lastRead":"2026-08-06 17:05:09","lastStation":"DS LBD","receivingBase":"DS FM PAR"},{"awb":"6072926841412","ds":"DS LBD","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-05 11:30:09","lastStation":"DS LBD","receivingBase":"PA GUA2"},{"awb":"3320046764691","ds":"DS LBD","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-05 11:07:04","lastStation":"DS LBD","receivingBase":"TP IMN"},{"awb":"3320094768243","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-04 11:14:48","lastStation":"DS VLM","receivingBase":"Drop GUA 3"},{"awb":"6072926695662","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-03 15:18:50","lastStation":"DS JDP","receivingBase":"PA GUA2"},{"awb":"3320098745174","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"MATHEUIS RUAN DE OLIVEIRA","lastRead":"2026-08-05 11:03:57","lastStation":"DS JDP","receivingBase":"TP AUR"},{"awb":"3320084753883","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-09 12:34:51","lastStation":"DS JDP","receivingBase":"Drop CVA"},{"awb":"3320082768750","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"stefany almeida","lastRead":"2026-08-04 11:01:50","lastStation":"DS VLM","receivingBase":"Drop VBC"},{"awb":"3320061762538","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-04 11:04:38","lastStation":"DS ACM","receivingBase":"Drop GUA 3"},{"awb":"3320011805000","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-10 11:36:26","lastStation":"DS PSC","receivingBase":"TP SRP 2"},{"awb":"6080526581882","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"DAVID NORBERTO SOUZA DA SILVA","lastRead":"2026-08-09 11:38:33","lastStation":"DS JDP","receivingBase":"Drop BRA 51"},{"awb":"6080526526953","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-11 08:44:53","lastStation":"DS MBI","receivingBase":"Drop BRA 29"},{"awb":"6080326361709","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"BRYAN MOZARTH","lastRead":"2026-08-11 08:44:58","lastStation":"DS MBI","receivingBase":"TP IMN"},{"awb":"3320059796047","ds":"DS VLM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Sandra Goes","lastRead":"2026-08-10 14:35:02","lastStation":"DS VLM","receivingBase":"TP IMN"},{"awb":"3320058780050","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-08 07:51:38","lastStation":"DS PSC","receivingBase":"TP BRG"},{"awb":"3320061766410","ds":"DS JDP","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-06 09:15:36","lastStation":"DS JDP","receivingBase":"Drop GUA 3"},{"awb":"3320078798887","ds":"DS MBI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"NATHAN FELIX","lastRead":"2026-08-11 10:36:21","lastStation":"DS GRUI","receivingBase":"CDC-SP"},{"awb":"3320069790458","ds":"DS GRUI","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-11 08:44:38","lastStation":"DS GRUI","receivingBase":"CDC-SP"},{"awb":"3320068788888","ds":"DS ACM","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"","lastRead":"2026-08-07 10:27:00","lastStation":"DS ACM","receivingBase":"TP IMN"},{"awb":"3320065772139","ds":"DS BLV","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"Jéssica Alves","lastRead":"2026-08-06 13:05:33","lastStation":"DS BLV","receivingBase":"TP BRA 2"},{"awb":"3320019766385","ds":"DS PSC","supervisor":"Daniel Da Silva Coutinho","status":"Transferência concluída","driver":"ISABELLA MARIA","lastRead":"2026-08-07 06:50:44","lastStation":"DS PSC","receivingBase":"Drop SBC 6"}];
+
+const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase();
+const isDelivered=s=>norm(s)==='entregue';
+const isReceived=s=>norm(s)==='recebido no ds';
+const fmt=n=>new Intl.NumberFormat('pt-BR').format(Number(n)||0);
+const pct=n=>(Number(n||0)*100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const unique=a=>[...new Set(a.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+const STATUS_COLORS=['#55b64c','#ffd21f','#1e8bd1','#14a77c','#8b5cf6','#ff7a20','#e83e8c','#20c2c9','#8da19b','#f1a84b','#5cc8ff'];
+
+function fillSelect(el,vals,first){const cur=el.value;el.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('');if(vals.includes(cur))el.value=cur}
+function refreshFilters(){
+ const sups=unique(DATA.map(x=>x.supervisor));fillSelect(supFilter,sups,'Todos os supervisores');fillSelect(imgSup,sups,'Todos os supervisores');fillSelect(driverSup,sups,'Todos os supervisores');fillSelect(awbSup,sups,'Todos os supervisores');refreshDs();refreshImgDs();refreshDriverDs();refreshAwbDs();
+}
+function refreshDs(){const s=supFilter.value;fillSelect(dsFilter,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs')}
+function refreshImgDs(){const s=imgSup.value;fillSelect(imgDs,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs')}
+function filtered(){const s=supFilter.value,d=dsFilter.value;return DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d))}
+function filteredImage(){const s=imgSup.value,d=imgDs.value;return DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d))}
+
+function prep(id,h=280){const c=document.getElementById(id),r=c.getBoundingClientRect(),dpr=devicePixelRatio||1,w=Math.max(320,r.width);c.width=w*dpr;c.height=h*dpr;const ctx=c.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);return[ctx,w,h]}
+function rr(ctx,x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function barChart(id,data,percentage=false,left=110,color='#34c759'){
+ const [ctx,w,h]=prep(id);if(!data.length)return;
+ const right=45,top=14,rowH=Math.min(30,(h-20)/data.length),max=Math.max(...data.map(x=>x[1]),.001);
+ ctx.font='11px Segoe UI';ctx.textBaseline='middle';
+ data.forEach((x,i)=>{const y=top+i*rowH+rowH/2,bw=(w-left-right)*(x[1]/max);ctx.fillStyle='#355b51';ctx.textAlign='right';ctx.fillText(String(x[0]).slice(0,24),left-8,y);ctx.fillStyle='#c6e4d4';rr(ctx,left,y-7,w-left-right,14,6);ctx.fill();ctx.fillStyle=color;rr(ctx,left,y-7,bw,14,6);ctx.fill();ctx.fillStyle='#173c33';ctx.textAlign='left';ctx.font='bold 11px Segoe UI';ctx.fillText(percentage?pct(x[1]):fmt(x[1]),left+bw+6,y);ctx.font='11px Segoe UI'});
+}
+function donutChart(entries,total){
+ const [ctx,w,h]=prep('donutCanvas',260);const cx=w/2,cy=h/2,r=Math.min(w,h)*.38,inner=r*.55;let a=-Math.PI/2;
+ entries.forEach(([name,val],i)=>{const sweep=total?Math.PI*2*val/total:0;ctx.beginPath();ctx.arc(cx,cy,r,a,a+sweep);ctx.arc(cx,cy,inner,a+sweep,a,true);ctx.closePath();ctx.fillStyle=STATUS_COLORS[i%STATUS_COLORS.length];ctx.fill();a+=sweep});
+}
+
+function lineStatusChart(id,data){
+ const [ctx,w,h]=prep(id);if(!data.length)return;
+ const left=48,right=22,top=28,bottom=70,max=Math.max(...data.map(x=>x[1]),1),usableW=w-left-right,usableH=h-top-bottom;
+ ctx.strokeStyle='#a9d2bd';ctx.lineWidth=1;
+ for(let i=0;i<5;i++){const y=top+usableH*i/4;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke()}
+ ctx.strokeStyle='#22c6d9';ctx.lineWidth=3;ctx.beginPath();
+ data.forEach((x,i)=>{const px=left+usableW*(i/Math.max(1,data.length-1)),py=top+usableH*(1-x[1]/max);if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py)});
+ ctx.stroke();
+ data.forEach((x,i)=>{const px=left+usableW*(i/Math.max(1,data.length-1)),py=top+usableH*(1-x[1]/max);ctx.fillStyle=STATUS_COLORS[i%STATUS_COLORS.length];ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#173c33';ctx.textAlign='center';ctx.font='bold 11px Segoe UI';ctx.fillText(fmt(x[1]),px,py-11);ctx.save();ctx.translate(px,h-18);ctx.rotate(-0.55);ctx.fillStyle='#49685f';ctx.font='10px Segoe UI';ctx.textAlign='right';ctx.fillText(String(x[0]).slice(0,22),0,0);ctx.restore()});
+}
+
+
+function driverFiltered(){
+ const s=driverSup.value,d=driverDs.value;
+ return DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d));
+}
+function refreshDriverDs(){
+ const s=driverSup.value;
+ fillSelect(driverDs,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs');
+}
+function buildDriverReport(rows){
+ const map={};
+ rows.filter(x=>norm(x.status)==='em rota de entrega' && String(x.driver||'').trim()).forEach(x=>{
+   const driver=String(x.driver).trim();
+   const key=driver+'||'+x.ds;
+   if(!map[key])map[key]={driver,ds:x.ds,pending:0,route:0,assigned:0,received:0,other:0};
+   const r=map[key];
+   r.pending++;
+   r.route++;
+ });
+ return Object.values(map).sort((a,b)=>b.pending-a.pending);
+}
+function renderDriverReport(){
+ const rows=driverFiltered(),rep=buildDriverReport(rows);
+ driverCount.textContent=fmt(rep.length);
+ driverPendingTotal.textContent=fmt(rep.reduce((s,x)=>s+x.route,0));
+ driverRouteTotal.textContent=fmt(rep.reduce((s,x)=>s+x.route,0));
+ driverReceivedTotal.textContent='0';
+ barChart('driverReportChart',rep.slice(0,15).map(x=>[x.driver,x.pending]),false,200,'#52b788');
+ driverReportBody.innerHTML=rep.map(x=>`<tr><td><strong>${esc(x.driver)}</strong></td><td>${esc(x.ds)}</td><td><strong>${fmt(x.route)}</strong></td></tr>`).join('');
+}
+function drawDriverReportImage(){
+ const rows=driverFiltered();
+ if(!rows.length){alert('Nenhum pedido encontrado para os filtros atuais.');return}
+
+ const dsList=unique(rows.map(x=>x.ds)).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ const statuses=unique(rows.map(x=>x.status)).sort((a,b)=>{
+   const ord=['Entregue','Em rota de entrega','Leitura do inventário','recebido no DS','devolução consolidada','Transferência concluída','retorno de insucesso','unseal vehicle'];
+   const ia=ord.findIndex(v=>norm(v)===norm(a)),ib=ord.findIndex(v=>norm(v)===norm(b));
+   if(ia>=0||ib>=0)return (ia<0?99:ia)-(ib<0?99:ib);
+   return String(a).localeCompare(String(b),'pt-BR');
+ });
+
+ const W=1700, left=48, right=48, top=30;
+ const logoW=160,logoH=92, titleX=245;
+ const headBottom=165, infoH=62, colH=82, rowH=78;
+ const tableY=headBottom+infoH;
+ const H=tableY+colH+(dsList.length+1)*rowH+38;
+
+ const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+ ctx.fillStyle='#f6fbf8';ctx.fillRect(0,0,W,H);
+
+ // iMile logo block, preserving official blue background and brand colors
+ ctx.fillStyle='#0755a8';ctx.fillRect(left,top,logoW,logoH);
+ ctx.font='700 43px Segoe UI';
+ ctx.fillStyle='#23b9f2';ctx.fillText('i',left+20,top+55);
+ ctx.fillStyle='#ffd21c';ctx.fillText('M',left+42,top+55);
+ ctx.fillStyle='#fff';ctx.fillText('ile',left+79,top+55);
+ ctx.font='17px Segoe UI';ctx.fillText('Delivery',left+54,top+78);
+
+ ctx.fillStyle='#123c32';ctx.font='600 40px Segoe UI';
+ ctx.fillText('TOTAL POR BASE · STATUS EM COLUNAS',titleX,top+46);
+ ctx.fillStyle='#08708a';ctx.font='600 27px Segoe UI';
+ ctx.fillText(driverSup.value||'Regional SP',titleX,top+88);
+ ctx.fillStyle='#65736f';ctx.font='21px Segoe UI';
+ ctx.fillText(driverDs.value||'Todas as DSs',titleX,top+124);
+
+ // information strip
+ ctx.fillStyle='#dcefe7';ctx.fillRect(left,headBottom,W-left-right,infoH);
+ ctx.fillStyle='#0a6672';ctx.font='600 24px Segoe UI';
+ ctx.fillText('▣  Pedidos alocados pela Última estação de leitura',left+18,headBottom+39);
+
+ const baseW=185,totalW=105, usable=W-left-right-baseW-totalW;
+ const statusW=usable/Math.max(1,statuses.length);
+ let y=tableY;
+
+ ctx.fillStyle='#087d84';ctx.fillRect(left,y,W-left-right,colH);
+ ctx.fillStyle='#fff';ctx.font='600 19px Segoe UI';
+ ctx.fillText('BASE',left+20,y+49);
+
+ statuses.forEach((s,i)=>{
+   const x=left+baseW+i*statusW, words=String(s).split(' ');
+   ctx.textAlign='center';ctx.font='600 17px Segoe UI';
+   let lines=[],line='';
+   words.forEach(w=>{
+     const t=line?line+' '+w:w;
+     if(ctx.measureText(t).width>statusW-14 && line){lines.push(line);line=w}else line=t;
+   }); if(line)lines.push(line);
+   lines=lines.slice(0,3);
+   const sy=y+34-(lines.length-1)*10;
+   lines.forEach((ln,j)=>ctx.fillText(ln,x+statusW/2,sy+j*22));
+ });
+ ctx.fillText('TOTAL',left+baseW+statuses.length*statusW+totalW/2,y+49);
+ ctx.textAlign='left'; y+=colH;
+
+ dsList.forEach((ds,ri)=>{
+   ctx.fillStyle=ri%2===0?'#f5faf7':'#eaf4ef';ctx.fillRect(left,y,W-left-right,rowH);
+   ctx.strokeStyle='#d5e3dd';ctx.lineWidth=1;
+   ctx.beginPath();ctx.moveTo(left,y+rowH);ctx.lineTo(W-right,y+rowH);ctx.stroke();
+   ctx.fillStyle='#173c34';ctx.font='23px Segoe UI';ctx.fillText(ds,left+20,y+48);
+   let bt=0;
+   statuses.forEach((s,i)=>{
+     const n=rows.filter(r=>r.ds===ds&&r.status===s).length;bt+=n;
+     ctx.fillStyle='#152b26';ctx.font='23px Segoe UI';ctx.textAlign='center';
+     ctx.fillText(n?String(n):'-',left+baseW+i*statusW+statusW/2,y+48);
+   });
+   ctx.fillStyle='#08717c';ctx.font='600 24px Segoe UI';
+   ctx.fillText(String(bt),left+baseW+statuses.length*statusW+totalW/2,y+48);
+   ctx.textAlign='left'; y+=rowH;
+ });
+
+ ctx.fillStyle='#07664f';ctx.fillRect(left,y,W-left-right,rowH);
+ ctx.fillStyle='#fff';ctx.font='600 22px Segoe UI';ctx.fillText('TOTAL FD',left+20,y+49);
+ statuses.forEach((s,i)=>{
+   const n=rows.filter(r=>r.status===s).length;
+   ctx.textAlign='center';ctx.font='600 25px Segoe UI';
+   ctx.fillText(String(n),left+baseW+i*statusW+statusW/2,y+49);
+ });
+ ctx.fillText(String(rows.length),left+baseW+statuses.length*statusW+totalW/2,y+49);
+ ctx.textAlign='left';
+
+ const a=document.createElement('a');
+ a.href=c.toDataURL('image/png');
+ a.download='Total_por_Base_'+(driverSup.value||'Regional').replace(/\s+/g,'_')+'.png';
+ a.click();
+}
+
+
+let awbMode='route';
+function refreshAwbDs(){
+ const s=awbSup.value;
+ fillSelect(awbDs,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs');
+}
+function awbFilteredBase(){
+ const s=awbSup.value,d=awbDs.value,q=norm(awbSearch.value||'');
+ return DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d)&&(!q||norm(x.awb).includes(q)));
+}
+function awbRows(){
+ const rows=awbFilteredBase();
+ if(awbMode==='route'){
+   return rows.filter(x=>norm(x.status)==='em rota de entrega' && String(x.driver||'').trim());
+ }
+ return rows.filter(x=>{
+   const st=norm(x.status);
+   return st==='recebido no ds' || st==='leitura do inventario';
+ });
+}
+function renderAwbView(){
+ const rows=awbRows();
+ awbTotal.textContent=fmt(rows.length);
+ awbDrivers.textContent=fmt(new Set(rows.map(x=>String(x.driver||'').trim()).filter(Boolean)).size);
+ awbBases.textContent=fmt(new Set(rows.map(x=>x.ds).filter(Boolean)).size);
+
+ if(awbMode==='route'){
+   awbViewTitle.textContent='MOTORISTAS EM ROTA · AWB POR AWB';
+   awbViewSub.textContent='Somente pedidos com status “Em rota de entrega” e motorista preenchido.';
+   awbTableHead.innerHTML='<tr><th>AWB</th><th>Motorista</th><th>DS</th><th>Supervisor</th><th>Status</th><th>Última leitura</th></tr>';
+   awbTableBody.innerHTML=rows
+     .sort((a,b)=>String(a.driver).localeCompare(String(b.driver),'pt-BR'))
+     .map(x=>`<tr><td><strong>${esc(x.awb||'-')}</strong></td><td>${esc(x.driver||'-')}</td><td>${esc(x.ds||'-')}</td><td>${esc(x.supervisor||'-')}</td><td>${esc(x.status||'-')}</td><td>${esc(x.lastRead||'-')}</td></tr>`).join('');
+ }else{
+   awbViewTitle.textContent='RECEBIDO NO DS / INVENTÁRIO · AWB POR AWB';
+   awbViewSub.textContent='Somente pedidos nos status “recebido no DS” ou “Leitura do inventário”.';
+   awbTableHead.innerHTML='<tr><th>AWB</th><th>DS</th><th>Supervisor</th><th>Status</th><th>Última leitura</th><th>Última estação</th></tr>';
+   awbTableBody.innerHTML=rows
+     .sort((a,b)=>String(a.status).localeCompare(String(b.status),'pt-BR'))
+     .map(x=>`<tr><td><strong>${esc(x.awb||'-')}</strong></td><td>${esc(x.ds||'-')}</td><td>${esc(x.supervisor||'-')}</td><td>${esc(x.status||'-')}</td><td>${esc(x.lastRead||'-')}</td><td>${esc(x.lastStation||'-')}</td></tr>`).join('');
+ }
+}
+function setAwbMode(mode){
+ awbMode=mode;
+ awbRouteBtn.classList.toggle('active',mode==='route');
+ awbDsInvBtn.classList.toggle('active',mode==='dsinv');
+ renderAwbView();
+}
+
+
+function drawAwbDsInventoryImage(){
+  const oldMode=awbMode;
+  awbMode='dsinv';
+  const rows=awbRows();
+  awbMode=oldMode;
+
+  if(!rows.length){alert('Nenhum pedido em Recebido no DS / Inventário para os filtros atuais.');return}
+
+  const W=1400,rowH=40,top=165,headerH=46,H=Math.max(520,top+headerH+rows.length*rowH+70);
+  const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+
+  ctx.fillStyle='#f7faf9';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#0755a8';ctx.fillRect(45,35,160,72);
+  ctx.fillStyle='#fff';ctx.font='bold 34px Segoe UI';ctx.fillText('iMile',73,75);
+  ctx.font='15px Segoe UI';ctx.fillText('Delivery',96,98);
+
+  ctx.fillStyle='#153c31';ctx.font='bold 30px Segoe UI';ctx.fillText('AWBs · RECEBIDO NO DS / INVENTÁRIO',235,70);
+  ctx.fillStyle='#60736d';ctx.font='18px Segoe UI';
+  ctx.fillText((awbSup.value||'Todos os supervisores')+' · '+(awbDs.value||'Todas as DSs'),235,105);
+
+  ctx.fillStyle='#4f86bd';ctx.fillRect(45,top,W-90,headerH);
+  ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';
+  ctx.fillText('AWB',65,top+29);
+  ctx.fillText('STATUS',570,top+29);
+  ctx.fillText('BASE',1050,top+29);
+
+  let y=top+headerH;
+  rows.forEach((r,i)=>{
+    ctx.fillStyle=i%2===0?'#eef6f2':'#e2efe8';ctx.fillRect(45,y,W-90,rowH);
+    ctx.strokeStyle='#c3d8cf';ctx.strokeRect(45,y,W-90,rowH);
+    ctx.fillStyle='#153c31';ctx.font='17px Segoe UI';
+    ctx.fillText(String(r.awb||'-'),65,y+26);
+    ctx.fillText(String(r.status||'-'),570,y+26);
+    ctx.fillText(String(r.ds||'-'),1050,y+26);
+    y+=rowH;
+  });
+
+  ctx.fillStyle='#0b4d3d';ctx.fillRect(45,y,W-90,48);
+  ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';
+  ctx.fillText('TOTAL: '+fmt(rows.length)+' AWBs',65,y+30);
+
+  const a=document.createElement('a');
+  a.href=c.toDataURL('image/png');
+  a.download='AWBs_Recebido_DS_Inventario_'+(awbDs.value||'Regional').replace(/\s+/g,'_')+'.png';
+  a.click();
+}
+
+function drawAwbDriversImage(){
+  const oldMode=awbMode;
+  awbMode='route';
+  const rows=awbRows();
+  awbMode=oldMode;
+
+  if(!rows.length){alert('Nenhum pedido em rota com motorista para os filtros atuais.');return}
+
+  const grouped={};
+  rows.forEach(r=>{
+    const d=String(r.driver||'').trim();
+    if(!d)return;
+    if(!grouped[d])grouped[d]={driver:d,ds:r.ds,awbs:[]};
+    grouped[d].awbs.push(r.awb||'-');
+  });
+  const groups=Object.values(grouped).sort((a,b)=>b.awbs.length-a.awbs.length);
+
+  const lineH=30,driverHeadH=44;
+  const bodyH=groups.reduce((s,g)=>s+driverHeadH+Math.max(1,g.awbs.length)*lineH,s=0);
+  const W=1500,top=165,H=Math.max(600,top+bodyH+80);
+  const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+
+  ctx.fillStyle='#f7faf9';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#0755a8';ctx.fillRect(45,35,160,72);
+  ctx.fillStyle='#fff';ctx.font='bold 34px Segoe UI';ctx.fillText('iMile',73,75);
+  ctx.font='15px Segoe UI';ctx.fillText('Delivery',96,98);
+
+  ctx.fillStyle='#153c31';ctx.font='bold 30px Segoe UI';ctx.fillText('MOTORISTAS OFENSORES · AWBs EM ROTA',235,70);
+  ctx.fillStyle='#60736d';ctx.font='18px Segoe UI';
+  ctx.fillText((awbSup.value||'Todos os supervisores')+' · '+(awbDs.value||'Todas as DSs'),235,105);
+
+  let y=top;
+  groups.forEach((g,gi)=>{
+    ctx.fillStyle='#0d6a91';ctx.fillRect(45,y,W-90,driverHeadH);
+    ctx.fillStyle='#fff';ctx.font='bold 17px Segoe UI';
+    ctx.fillText(g.driver,65,y+28);
+    ctx.fillText(g.ds||'-',850,y+28);
+    ctx.textAlign='right';ctx.fillText(fmt(g.awbs.length)+' AWBs',W-70,y+28);ctx.textAlign='left';
+    y+=driverHeadH;
+
+    g.awbs.forEach((awb,i)=>{
+      ctx.fillStyle=i%2===0?'#eaf5ef':'#dcece4';ctx.fillRect(45,y,W-90,lineH);
+      ctx.strokeStyle='#c3d8cf';ctx.strokeRect(45,y,W-90,lineH);
+      ctx.fillStyle='#153c31';ctx.font='14px Segoe UI';
+      ctx.fillText(String(awb),75,y+21);
+      y+=lineH;
+    });
+  });
+
+  ctx.fillStyle='#0b4d3d';ctx.fillRect(45,y,W-90,48);
+  ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';
+  ctx.fillText('MOTORISTAS: '+fmt(groups.length)+'   |   TOTAL AWBs EM ROTA: '+fmt(rows.length),65,y+30);
+
+  const a=document.createElement('a');
+  a.href=c.toDataURL('image/png');
+  a.download='Motoristas_Ofensores_AWBs_'+(awbDs.value||'Regional').replace(/\s+/g,'_')+'.png';
+  a.click();
+}
+
+
+
+function fdStatusColor(status){
+ const s=norm(status);
+ if(s==='entregue')return{bg:'#d9f4e5',fg:'#087a50'};
+ if(s==='em rota de entrega')return{bg:'#dbe9ff',fg:'#0b6c8a'};
+ if(s==='recebido no ds'||s==='leitura do inventario')return{bg:'#fff0b8',fg:'#b86b00'};
+ if(s.includes('transferencia'))return{bg:'#eee5ff',fg:'#6b36d8'};
+ if(s.includes('devolucao'))return{bg:'#edf3f1',fg:'#3d554d'};
+ return{bg:'#eef3f6',fg:'#34495e'};
+}
+function fdRR(ctx,x,y,w,h,r,fill,stroke,lw=1){
+ ctx.beginPath();ctx.roundRect(x,y,w,h,r);
+ if(fill){ctx.fillStyle=fill;ctx.fill()}
+ if(stroke){ctx.lineWidth=lw;ctx.strokeStyle=stroke;ctx.stroke()}
+}
+function fdReportRows(){
+ const sup=imgSup.value||'',ds=imgDs.value||'';
+ return DATA.filter(x=>(!sup||x.supervisor===sup)&&(!ds||x.ds===ds));
+}
+function fdFit(ctx,text,maxWidth){
+ let s=String(text||'');
+ if(ctx.measureText(s).width<=maxWidth)return s;
+ while(s.length>3&&ctx.measureText(s+'…').width>maxWidth)s=s.slice(0,-1);
+ return s+'…';
+}
+function buildFdFullReport(targetCanvas=null,autoDownload=false){
+ const rows=fdReportRows();
+ if(!rows.length){alert('Nenhum pedido encontrado para os filtros atuais.');return}
+
+ const sup=imgSup.value||'Regional SP',dsSel=imgDs.value||'';
+ const dsList=unique(rows.map(x=>x.ds)).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ const statuses=unique(rows.map(x=>x.status)).sort((a,b)=>{
+   const ord=['Entregue','Em rota de entrega','Leitura do inventário','recebido no DS','em transferência','devolução consolidada','Transferência concluída'];
+   const ia=ord.findIndex(v=>norm(v)===norm(a)), ib=ord.findIndex(v=>norm(v)===norm(b));
+   if(ia>=0||ib>=0)return (ia<0?99:ia)-(ib<0?99:ib);
+   return String(a).localeCompare(String(b),'pt-BR');
+ });
+
+ const total=rows.length;
+ const delivered=rows.filter(x=>norm(x.status)==='entregue').length;
+ const route=rows.filter(x=>norm(x.status)==='em rota de entrega').length;
+ const pending=Math.max(0,total-delivered-route);
+ const pctDelivered=total?delivered/total:0;
+
+ // Reference uses wide vertical report.
+ const W=1500, outer=18, inner=16;
+ const cols=4, gap=16, cardW=(W-outer*2-gap*(cols-1))/cols;
+ const maxSt=Math.max(1,...dsList.map(ds=>unique(rows.filter(x=>x.ds===ds).map(x=>x.status)).length));
+ const cardH=76+maxSt*53;
+ const dsRows=Math.ceil(dsList.length/cols);
+ const dsSectionH=dsRows*(cardH+gap);
+
+ const matrixFirst=220;
+ const matrixTotalW=90;
+ const matrixStatusW=Math.max(70,(W-outer*2-matrixFirst-matrixTotalW)/Math.max(1,statuses.length));
+ const tableRowH=54;
+ const tableH=78+(dsList.length+1)*tableRowH+20;
+ const H=470+dsSectionH+tableH+105;
+
+ const c=targetCanvas||document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+ ctx.fillStyle='#0b3f33';ctx.fillRect(0,0,W,H);
+
+ // Main report shell
+ fdRR(ctx,18,18,W-36,H-36,18,'#eaf7ef','#8cb7d3',1.5);
+
+ // Header
+ fdRR(ctx,18,18,W-36,260,18,'#0f5d4a');
+ ctx.fillStyle='#fff';
+ ctx.font='900 46px Segoe UI';ctx.fillText('iMile',45,86);
+ ctx.font='700 15px Segoe UI';ctx.fillText('D E L I V E R Y',47,112);
+
+ ctx.textAlign='center';
+ ctx.font='700 15px Segoe UI';ctx.fillText('TIKTOK SHOP OPERATIONS',W/2,58);
+ ctx.font='900 32px Segoe UI';ctx.fillText('ACOMPANHAMENTO FD TIKTOK',W/2,102);
+ ctx.font='600 14px Segoe UI';ctx.fillText('Prioridades do dia • Último Status × Última DS',W/2,135);
+
+ ctx.textAlign='right';
+ ctx.font='800 15px Segoe UI';ctx.fillText(new Date().toLocaleDateString('pt-BR'),W-45,76);
+ ctx.font='15px Segoe UI';ctx.fillText('Atualizado às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}),W-45,107);
+ ctx.textAlign='left';
+
+ // KPI row
+ const kpis=[
+   ['TOTAL FD',total,'#1f6f62'],
+   ['ENTREGUES',delivered,'#1f6f62'],
+   ['EM ROTA',route,'#1f6f62'],
+   ['PENDENTES',pending,'#1f6f62'],
+   ['% ENTREGUE',(pctDelivered*100).toFixed(2).replace('.',',')+'%','#1f6f62']
+ ];
+ const kY=160,kGap=12,kW=(W-outer*2-20-kGap*4)/5;let kx=outer+10;
+ kpis.forEach(([lab,val,bg],i)=>{
+   fdRR(ctx,kx,kY,kW,98,12,bg);
+   ctx.fillStyle='#d7f2e6';ctx.font='12px Segoe UI';ctx.fillText(lab,kx+18,kY+31);
+   ctx.fillStyle='#fff';ctx.font='900 34px Segoe UI';ctx.fillText(String(val),kx+18,kY+74);
+   kx+=kW+kGap;
+ });
+
+ // Summary band
+ const sumY=292,sumGap=14,sumW=(W-outer*2-20-sumGap)/2;
+ fdRR(ctx,outer+10,sumY,sumW,90,11,'#eaf7ef','#8fc9b1');
+ ctx.fillStyle='#0a5ee8';ctx.font='900 18px Segoe UI';ctx.fillText('Minhas DS',outer+84,sumY+38);
+ ctx.fillStyle='#4d6470';ctx.font='12px Segoe UI';ctx.fillText(sup,outer+84,sumY+63);
+ ctx.fillStyle='#153c31';ctx.font='900 32px Segoe UI';ctx.textAlign='right';ctx.fillText(String(total),outer+sumW-65,sumY+50);
+ ctx.fillStyle='#0a5ee8';ctx.font='900 18px Segoe UI';ctx.fillText('100,00%',outer+sumW+10,sumY+50);ctx.textAlign='left';
+
+ fdRR(ctx,outer+10+sumW+sumGap,sumY,sumW,90,11,'#fff4cf','#e0b524');
+ ctx.fillStyle='#c89200';ctx.font='900 14px Segoe UI';ctx.fillText('Últimos registros em',outer+sumW+sumGap+80,sumY+31);
+ ctx.font='900 20px Segoe UI';ctx.fillText('RDC',outer+sumW+sumGap+80,sumY+59);
+ // sem campo RDC explícito no arquivo atual: usar 0 e deixar visual do card
+ ctx.fillStyle='#153c31';ctx.font='900 32px Segoe UI';ctx.textAlign='right';ctx.fillText('0',W-165,sumY+50);
+ ctx.fillStyle='#b98200';ctx.font='900 18px Segoe UI';ctx.fillText('0,00%',W-45,sumY+50);ctx.textAlign='left';
+
+ // DS section title
+ let sy=414;
+ ctx.fillStyle='#0b6c8a';ctx.font='900 24px Segoe UI';
+ ctx.fillText((dsSel?'Status da DS':'Minhas DS por Status')+' — '+sup,36,sy);
+ ctx.fillStyle='#5a756b';ctx.font='12px Segoe UI';ctx.fillText('Percentual calculado dentro de cada DS',36,sy+24);
+ sy+=45;
+
+ dsList.forEach((ds,i)=>{
+   const col=i%cols,row=Math.floor(i/cols);
+   const x=outer+10+col*(cardW+gap),y=sy+row*(cardH+gap);
+   const rr=rows.filter(r=>r.ds===ds),dt=rr.length;
+
+   fdRR(ctx,x,y,cardW,cardH,12,'#f1faf5','#9bc7b3');
+   // Header rectangle, rounded via shell + overlay
+   ctx.fillStyle='#0c7da0';ctx.fillRect(x,y,cardW,72);
+   ctx.fillStyle='#fff';ctx.font='900 18px Segoe UI';ctx.fillText(ds,x+18,y+43);
+   ctx.font='12px Segoe UI';ctx.textAlign='right';ctx.fillText('Total FD',x+cardW-18,y+23);
+   ctx.font='900 24px Segoe UI';ctx.fillText(String(dt),x+cardW-18,y+51);ctx.textAlign='left';
+
+   const sm={};rr.forEach(r=>sm[r.status]=(sm[r.status]||0)+1);
+   Object.entries(sm).sort((a,b)=>b[1]-a[1]).forEach(([st,n],j)=>{
+     const yy=y+86+j*53;
+     if(j%2===0){ctx.fillStyle='#e7f4ed';ctx.fillRect(x+1,yy-7,cardW-2,44)}
+     const co=fdStatusColor(st);
+     ctx.font='700 12px Segoe UI';
+     const tag=fdFit(ctx,st,160);
+     const tagW=Math.min(185,ctx.measureText(tag).width+20);
+     fdRR(ctx,x+15,yy,tagW,30,6,co.bg);
+     ctx.fillStyle=co.fg;ctx.fillText(tag,x+23,yy+20);
+     ctx.fillStyle='#15242b';ctx.font='900 13px Segoe UI';ctx.textAlign='right';
+     ctx.fillText(String(n),x+cardW-78,yy+20);
+     ctx.font='700 12px Segoe UI';ctx.fillText((n/dt*100).toFixed(2).replace('.',',')+'%',x+cardW-15,yy+20);
+     ctx.textAlign='left';
+   });
+ });
+
+ // Matrix title container
+ let ty=sy+dsSectionH+20;
+ fdRR(ctx,outer+10,ty,W-outer*2-20,tableH,12,'#eaf7ef','#9bc7b3');
+ ctx.fillStyle='#d7eee2';ctx.fillRect(outer+11,ty+1,W-outer*2-22,54);
+ ctx.fillStyle='#0b5f76';ctx.font='900 21px Segoe UI';ctx.fillText('Total por Base — Status em Colunas',40,ty+35);
+ ty+=55;
+
+ ctx.fillStyle='#0c7da0';ctx.fillRect(outer+11,ty,W-outer*2-22,48);
+ ctx.fillStyle='#fff';ctx.font='900 10px Segoe UI';ctx.fillText('BASE',40,ty+30);
+ statuses.forEach((st,i)=>{
+   ctx.textAlign='center';
+   ctx.fillText(fdFit(ctx,st,matrixStatusW-10),outer+10+matrixFirst+i*matrixStatusW+matrixStatusW/2,ty+30);
+ });
+ ctx.fillText('TOTAL',outer+10+matrixFirst+statuses.length*matrixStatusW+matrixTotalW/2,ty+30);
+ ctx.textAlign='left';
+ ty+=48;
+
+ dsList.forEach((ds,ri)=>{
+   ctx.fillStyle=ri%2===0?'#eaf7ef':'#e7f4ed';
+   ctx.fillRect(outer+11,ty,W-outer*2-22,tableRowH);
+   ctx.fillStyle='#17382f';ctx.font='900 11px Segoe UI';
+   ctx.fillText(fdFit(ctx,ds,matrixFirst-30),40,ty+32);
+
+   let baseTotal=0;
+   statuses.forEach((st,i)=>{
+     const n=rows.filter(r=>r.ds===ds&&r.status===st).length;
+     baseTotal+=n;
+     const co=fdStatusColor(st);
+     if(n){
+       fdRR(ctx,outer+10+matrixFirst+i*matrixStatusW+6,ty+12,matrixStatusW-12,30,6,co.bg);
+       ctx.fillStyle=co.fg;
+     }else{
+       ctx.fillStyle='#60736d';
+     }
+     ctx.font='900 11px Segoe UI';ctx.textAlign='center';
+     ctx.fillText(n?String(n):'-',outer+10+matrixFirst+i*matrixStatusW+matrixStatusW/2,ty+32);
+   });
+
+   ctx.fillStyle='#0b5f76';ctx.font='900 12px Segoe UI';
+   ctx.fillText(String(baseTotal),outer+10+matrixFirst+statuses.length*matrixStatusW+matrixTotalW/2,ty+32);
+   ctx.textAlign='left';
+   ty+=tableRowH;
+ });
+
+ ctx.fillStyle='#0b5d49';ctx.fillRect(outer+11,ty,W-outer*2-22,tableRowH);
+ ctx.fillStyle='#fff';ctx.font='900 11px Segoe UI';ctx.fillText('TOTAL FD',40,ty+32);
+ statuses.forEach((st,i)=>{
+   const n=rows.filter(r=>r.status===st).length;
+   ctx.textAlign='center';
+   ctx.fillText(String(n),outer+10+matrixFirst+i*matrixStatusW+matrixStatusW/2,ty+32);
+ });
+ ctx.fillText(String(total),outer+10+matrixFirst+statuses.length*matrixStatusW+matrixTotalW/2,ty+32);
+ ctx.textAlign='left';
+
+ // Footer
+ ctx.fillStyle='#0f5d4a';ctx.fillRect(18,H-62,W-36,44);
+ ctx.fillStyle='#fff';ctx.font='12px Segoe UI';ctx.fillText('FD TikTok • Prioridades do Dia',38,H-35);
+ ctx.textAlign='right';ctx.font='700 12px Segoe UI';ctx.fillText('Gerado pelo iMile Command Center',W-38,H-35);ctx.textAlign='left';
+
+ if(autoDownload){
+   const a=document.createElement('a');
+   a.href=c.toDataURL('image/png');
+   a.download='Acompanhamento_FD_TIKTOK_'+String(sup).replace(/[^\w]+/g,'_')+'.png';
+   a.click();
+ }
+ return {canvas:c,total,delivered,route,pending,pctDelivered,sup,dsSel,dsCount:dsList.length};
+}
+function renderFinalReportPreview(){
+ const canvas=document.getElementById('finalReportPreviewCanvas');
+ if(!canvas)return;
+ const result=buildFdFullReport(canvas,false);
+ if(!result)return;
+ finalPreviewSummary.textContent=`${result.total} pedidos · ${result.delivered} entregues · ${result.route} em rota · ${result.pending} pendentes · ${result.dsCount} DS`;
+}
+function downloadFinalReport(){
+ const canvas=document.getElementById('finalReportPreviewCanvas');
+ buildFdFullReport(canvas,true);
+}
+
+function render(){
+ const rows=filtered(),total=rows.length,del=rows.filter(x=>isDelivered(x.status)).length,rec=rows.filter(x=>isReceived(x.status)).length,other=Math.max(0,total-del-rec);
+ kDelivered.textContent=fmt(del);kReceived.textContent=fmt(rec);kOther.textContent=fmt(other);kPct.textContent=rec?pct(del/rec):'0,00%';sideTotal.textContent=fmt(DATA.length);
+
+ const st={};rows.forEach(x=>st[x.status]=(st[x.status]||0)+1);const entries=Object.entries(st).sort((a,b)=>b[1]-a[1]);
+ statusTable.innerHTML=entries.map(([s,v],i)=>`<tr><td><span class="dot" style="background:${STATUS_COLORS[i%STATUS_COLORS.length]}"></span>${esc(s)}</td><td><strong>${fmt(v)}</strong></td><td>${pct(v/Math.max(total,1))}</td></tr>`).join('');
+ statusTotal.textContent=fmt(total);donutCenter.innerHTML=fmt(total)+'<br><span style="font-size:11px;color:#a9c0b9">pedidos</span>';donutChart(entries,total);
+
+ lineStatusChart('statusLineChart',entries);
+
+ const byDriver={};
+ rows.filter(x=>norm(x.status)==='em rota de entrega' && String(x.driver||'').trim()).forEach(x=>{
+   const d=String(x.driver).trim();
+   byDriver[d]=(byDriver[d]||0)+1;
+ });
+ const driverRows=Object.entries(byDriver).sort((a,b)=>b[1]-a[1]).slice(0,12);
+ barChart('driverOffenderChart',driverRows,false,190,'#ff7a20');
+
+ const byDsReceived={};
+ rows.filter(x=>isReceived(x.status)).forEach(x=>byDsReceived[x.ds]=(byDsReceived[x.ds]||0)+1);
+ const dsReceivedRows=Object.entries(byDsReceived).sort((a,b)=>b[1]-a[1]).slice(0,15);
+ barChart('dsReceivedChart',dsReceivedRows,false,110,'#ffd21f');
+ renderImage();
+ renderDriverReport();
+ renderAwbView();
+}
+function renderImage(){
+ const rows=filteredImage(),total=rows.length,del=rows.filter(x=>isDelivered(x.status)).length,rec=rows.filter(x=>isReceived(x.status)).length;const st={};rows.forEach(x=>st[x.status]=(st[x.status]||0)+1);const entries=Object.entries(st).sort((a,b)=>b[1]-a[1]);
+ imageSupName.textContent=imgSup.value||'Regional SP';imageDsName.textContent=imgDs.value||'Todas as DSs';imageTotal.textContent=fmt(total)+' pedidos';imageGrandTotal.textContent=fmt(total);imageDelivered.textContent=fmt(del);imageReceived.textContent=fmt(rec);imagePct.textContent=rec?pct(del/rec):'0,00%';
+ imageStatusTable.innerHTML=entries.map(([s,v])=>`<tr style="${isDelivered(s)?'background:#e2f6e9;':isReceived(s)?'background:#fff1aa;':''}"><td><strong>${esc(s)}</strong></td><td>${fmt(v)}</td><td>${pct(v/Math.max(total,1))}</td></tr>`).join('');
+}
+
+function drawImage(){
+ const rows=filteredImage(),total=rows.length,del=rows.filter(x=>isDelivered(x.status)).length,rec=rows.filter(x=>isReceived(x.status)).length;const st={};rows.forEach(x=>st[x.status]=(st[x.status]||0)+1);const entries=Object.entries(st).sort((a,b)=>b[1]-a[1]);
+ const W=1500,rowH=44,header=190,tableTop=205,H=Math.max(650,tableTop+100+entries.length*rowH);
+ const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+ ctx.fillStyle='#f7faf9';ctx.fillRect(0,0,W,H);
+ ctx.fillStyle='#0b4c88';ctx.fillRect(0,0,W,12);
+ ctx.fillStyle='#0755a8';ctx.fillRect(55,34,150,70);ctx.fillStyle='#fff';ctx.font='bold 32px Segoe UI';ctx.fillText('iMile',80,69);ctx.font='12px Segoe UI';ctx.fillText('Delivery',100,90);ctx.fillStyle='#111';ctx.font='bold 34px Segoe UI';ctx.fillText('ACOMPANHAMENTO PRIORIDADES FD TIKTOK',235,72);
+ ctx.fillStyle='#0b6c8a';ctx.font='bold 28px Segoe UI';ctx.fillText(imgSup.value||'Regional SP',55,116);
+ ctx.fillStyle='#66736f';ctx.font='20px Segoe UI';ctx.fillText(imgDs.value||'Todas as DSs',55,150);
+ ctx.textAlign='right';ctx.fillStyle='#17332d';ctx.font='bold 26px Segoe UI';ctx.fillText(fmt(total)+' pedidos',W-55,92);ctx.textAlign='left';
+
+ const left=55,tableW=820,summaryX=930;
+ ctx.fillStyle='#4f86bd';ctx.fillRect(left,tableTop,tableW,46);ctx.fillStyle='#fff';ctx.font='bold 18px Segoe UI';ctx.fillText('STATUS',left+16,tableTop+29);ctx.fillText('QTDADE',left+570,tableTop+29);ctx.fillText('%',left+730,tableTop+29);
+ let y=tableTop+46;ctx.font='17px Segoe UI';
+ entries.forEach(([s,v])=>{ctx.fillStyle=isDelivered(s)?'#dff5e9':isReceived(s)?'#fff0a8':'#f4f7f6';ctx.fillRect(left,y,tableW,rowH);ctx.strokeStyle='#c4d3cf';ctx.strokeRect(left,y,tableW,rowH);ctx.fillStyle='#152c26';ctx.fillText(s,left+16,y+29);ctx.textAlign='right';ctx.fillText(fmt(v),left+650,y+29);ctx.fillText(pct(v/Math.max(total,1)),left+800,y+29);ctx.textAlign='left';y+=rowH});
+ ctx.fillStyle='#4f86bd';ctx.fillRect(left,y,tableW,46);ctx.fillStyle='#fff';ctx.font='bold 18px Segoe UI';ctx.fillText('TOTAL GERAL',left+16,y+29);ctx.textAlign='right';ctx.fillText(fmt(total),left+650,y+29);ctx.fillText('100,00%',left+800,y+29);ctx.textAlign='left';
+
+ ctx.fillStyle='#17332d';ctx.font='bold 22px Segoe UI';ctx.fillText('ENTREGUES EM RELAÇÃO A RECEBIDOS NO DS',summaryX,tableTop+25);
+ ctx.fillStyle='#188f50';ctx.font='bold 28px Segoe UI';ctx.fillText('Entregues: '+fmt(del),summaryX,tableTop+90);
+ ctx.fillStyle='#e9c400';ctx.fillRect(summaryX,tableTop+118,460,64);ctx.fillStyle='#222';ctx.font='bold 24px Segoe UI';ctx.fillText('Recebidos no DS: '+fmt(rec),summaryX+18,tableTop+158);
+ ctx.fillStyle='#188f50';ctx.font='bold 54px Segoe UI';ctx.fillText(rec?pct(del/rec):'0,00%',summaryX,tableTop+250);
+ ctx.fillStyle='#4c615b';ctx.font='20px Segoe UI';
+
+ const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='Acompanhamento_Prioridades_FD_TIKTOK_'+(imgSup.value||'Regional').replace(/\s+/g,'_')+'.png';a.click();
+}
+
+function colIdx(ref){const m=String(ref||'').match(/^([A-Z]+)/);if(!m)return-1;let n=0;for(const ch of m[1])n=n*26+ch.charCodeAt(0)-64;return n-1}
+async function parseExcel(file){
+ if(typeof JSZip==='undefined'){
+   throw new Error('Leitor de Excel não encontrado. Mantenha o arquivo jszip.min.js na mesma pasta do index.html.');
+ }
+ const zip=await JSZip.loadAsync(await file.arrayBuffer());const shared=[];if(zip.file('xl/sharedStrings.xml')){const d=new DOMParser().parseFromString(await zip.file('xl/sharedStrings.xml').async('text'),'application/xml');[...d.getElementsByTagNameNS('*','si')].forEach(si=>shared.push([...si.getElementsByTagNameNS('*','t')].map(t=>t.textContent||'').join('')))}
+ const sheets=Object.keys(zip.files).filter(n=>/^xl\/worksheets\/sheet\d+\.xml$/.test(n));let doc=null,headerI=-1,headers=[];
+ function readRow(row){const arr=[];[...row.getElementsByTagNameNS('*','c')].forEach((c,j)=>{const ci=colIdx(c.getAttribute('r')),ix=ci>=0?ci:j,t=c.getAttribute('t');let val='';if(t==='inlineStr')val=[...c.getElementsByTagNameNS('*','t')].map(x=>x.textContent||'').join('');else{const v=c.getElementsByTagNameNS('*','v')[0];if(v)val=t==='s'?shared[+v.textContent]:v.textContent}arr[ix]=val});return arr}
+ for(const name of sheets){const d=new DOMParser().parseFromString(await zip.file(name).async('text'),'application/xml'),rs=[...d.getElementsByTagNameNS('*','row')];for(let ri=0;ri<Math.min(25,rs.length);ri++){const arr=readRow(rs[ri]);if(arr.some(x=>norm(x)==='ultimo status')&&arr.some(x=>norm(x)==='station')){doc=d;headerI=ri;headers=arr;break}}if(doc)break}
+ if(!doc)throw new Error('Não encontrei as colunas Último status e Station.');
+ const find=t=>headers.findIndex(x=>norm(x)===norm(t));const idxStatus=find('Último status'),idxStation=find('Station'),idxAwb=find('AWB principal'),idxDriver=find('Motorista'),idxRead=find('Horário da última leitura'),idxLastStation=find('Última estação de leitura'),idxRecv=find('Base de recebimento');
+ const out=[];[...doc.getElementsByTagNameNS('*','row')].slice(headerI+1).forEach(row=>{const arr=readRow(row),lastStation=String(arr[idxLastStation]||'').trim(),ds=lastStation;if(!ds)return;out.push({awb:String(arr[idxAwb]||''),ds,supervisor:SUPERVISOR_MAP[ds]||'Sem supervisor definido',status:String(arr[idxStatus]||'Sem status').trim()||'Sem status',driver:String(arr[idxDriver]||''),lastRead:String(arr[idxRead]||''),lastStation,receivingBase:String(arr[idxRecv]||'')})});return out;
+}
+
+supFilter.addEventListener('change',()=>{refreshDs();render()});dsFilter.addEventListener('change',render);
+imgSup.addEventListener('change',()=>{refreshImgDs();renderImage();setTimeout(renderFinalReportPreview,20)});imgDs.addEventListener('change',()=>{renderImage();setTimeout(renderFinalReportPreview,20)});driverSup.addEventListener('change',()=>{refreshDriverDs();renderDriverReport()});driverDs.addEventListener('change',renderDriverReport);downloadDriverReportBtn.addEventListener('click',drawDriverReportImage);
+awbSup.addEventListener('change',()=>{refreshAwbDs();renderAwbView()});
+awbDs.addEventListener('change',renderAwbView);
+awbSearch.addEventListener('input',renderAwbView);
+awbRouteBtn.addEventListener('click',()=>setAwbMode('route'));
+awbDsInvBtn.addEventListener('click',()=>setAwbMode('dsinv'));
+downloadAwbDsInvImageBtn.addEventListener('click',drawAwbDsInventoryImage);
+downloadAwbDriversImageBtn.addEventListener('click',drawAwbDriversImage);
+loadBtn.addEventListener('click',()=>fileInput.click());
+fileInput.addEventListener('change',async()=>{const f=fileInput.files[0];if(!f)return;try{DATA=await parseExcel(f);refreshFilters();render();}catch(e){alert('Erro ao carregar: '+e.message)}});
+downloadImageBtn.addEventListener('click',drawImage);
+refreshFinalPreviewBtn.addEventListener('click',renderFinalReportPreview);
+downloadFinalReportBtn.addEventListener('click',downloadFinalReport);
+goImageBtn.addEventListener('click',()=>{document.querySelector('[data-view="image"]').click()});
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('view-'+b.dataset.view).classList.add('active');if(b.dataset.view==='dashboard')setTimeout(render,30);else if(b.dataset.view==='drivers')setTimeout(renderDriverReport,30);else if(b.dataset.view==='awb')setTimeout(renderAwbView,30);else {renderImage();setTimeout(renderFinalReportPreview,40);}}));
+window.addEventListener('resize',()=>{if(document.getElementById('view-dashboard').classList.contains('active'))render()});
+refreshFilters();render();
+</script>
+</body>
+</html>

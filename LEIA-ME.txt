@@ -1,0 +1,4 @@
+FINAL V3
+Alterado somente o gerador de imagem Total por Base.
+Layout atualizado para o modelo aprovado: compacto, letras maiores, cabeçalhos em negrito, conteúdo sem excesso de negrito e logo iMile com fundo azul e cores ciano/amarelo/branco.
+Demais abas, importação, filtros e geradores permanecem como na FINAL V2.
