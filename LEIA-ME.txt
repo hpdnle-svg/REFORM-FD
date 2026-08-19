@@ -1,4 +1,20 @@
-FINAL V3
-Alterado somente o gerador de imagem Total por Base.
-Layout atualizado para o modelo aprovado: compacto, letras maiores, cabeçalhos em negrito, conteúdo sem excesso de negrito e logo iMile com fundo azul e cores ciano/amarelo/branco.
-Demais abas, importação, filtros e geradores permanecem como na FINAL V2.
+ACOMPANHAMENTO PRIORIDADES FD TIKTOK - MODELO 14
+
+ABA INSUCESSOS BASES
+
+NOVO:
+1. Botão "STATUS × MOTIVO"
+   - gera imagem PNG consolidando:
+     Último status × Último motivo do Insucesso
+   - respeita os filtros atuais da aba.
+
+2. Novo gráfico:
+   BASES MAIS OFENSORAS · MOTIVOS DE INSUCESSO
+   - ranking por Base / DS
+   - mesmo padrão visual dos gráficos de insucesso.
+
+MANTIDO:
+- Últimas estações mais ofensoras
+- Últimos motivos do insucesso
+- Consolidado Estação × Motivo
+- Filtros por Supervisor, Estação e Motivo
