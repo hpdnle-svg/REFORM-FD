@@ -119,6 +119,23 @@ canvas.chart{display:block;width:100%;height:280px}
 .insightTable tr:nth-child(even){background:#e8f4ed}
 @media(max-width:700px){.insightControls,.insightCards{grid-template-columns:1fr}}
 
+
+.matrixPreview{background:#f7faf9;border-radius:14px;padding:18px;overflow:auto}
+.matrixPreviewHead{display:flex;align-items:flex-start;gap:18px;margin-bottom:14px}
+.matrixPreviewLogo{width:130px;height:74px;background:#0755a8;color:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;font-weight:900;font-size:30px}
+.matrixPreviewLogo small{font-size:11px;font-weight:600}
+.matrixPreviewTitle h2{margin:0;color:#17382f;font-size:24px}
+.matrixPreviewTitle .sup{font-size:18px;color:#0d6a91;font-weight:900;margin-top:6px}
+.matrixPreviewTitle .ds{font-size:13px;color:#65736f;margin-top:4px}
+.matrixBand{background:#d8ece7;color:#0d6173;font-size:15px;font-weight:900;padding:10px 12px;border:1px solid #c4ddd6}
+.matrixTableWrap{overflow:auto}
+.matrixTable{width:100%;border-collapse:collapse;min-width:1100px}
+.matrixTable th{background:#11848a;color:#fff;padding:10px 8px;text-align:center;font-size:11px;white-space:normal}
+.matrixTable th:first-child,.matrixTable td:first-child{text-align:left;min-width:120px}
+.matrixTable td{padding:10px 8px;border-bottom:1px solid #d7e6e1;text-align:center;font-size:12px}
+.matrixTable tbody tr:nth-child(even){background:#eaf4f0}
+.matrixTable tfoot th{background:#0b6d57;color:#fff;font-size:12px}
+
 @media(max-width:1050px){.body{grid-template-columns:1fr}.sidebar{display:none}.header{grid-template-columns:1fr}.logo,.dateBox{display:none}.toolbar,.cards,.grid2,.imageGrid{grid-template-columns:1fr 1fr}}
 @media(max-width:700px){.toolbar,.cards,.grid2,.imageControls,.driverControls,.driverSummary,.imageGrid,.statusWrap{grid-template-columns:1fr}.title{font-size:20px}.main{padding:10px}}
 </style>
@@ -345,34 +362,23 @@ canvas.chart{display:block;width:100%;height:280px}
     <button id="downloadImageBtn" class="action yellowBtn">▧ BAIXAR IMAGEM PNG</button>
   </div>
 
-  <div id="imagePreview" class="imagePreview">
-    <div class="imageHead">
-      <div>
-        <div class="logoBadgeBlue" style="margin-bottom:14px">iMile<small>Delivery</small></div>
-        <h2>Acompanhamento Prioridades FD TIKTOK</h2>
+  <div id="imagePreview" class="matrixPreview">
+    <div class="matrixPreviewHead">
+      <div class="matrixPreviewLogo">iMile<small>Delivery</small></div>
+      <div class="matrixPreviewTitle">
+        <h2>TOTAL POR BASE · STATUS EM COLUNAS</h2>
         <div id="imageSupName" class="sup">Regional SP</div>
-        <div id="imageDsName" style="margin-top:6px;color:#65736f">Todas as DSs</div>
-      </div>
-      <div style="text-align:right"><strong id="imageTotal" style="font-size:20px">0 pedidos</strong></div>
-    </div>
-
-    <div class="imageGrid">
-      <div class="imageTable">
-        <table>
-          <thead><tr><th>STATUS</th><th>QTDADE</th><th>%</th></tr></thead>
-          <tbody id="imageStatusTable"></tbody>
-          <tfoot><tr><th>Total geral</th><th id="imageGrandTotal">0</th><th>100,00%</th></tr></tfoot>
-        </table>
-      </div>
-      <div class="summaryBox">
-        <h3 style="margin-top:0">ENTREGUES EM RELAÇÃO A RECEBIDOS NO DS</h3>
-        <div style="font-size:16px;margin:12px 0">Entregues: <strong id="imageDelivered" style="color:#188f50">0</strong></div>
-        <div class="yellowLine">Recebidos no DS: <strong id="imageReceived">0</strong></div>
-        <div class="big" id="imagePct">0,00%</div>
-        
+        <div id="imageDsName" class="ds">Todas as DSs</div>
       </div>
     </div>
-    <div class="imageNote">Entregues em verde. Recebidos no DS em amarelo. Demais status em apresentação neutra.</div>
+    <div class="matrixBand">▣ Pedidos alocados pela Última estação de leitura</div>
+    <div class="matrixTableWrap">
+      <table class="matrixTable">
+        <thead id="imageMatrixHead"></thead>
+        <tbody id="imageMatrixBody"></tbody>
+        <tfoot id="imageMatrixFoot"></tfoot>
+      </table>
+    </div>
   </div>
 </section>
 </main>
@@ -398,9 +404,23 @@ function refreshFilters(){
  const sups=unique(DATA.map(x=>x.supervisor));fillSelect(supFilter,sups,'Todos os supervisores');fillSelect(imgSup,sups,'Todos os supervisores');fillSelect(driverSup,sups,'Todos os supervisores');fillSelect(awbSup,sups,'Todos os supervisores');fillSelect(treatSup,sups,'Todos os supervisores');fillSelect(failSup,sups,'Todos os supervisores');refreshDs();refreshImgDs();refreshDriverDs();refreshAwbDs();refreshTreatDs();refreshFailFilters();
 }
 function refreshDs(){const s=supFilter.value;fillSelect(dsFilter,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs')}
-function refreshImgDs(){const s=imgSup.value;fillSelect(imgDs,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs')}
+function imageBaseOf(x){return String(x.lastStation||x.ds||'').trim()}
+function imageSupervisorOf(x){
+ const base=imageBaseOf(x);
+ return SUPERVISOR_MAP[base]||x.supervisor||'Sem supervisor definido';
+}
+function refreshImgDs(){
+ const s=imgSup.value;
+ fillSelect(imgDs,unique(DATA.filter(x=>!s||imageSupervisorOf(x)===s).map(imageBaseOf).filter(Boolean)),'Todas as DSs');
+}
 function filtered(){const s=supFilter.value,d=dsFilter.value;return DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d))}
-function filteredImage(){const s=imgSup.value,d=imgDs.value;return DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d))}
+function filteredImage(){
+ const s=imgSup.value,d=imgDs.value;
+ return DATA.filter(x=>{
+   const base=imageBaseOf(x),sup=imageSupervisorOf(x);
+   return base&&(!s||sup===s)&&(!d||base===d);
+ });
+}
 
 function prep(id,h=280){const c=document.getElementById(id),r=c.getBoundingClientRect(),dpr=devicePixelRatio||1,w=Math.max(320,r.width);c.width=w*dpr;c.height=h*dpr;const ctx=c.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);return[ctx,w,h]}
 function rr(ctx,x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
@@ -860,36 +880,152 @@ function render(){
  renderDriverReport();
  renderAwbView();
 }
+
+function imageMatrixData(){
+ const rows=filteredImage();
+ const preferred=[
+   'Entregue','Em rota de entrega','Leitura do inventário','recebido no DS',
+   'devolução consolidada','Transferência concluída','retorno de insucesso','unseal vehicle'
+ ];
+ const statusTotals={};
+ const baseMap={};
+ rows.forEach(x=>{
+   const base=imageBaseOf(x);
+   const status=String(x.status||'Sem status').trim()||'Sem status';
+   statusTotals[status]=(statusTotals[status]||0)+1;
+   if(!baseMap[base])baseMap[base]={};
+   baseMap[base][status]=(baseMap[base][status]||0)+1;
+ });
+ const allStatuses=Object.keys(statusTotals);
+ const statusOrder=[];
+ preferred.forEach(p=>{
+   const found=allStatuses.find(s=>norm(s)===norm(p));
+   if(found && !statusOrder.includes(found))statusOrder.push(found);
+ });
+ allStatuses
+   .filter(s=>!statusOrder.includes(s))
+   .sort((a,b)=>(statusTotals[b]||0)-(statusTotals[a]||0))
+   .forEach(s=>statusOrder.push(s));
+ const bases=Object.keys(baseMap).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ return {rows,statusTotals,baseMap,statusOrder,bases,total:rows.length};
+}
+
 function renderImage(){
- const rows=filteredImage(),total=rows.length,del=rows.filter(x=>isDelivered(x.status)).length,rec=rows.filter(x=>isReceived(x.status)).length;const st={};rows.forEach(x=>st[x.status]=(st[x.status]||0)+1);const entries=Object.entries(st).sort((a,b)=>b[1]-a[1]);
- imageSupName.textContent=imgSup.value||'Regional SP';imageDsName.textContent=imgDs.value||'Todas as DSs';imageTotal.textContent=fmt(total)+' pedidos';imageGrandTotal.textContent=fmt(total);imageDelivered.textContent=fmt(del);imageReceived.textContent=fmt(rec);imagePct.textContent=rec?pct(del/rec):'0,00%';
- imageStatusTable.innerHTML=entries.map(([s,v])=>`<tr style="${isDelivered(s)?'background:#e2f6e9;':isReceived(s)?'background:#fff1aa;':''}"><td><strong>${esc(s)}</strong></td><td>${fmt(v)}</td><td>${pct(v/Math.max(total,1))}</td></tr>`).join('');
+ const m=imageMatrixData();
+ imageSupName.textContent=imgSup.value||'Regional SP';
+ imageDsName.textContent=imgDs.value||'Todas as DSs';
+
+ imageMatrixHead.innerHTML='<tr><th>BASE</th>'+
+   m.statusOrder.map(s=>`<th>${esc(s)}</th>`).join('')+
+   '<th>TOTAL</th></tr>';
+
+ imageMatrixBody.innerHTML=m.bases.map(base=>{
+   const total=m.statusOrder.reduce((sum,s)=>sum+(m.baseMap[base][s]||0),0);
+   return '<tr><td><strong>'+esc(base)+'</strong></td>'+
+     m.statusOrder.map(s=>`<td>${m.baseMap[base][s]?fmt(m.baseMap[base][s]):'-'}</td>`).join('')+
+     `<td><strong>${fmt(total)}</strong></td></tr>`;
+ }).join('');
+
+ imageMatrixFoot.innerHTML='<tr><th>TOTAL FD</th>'+
+   m.statusOrder.map(s=>`<th>${m.statusTotals[s]?fmt(m.statusTotals[s]):'-'}</th>`).join('')+
+   `<th>${fmt(m.total)}</th></tr>`;
+}
+
+function wrapTextLines(ctx,text,maxWidth){
+ const words=String(text||'').split(/\s+/),lines=[];let line='';
+ words.forEach(w=>{
+   const test=line?line+' '+w:w;
+   if(ctx.measureText(test).width>maxWidth && line){lines.push(line);line=w}else line=test;
+ });
+ if(line)lines.push(line);
+ return lines.slice(0,3);
 }
 
 function drawImage(){
- const rows=filteredImage(),total=rows.length,del=rows.filter(x=>isDelivered(x.status)).length,rec=rows.filter(x=>isReceived(x.status)).length;const st={};rows.forEach(x=>st[x.status]=(st[x.status]||0)+1);const entries=Object.entries(st).sort((a,b)=>b[1]-a[1]);
- const W=1500,rowH=44,header=190,tableTop=205,H=Math.max(650,tableTop+100+entries.length*rowH);
+ const m=imageMatrixData();
+ if(!m.total){alert('Nenhum pedido para os filtros atuais.');return}
+
+ const baseW=190,statusW=160,totalW=110,left=40,right=40;
+ const W=Math.max(1450,left+baseW+m.statusOrder.length*statusW+totalW+right);
+ const rowH=52,headerY=210,headH=88,footerH=58;
+ const H=Math.max(700,headerY+headH+m.bases.length*rowH+footerH+50);
  const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+
  ctx.fillStyle='#f7faf9';ctx.fillRect(0,0,W,H);
- ctx.fillStyle='#0b4c88';ctx.fillRect(0,0,W,12);
- ctx.fillStyle='#0755a8';ctx.fillRect(55,34,150,70);ctx.fillStyle='#fff';ctx.font='bold 32px Segoe UI';ctx.fillText('iMile',80,69);ctx.font='12px Segoe UI';ctx.fillText('Delivery',100,90);ctx.fillStyle='#111';ctx.font='bold 34px Segoe UI';ctx.fillText('ACOMPANHAMENTO PRIORIDADES FD TIKTOK',235,72);
- ctx.fillStyle='#0b6c8a';ctx.font='bold 28px Segoe UI';ctx.fillText(imgSup.value||'Regional SP',55,116);
- ctx.fillStyle='#66736f';ctx.font='20px Segoe UI';ctx.fillText(imgDs.value||'Todas as DSs',55,150);
- ctx.textAlign='right';ctx.fillStyle='#17332d';ctx.font='bold 26px Segoe UI';ctx.fillText(fmt(total)+' pedidos',W-55,92);ctx.textAlign='left';
 
- const left=55,tableW=820,summaryX=930;
- ctx.fillStyle='#4f86bd';ctx.fillRect(left,tableTop,tableW,46);ctx.fillStyle='#fff';ctx.font='bold 18px Segoe UI';ctx.fillText('STATUS',left+16,tableTop+29);ctx.fillText('QTDADE',left+570,tableTop+29);ctx.fillText('%',left+730,tableTop+29);
- let y=tableTop+46;ctx.font='17px Segoe UI';
- entries.forEach(([s,v])=>{ctx.fillStyle=isDelivered(s)?'#dff5e9':isReceived(s)?'#fff0a8':'#f4f7f6';ctx.fillRect(left,y,tableW,rowH);ctx.strokeStyle='#c4d3cf';ctx.strokeRect(left,y,tableW,rowH);ctx.fillStyle='#152c26';ctx.fillText(s,left+16,y+29);ctx.textAlign='right';ctx.fillText(fmt(v),left+650,y+29);ctx.fillText(pct(v/Math.max(total,1)),left+800,y+29);ctx.textAlign='left';y+=rowH});
- ctx.fillStyle='#4f86bd';ctx.fillRect(left,y,tableW,46);ctx.fillStyle='#fff';ctx.font='bold 18px Segoe UI';ctx.fillText('TOTAL GERAL',left+16,y+29);ctx.textAlign='right';ctx.fillText(fmt(total),left+650,y+29);ctx.fillText('100,00%',left+800,y+29);ctx.textAlign='left';
+ // Logo / header exactly in the approved matrix style
+ ctx.fillStyle='#0755a8';ctx.fillRect(40,32,150,82);
+ ctx.fillStyle='#fff';ctx.font='bold 34px Segoe UI';ctx.fillText('iMile',64,75);
+ ctx.font='13px Segoe UI';ctx.fillText('Delivery',90,99);
 
- ctx.fillStyle='#17332d';ctx.font='bold 22px Segoe UI';ctx.fillText('ENTREGUES EM RELAÇÃO A RECEBIDOS NO DS',summaryX,tableTop+25);
- ctx.fillStyle='#188f50';ctx.font='bold 28px Segoe UI';ctx.fillText('Entregues: '+fmt(del),summaryX,tableTop+90);
- ctx.fillStyle='#e9c400';ctx.fillRect(summaryX,tableTop+118,460,64);ctx.fillStyle='#222';ctx.font='bold 24px Segoe UI';ctx.fillText('Recebidos no DS: '+fmt(rec),summaryX+18,tableTop+158);
- ctx.fillStyle='#188f50';ctx.font='bold 54px Segoe UI';ctx.fillText(rec?pct(del/rec):'0,00%',summaryX,tableTop+250);
- ctx.fillStyle='#4c615b';ctx.font='20px Segoe UI';
+ ctx.fillStyle='#17382f';ctx.font='bold 34px Segoe UI';
+ ctx.fillText('TOTAL POR BASE · STATUS EM COLUNAS',225,64);
+ ctx.fillStyle='#0d6a91';ctx.font='bold 25px Segoe UI';
+ ctx.fillText(imgSup.value||'Regional SP',225,99);
+ ctx.fillStyle='#65736f';ctx.font='18px Segoe UI';
+ ctx.fillText(imgDs.value||'Todas as DSs',225,130);
 
- const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='Acompanhamento_Prioridades_FD_TIKTOK_'+(imgSup.value||'Regional').replace(/\s+/g,'_')+'.png';a.click();
+ ctx.fillStyle='#d8ece7';ctx.fillRect(left,155,W-left-right,46);
+ ctx.fillStyle='#0d6173';ctx.font='bold 20px Segoe UI';
+ ctx.fillText('▣  Pedidos alocados pela Última estação de leitura',left+16,185);
+
+ // Header
+ let x=left;
+ ctx.fillStyle='#11848a';ctx.fillRect(x,headerY,baseW,headH);
+ ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';ctx.textAlign='left';
+ ctx.fillText('BASE',x+16,headerY+52);x+=baseW;
+
+ ctx.textAlign='center';
+ m.statusOrder.forEach(s=>{
+   ctx.fillStyle='#11848a';ctx.fillRect(x,headerY,statusW,headH);
+   ctx.fillStyle='#fff';ctx.font='bold 14px Segoe UI';
+   const lines=wrapTextLines(ctx,s,statusW-16);
+   const startY=headerY+34-(lines.length-1)*9;
+   lines.forEach((line,i)=>ctx.fillText(line,x+statusW/2,startY+i*19));
+   x+=statusW;
+ });
+ ctx.fillStyle='#11848a';ctx.fillRect(x,headerY,totalW,headH);
+ ctx.fillStyle='#fff';ctx.font='bold 15px Segoe UI';ctx.fillText('TOTAL',x+totalW/2,headerY+52);
+
+ // Body
+ let y=headerY+headH;
+ m.bases.forEach((base,ri)=>{
+   x=left;
+   ctx.fillStyle=ri%2===0?'#f7faf9':'#eaf4f0';
+   ctx.fillRect(left,y,W-left-right,rowH);
+   ctx.strokeStyle='#d5e5df';ctx.beginPath();ctx.moveTo(left,y+rowH);ctx.lineTo(W-right,y+rowH);ctx.stroke();
+
+   ctx.fillStyle='#17382f';ctx.textAlign='left';ctx.font='16px Segoe UI';
+   ctx.fillText(base,x+16,y+33);x+=baseW;
+
+   ctx.textAlign='center';
+   let rowTotal=0;
+   m.statusOrder.forEach(s=>{
+     const v=m.baseMap[base][s]||0;rowTotal+=v;
+     ctx.fillStyle='#213d36';ctx.font='15px Segoe UI';
+     ctx.fillText(v?fmt(v):'-',x+statusW/2,y+33);x+=statusW;
+   });
+   ctx.fillStyle='#0d6173';ctx.font='bold 16px Segoe UI';
+   ctx.fillText(fmt(rowTotal),x+totalW/2,y+33);
+   y+=rowH;
+ });
+
+ // Footer TOTAL FD
+ x=left;
+ ctx.fillStyle='#0b6d57';ctx.fillRect(left,y,W-left-right,footerH);
+ ctx.fillStyle='#fff';ctx.textAlign='left';ctx.font='bold 16px Segoe UI';
+ ctx.fillText('TOTAL FD',x+16,y+36);x+=baseW;
+ ctx.textAlign='center';
+ m.statusOrder.forEach(s=>{
+   ctx.font='bold 17px Segoe UI';
+   ctx.fillText(fmt(m.statusTotals[s]||0),x+statusW/2,y+36);x+=statusW;
+ });
+ ctx.font='bold 18px Segoe UI';ctx.fillText(fmt(m.total),x+totalW/2,y+36);
+
+ const a=document.createElement('a');
+ a.href=c.toDataURL('image/png');
+ a.download='Total_por_Base_Status_em_Colunas_'+(imgSup.value||'Regional').replace(/\s+/g,'_')+'.png';
+ a.click();
 }
 
 function colIdx(ref){const m=String(ref||'').match(/^([A-Z]+)/);if(!m)return-1;let n=0;for(const ch of m[1])n=n*26+ch.charCodeAt(0)-64;return n-1}

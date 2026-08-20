@@ -1,20 +1,13 @@
-ACOMPANHAMENTO PRIORIDADES FD TIKTOK - MODELO 14
+ACOMPANHAMENTO PRIORIDADES FD TIKTOK - MODELO 15
 
-ABA INSUCESSOS BASES
-
-NOVO:
-1. Botão "STATUS × MOTIVO"
-   - gera imagem PNG consolidando:
-     Último status × Último motivo do Insucesso
-   - respeita os filtros atuais da aba.
-
-2. Novo gráfico:
-   BASES MAIS OFENSORAS · MOTIVOS DE INSUCESSO
-   - ranking por Base / DS
-   - mesmo padrão visual dos gráficos de insucesso.
-
-MANTIDO:
-- Últimas estações mais ofensoras
-- Últimos motivos do insucesso
-- Consolidado Estação × Motivo
-- Filtros por Supervisor, Estação e Motivo
+CORREÇÃO DO GERADOR FINAL
+- Tela RELATÓRIO MOTORISTAS preservada sem alterações.
+- GERADOR FINAL restaurado para o formato aprovado:
+  TOTAL POR BASE · STATUS EM COLUNAS
+- BASE nas linhas.
+- Último Status em colunas.
+- Total por Base.
+- Linha TOTAL FD no rodapé.
+- Pedidos alocados pela Última estação de leitura.
+- Filtros Supervisor e DS respeitados.
+- Preview da aba Gerador Final usa o mesmo formato da imagem gerada.
