@@ -96,45 +96,16 @@ canvas.chart{display:block;width:100%;height:280px}
 @media(max-width:700px){.opsControls,.opsCards{grid-template-columns:1fr}}
 
 
-.treatControls{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:14px}
-.treatSwitch{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-.treatBtn{border:1px solid #76b89a;background:#e8f6ee;color:#164536;border-radius:10px;padding:11px 16px;font-weight:900;cursor:pointer}
-.treatBtn.active{background:#0d6a91;color:#fff;border-color:#0d6a91}
-.treatDateRow td{background:#0b4d3d!important;color:#fff!important;font-weight:900!important;font-size:12px!important}
-@media(max-width:700px){.treatControls{grid-template-columns:1fr}}
+.fdFullReportActions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 8px}
+.fdFullReportBtn{border:0;border-radius:10px;padding:12px 17px;font-weight:900;cursor:pointer;background:#0d6a91;color:#fff;box-shadow:0 6px 14px rgba(13,106,145,.18)}
+.fdFullReportHint{font-size:11px;color:#58736a;margin:0 0 16px}
 
 
-.multiDateSelect{width:100%;min-height:108px;background:#eef7f2;color:#153c31;border:1px solid #8fb9a5;border-radius:9px;padding:8px}
-.insightControls{display:grid;grid-template-columns:1fr 1fr 1fr 230px;gap:12px;margin-bottom:14px}
-
-.failImageBtn{border:0;border-radius:10px;padding:11px 14px;font-weight:900;cursor:pointer;background:#ffd21f;color:#2b2a00;width:100%}
-
-.insightCards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
-.insightCard{background:linear-gradient(145deg,#edf9f2,#d8eee2);color:#12382f;border:1px solid #74b596;border-radius:13px;padding:14px}
-.insightCard .n{font-size:28px;font-weight:900;margin-top:5px}
-.insightTableWrap{overflow:auto;max-height:560px;border-radius:12px;border:1px solid #b8d4c7}
-.insightTable{width:100%;border-collapse:collapse;min-width:900px}
-.insightTable th{position:sticky;top:0;background:#0d6a91;color:#fff;padding:10px;font-size:11px;text-align:left}
-.insightTable td{padding:10px;border-bottom:1px solid #c5ddd1;font-size:11px;color:#17382f}
-.insightTable tr:nth-child(even){background:#e8f4ed}
-@media(max-width:700px){.insightControls,.insightCards{grid-template-columns:1fr}}
-
-
-.matrixPreview{background:#f7faf9;border-radius:14px;padding:18px;overflow:auto}
-.matrixPreviewHead{display:flex;align-items:flex-start;gap:18px;margin-bottom:14px}
-.matrixPreviewLogo{width:130px;height:74px;background:#0755a8;color:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;font-weight:900;font-size:30px}
-.matrixPreviewLogo small{font-size:11px;font-weight:600}
-.matrixPreviewTitle h2{margin:0;color:#17382f;font-size:24px}
-.matrixPreviewTitle .sup{font-size:18px;color:#0d6a91;font-weight:900;margin-top:6px}
-.matrixPreviewTitle .ds{font-size:13px;color:#65736f;margin-top:4px}
-.matrixBand{background:#d8ece7;color:#0d6173;font-size:15px;font-weight:900;padding:10px 12px;border:1px solid #c4ddd6}
-.matrixTableWrap{overflow:auto}
-.matrixTable{width:100%;border-collapse:collapse;min-width:1100px}
-.matrixTable th{background:#11848a;color:#fff;padding:10px 8px;text-align:center;font-size:11px;white-space:normal}
-.matrixTable th:first-child,.matrixTable td:first-child{text-align:left;min-width:120px}
-.matrixTable td{padding:10px 8px;border-bottom:1px solid #d7e6e1;text-align:center;font-size:12px}
-.matrixTable tbody tr:nth-child(even){background:#eaf4f0}
-.matrixTable tfoot th{background:#0b6d57;color:#fff;font-size:12px}
+.reportPreviewWrap{background:#0b3f33;border:1px solid #176447;border-radius:16px;padding:14px;margin-top:14px}
+.reportPreviewToolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.reportPreviewToolbar .title{font-size:16px;font-weight:900;color:#f4f8f6}
+.reportPreviewCanvas{width:100%;max-height:78vh;overflow:auto;background:#d7eee2;border-radius:12px;padding:12px}
+.reportPreviewCanvas canvas{width:100%;height:auto;display:block;background:#fff;border-radius:10px}
 
 @media(max-width:1050px){.body{grid-template-columns:1fr}.sidebar{display:none}.header{grid-template-columns:1fr}.logo,.dateBox{display:none}.toolbar,.cards,.grid2,.imageGrid{grid-template-columns:1fr 1fr}}
 @media(max-width:700px){.toolbar,.cards,.grid2,.imageControls,.driverControls,.driverSummary,.imageGrid,.statusWrap{grid-template-columns:1fr}.title{font-size:20px}.main{padding:10px}}
@@ -153,9 +124,7 @@ canvas.chart{display:block;width:100%;height:280px}
   <button class="navbtn active" data-view="dashboard">⌂<br>PAINEL<br>GERAL</button>
   <button class="navbtn" data-view="drivers">🚚<br>RELATÓRIO<br>MOTORISTAS</button>
   <button class="navbtn" data-view="awb">🔎<br>AWBs<br>PENDENTES</button>
-  <button class="navbtn" data-view="treatments">🧾<br>TRATATIVAS<br>BASES</button>
-  <button class="navbtn" data-view="failures">📍<br>INSUCESSOS<br>BASES</button>
-  <button class="navbtn" data-view="image">▣<br>IMAGEM<br>COBRANÇA</button>
+  <button class="navbtn" data-view="image">🖼️<br>GERADOR<br>FINAL</button>
   <div class="sideCard">TOTAL DE PEDIDOS<strong id="sideTotal">0</strong></div>
 </aside>
 
@@ -276,109 +245,59 @@ canvas.chart{display:block;width:100%;height:280px}
   </div>
 </section>
 
-
-<section id="view-treatments" class="view">
-  <div class="treatControls">
-    <div class="filter"><label>SUPERVISOR</label><select id="treatSup"></select></div>
-    <div class="filter"><label>DS</label><select id="treatDs"></select></div>
-    <div class="filter"><label>DATAS DA ÚLTIMA LEITURA</label><select id="treatDate" class="multiDateSelect" multiple size="5"></select><div style="font-size:10px;color:#648078;margin-top:5px">Ctrl + clique para selecionar vários dias</div></div>
-    <div class="filter"><label>BUSCAR AWB</label><input id="treatSearch" type="text" placeholder="Digite parte ou toda a AWB" style="width:100%;background:#eef7f2;color:#153c31;border:1px solid #8fb9a5;border-radius:9px;padding:10px"></div>
-  </div>
-
-  <div class="treatSwitch">
-    <button id="treatRouteBtn" class="treatBtn active" type="button">🚚 Motoristas em rota</button>
-    <button id="treatDsInvBtn" class="treatBtn" type="button">📦 Recebido no DS / Inventário</button>
-  </div>
-
-  <div class="opsCards">
-    <div class="opsCard"><div>AWBs nesta visão</div><div id="treatTotal" class="n">0</div></div>
-    <div class="opsCard"><div>Motoristas</div><div id="treatDrivers" class="n">0</div></div>
-    <div class="opsCard"><div>DSs envolvidas</div><div id="treatBases" class="n">0</div></div>
-  </div>
-
-  <div class="panel">
-    <h2 id="treatTitle">TRATATIVAS BASES · MOTORISTAS EM ROTA</h2>
-    <p id="treatSub">Separado pela data do Horário da última leitura.</p>
-    <div class="opsTableWrap">
-      <table class="opsTable">
-        <thead id="treatHead"></thead>
-        <tbody id="treatBody"></tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-
-<section id="view-failures" class="view">
-  <div class="insightControls">
-    <div class="filter"><label>SUPERVISOR</label><select id="failSup"></select></div>
-    <div class="filter"><label>ÚLTIMA ESTAÇÃO DE LEITURA</label><select id="failStation"></select></div>
-    <div class="filter"><label>ÚLTIMO MOTIVO DO INSUCESSO</label><select id="failReason"></select></div>
-    <div class="filter"><label>GERAR IMAGEM</label><button id="failStatusReasonImageBtn" class="failImageBtn" type="button">🖼️ STATUS × MOTIVO</button></div>
-  </div>
-
-  <div class="insightCards">
-    <div class="insightCard"><div>Total de registros</div><div id="failTotal" class="n">0</div></div>
-    <div class="insightCard"><div>Estações</div><div id="failStations" class="n">0</div></div>
-    <div class="insightCard"><div>Principal estação</div><div id="failTopStation" class="n" style="font-size:18px">--</div></div>
-    <div class="insightCard"><div>Principal motivo</div><div id="failTopReason" class="n" style="font-size:16px">--</div></div>
-  </div>
-
-  <div class="grid2">
-    <div class="panel">
-      <h2>ÚLTIMAS ESTAÇÕES MAIS OFENSORAS</h2>
-      <p>Quantidade de pedidos por última estação de leitura.</p>
-      <canvas id="failStationChart" class="chart"></canvas>
-    </div>
-    <div class="panel">
-      <h2>ÚLTIMOS MOTIVOS DO INSUCESSO</h2>
-      <p>Ranking dos motivos de insucesso.</p>
-      <canvas id="failReasonChart" class="chart"></canvas>
-    </div>
-  </div>
-
-  <div class="panel" style="margin-bottom:14px">
-    <h2>BASES MAIS OFENSORAS · MOTIVOS DE INSUCESSO</h2>
-    <p>Ranking por Base / DS considerando pedidos que possuem último motivo de insucesso.</p>
-    <canvas id="failBaseChart" class="chart"></canvas>
-  </div>
-
-  <div class="panel">
-    <h2>CONSOLIDADO · ESTAÇÃO × MOTIVO</h2>
-    <p>Cruzamento entre Última estação de leitura e Último motivo do insucesso.</p>
-    <div class="insightTableWrap">
-      <table class="insightTable">
-        <thead><tr><th>Última estação</th><th>Último motivo do insucesso</th><th>Quantidade</th></tr></thead>
-        <tbody id="failBody"></tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
 <section id="view-image" class="view">
   <div class="imageControls">
     <div class="filter"><label>SUPERVISOR</label><select id="imgSup"></select></div>
     <div class="filter"><label>DS</label><select id="imgDs"></select></div>
+    <button id="refreshFinalPreviewBtn" class="action blue">↻ ATUALIZAR PRÉVIA</button>
+    <button id="downloadFinalReportBtn" class="action yellowBtn">▧ BAIXAR IMAGEM FINAL</button>
+  </div>
+
+  <div class="reportPreviewWrap">
+    <div class="reportPreviewToolbar">
+      <div>
+        <div class="title">PRÉVIA FINAL DO RELATÓRIO</div>
+        <div style="font-size:11px;color:#a9c0b9;margin-top:4px">Confira todos os números antes do envio.</div>
+      </div>
+      <div id="finalPreviewSummary" style="font-size:12px;color:#d7f2e6">Aguardando prévia...</div>
+    </div>
+    <div class="reportPreviewCanvas">
+      <canvas id="finalReportPreviewCanvas"></canvas>
+    </div>
+  </div>
+
+<div class="filter"><label>DS</label><select id="imgDs"></select></div>
     <button id="downloadImageBtn" class="action yellowBtn">▧ BAIXAR IMAGEM PNG</button>
   </div>
 
-  <div id="imagePreview" class="matrixPreview">
-    <div class="matrixPreviewHead">
-      <div class="matrixPreviewLogo">iMile<small>Delivery</small></div>
-      <div class="matrixPreviewTitle">
-        <h2>TOTAL POR BASE · STATUS EM COLUNAS</h2>
+  <div id="imagePreview" class="imagePreview">
+    <div class="imageHead">
+      <div>
+        <div class="logoBadgeBlue" style="margin-bottom:14px">iMile<small>Delivery</small></div>
+        <h2>Acompanhamento Prioridades FD TIKTOK</h2>
         <div id="imageSupName" class="sup">Regional SP</div>
-        <div id="imageDsName" class="ds">Todas as DSs</div>
+        <div id="imageDsName" style="margin-top:6px;color:#65736f">Todas as DSs</div>
+      </div>
+      <div style="text-align:right"><strong id="imageTotal" style="font-size:20px">0 pedidos</strong></div>
+    </div>
+
+    <div class="imageGrid">
+      <div class="imageTable">
+        <table>
+          <thead><tr><th>STATUS</th><th>QTDADE</th><th>%</th></tr></thead>
+          <tbody id="imageStatusTable"></tbody>
+          <tfoot><tr><th>Total geral</th><th id="imageGrandTotal">0</th><th>100,00%</th></tr></tfoot>
+        </table>
+      </div>
+      <div class="summaryBox">
+        <h3 style="margin-top:0">ENTREGUES EM RELAÇÃO A RECEBIDOS NO DS</h3>
+        <div style="font-size:16px;margin:12px 0">Entregues: <strong id="imageDelivered" style="color:#188f50">0</strong></div>
+        <div class="yellowLine">Recebidos no DS: <strong id="imageReceived">0</strong></div>
+        <div class="big" id="imagePct">0,00%</div>
+        
       </div>
     </div>
-    <div class="matrixBand">▣ Pedidos alocados pela Última estação de leitura</div>
-    <div class="matrixTableWrap">
-      <table class="matrixTable">
-        <thead id="imageMatrixHead"></thead>
-        <tbody id="imageMatrixBody"></tbody>
-        <tfoot id="imageMatrixFoot"></tfoot>
-      </table>
-    </div>
+    <div class="imageNote">Entregues em verde. Recebidos no DS em amarelo. Demais status em apresentação neutra.</div>
   </div>
 </section>
 </main>
@@ -401,26 +320,12 @@ const STATUS_COLORS=['#55b64c','#ffd21f','#1e8bd1','#14a77c','#8b5cf6','#ff7a20'
 
 function fillSelect(el,vals,first){const cur=el.value;el.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('');if(vals.includes(cur))el.value=cur}
 function refreshFilters(){
- const sups=unique(DATA.map(x=>x.supervisor));fillSelect(supFilter,sups,'Todos os supervisores');fillSelect(imgSup,sups,'Todos os supervisores');fillSelect(driverSup,sups,'Todos os supervisores');fillSelect(awbSup,sups,'Todos os supervisores');fillSelect(treatSup,sups,'Todos os supervisores');fillSelect(failSup,sups,'Todos os supervisores');refreshDs();refreshImgDs();refreshDriverDs();refreshAwbDs();refreshTreatDs();refreshFailFilters();
+ const sups=unique(DATA.map(x=>x.supervisor));fillSelect(supFilter,sups,'Todos os supervisores');fillSelect(imgSup,sups,'Todos os supervisores');fillSelect(driverSup,sups,'Todos os supervisores');fillSelect(awbSup,sups,'Todos os supervisores');refreshDs();refreshImgDs();refreshDriverDs();refreshAwbDs();
 }
 function refreshDs(){const s=supFilter.value;fillSelect(dsFilter,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs')}
-function imageBaseOf(x){return String(x.lastStation||x.ds||'').trim()}
-function imageSupervisorOf(x){
- const base=imageBaseOf(x);
- return SUPERVISOR_MAP[base]||x.supervisor||'Sem supervisor definido';
-}
-function refreshImgDs(){
- const s=imgSup.value;
- fillSelect(imgDs,unique(DATA.filter(x=>!s||imageSupervisorOf(x)===s).map(imageBaseOf).filter(Boolean)),'Todas as DSs');
-}
+function refreshImgDs(){const s=imgSup.value;fillSelect(imgDs,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs')}
 function filtered(){const s=supFilter.value,d=dsFilter.value;return DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d))}
-function filteredImage(){
- const s=imgSup.value,d=imgDs.value;
- return DATA.filter(x=>{
-   const base=imageBaseOf(x),sup=imageSupervisorOf(x);
-   return base&&(!s||sup===s)&&(!d||base===d);
- });
-}
+function filteredImage(){const s=imgSup.value,d=imgDs.value;return DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d))}
 
 function prep(id,h=280){const c=document.getElementById(id),r=c.getBoundingClientRect(),dpr=devicePixelRatio||1,w=Math.max(320,r.width);c.width=w*dpr;c.height=h*dpr;const ctx=c.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);return[ctx,w,h]}
 function rr(ctx,x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
@@ -479,7 +384,7 @@ function renderDriverReport(){
 function drawDriverReportImage(){
  const rows=driverFiltered(),rep=buildDriverReport(rows),top=rep.slice(0,40);
  const W=1500,rowH=42,head=190,tableTop=220,H=Math.max(720,tableTop+90+top.length*rowH);
- const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
+ const c=targetCanvas||document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
  ctx.fillStyle='#f3fbf6';ctx.fillRect(0,0,W,H);
 
  // Blue iMile logo block
@@ -497,7 +402,7 @@ function drawDriverReportImage(){
  let y=tableTop+46;
  top.forEach((r,i)=>{
    ctx.fillStyle=i%2===0?'#e7f5ed':'#d8eee2';ctx.fillRect(48,y,W-96,rowH);
-   ctx.fillStyle='#17382f';ctx.font='15px Segoe UI';
+   ctx.fillStyle='#153c31';ctx.font='15px Segoe UI';
    ctx.fillText(String(r.driver).slice(0,48),64,y+27);ctx.fillText(r.ds,650,y+27);
    ctx.font='bold 15px Segoe UI';ctx.fillText(fmt(r.route),1110,y+27);
    y+=rowH;
@@ -555,8 +460,6 @@ function setAwbMode(mode){
  awbRouteBtn.classList.toggle('active',mode==='route');
  awbDsInvBtn.classList.toggle('active',mode==='dsinv');
  renderAwbView();
- renderTreatments();
- renderFailures();
 }
 
 
@@ -576,7 +479,7 @@ function drawAwbDsInventoryImage(){
   ctx.fillStyle='#fff';ctx.font='bold 34px Segoe UI';ctx.fillText('iMile',73,75);
   ctx.font='13px Segoe UI';ctx.fillText('Delivery',96,98);
 
-  ctx.fillStyle='#17382f';ctx.font='bold 30px Segoe UI';ctx.fillText('AWBs · RECEBIDO NO DS / INVENTÁRIO',235,70);
+  ctx.fillStyle='#153c31';ctx.font='bold 30px Segoe UI';ctx.fillText('AWBs · RECEBIDO NO DS / INVENTÁRIO',235,70);
   ctx.fillStyle='#60736d';ctx.font='18px Segoe UI';
   ctx.fillText((awbSup.value||'Todos os supervisores')+' · '+(awbDs.value||'Todas as DSs'),235,105);
 
@@ -590,7 +493,7 @@ function drawAwbDsInventoryImage(){
   rows.forEach((r,i)=>{
     ctx.fillStyle=i%2===0?'#eef6f2':'#e2efe8';ctx.fillRect(45,y,W-90,rowH);
     ctx.strokeStyle='#c3d8cf';ctx.strokeRect(45,y,W-90,rowH);
-    ctx.fillStyle='#17382f';ctx.font='15px Segoe UI';
+    ctx.fillStyle='#153c31';ctx.font='15px Segoe UI';
     ctx.fillText(String(r.awb||'-'),65,y+26);
     ctx.fillText(String(r.status||'-'),570,y+26);
     ctx.fillText(String(r.ds||'-'),1050,y+26);
@@ -634,7 +537,7 @@ function drawAwbDriversImage(){
   ctx.fillStyle='#fff';ctx.font='bold 34px Segoe UI';ctx.fillText('iMile',73,75);
   ctx.font='13px Segoe UI';ctx.fillText('Delivery',96,98);
 
-  ctx.fillStyle='#17382f';ctx.font='bold 30px Segoe UI';ctx.fillText('MOTORISTAS OFENSORES · AWBs EM ROTA',235,70);
+  ctx.fillStyle='#153c31';ctx.font='bold 30px Segoe UI';ctx.fillText('MOTORISTAS OFENSORES · AWBs EM ROTA',235,70);
   ctx.fillStyle='#60736d';ctx.font='18px Segoe UI';
   ctx.fillText((awbSup.value||'Todos os supervisores')+' · '+(awbDs.value||'Todas as DSs'),235,105);
 
@@ -650,7 +553,7 @@ function drawAwbDriversImage(){
     g.awbs.forEach((awb,i)=>{
       ctx.fillStyle=i%2===0?'#eaf5ef':'#dcece4';ctx.fillRect(45,y,W-90,lineH);
       ctx.strokeStyle='#c3d8cf';ctx.strokeRect(45,y,W-90,lineH);
-      ctx.fillStyle='#17382f';ctx.font='14px Segoe UI';
+      ctx.fillStyle='#153c31';ctx.font='14px Segoe UI';
       ctx.fillText(String(awb),75,y+21);
       y+=lineH;
     });
@@ -667,192 +570,179 @@ function drawAwbDriversImage(){
 }
 
 
-let treatMode='route';
 
-function treatDateKey(v){
- const s=String(v||'').trim();
- if(!s)return '';
- let m=s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
- if(m)return `${m[3]}-${String(m[2]).padStart(2,'0')}-${String(m[1]).padStart(2,'0')}`;
- m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
- if(m)return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;
- const n=Number(s);
- if(Number.isFinite(n)&&n>20000){
-   const d=new Date(Date.UTC(1899,11,30));
-   d.setUTCDate(d.getUTCDate()+Math.floor(n));
-   return d.toISOString().slice(0,10);
- }
- return '';
+function fdStatusColor(status){
+ const s=norm(status);
+ if(s==='entregue')return{bg:'#d9f4e5',fg:'#087a50'};
+ if(s==='em rota de entrega')return{bg:'#dbe9ff',fg:'#0b6c8a'};
+ if(s==='recebido no ds'||s==='leitura do inventario')return{bg:'#fff0b8',fg:'#b86b00'};
+ if(s.includes('transferencia'))return{bg:'#eee5ff',fg:'#6b36d8'};
+ if(s.includes('devolucao'))return{bg:'#edf3f1',fg:'#3d554d'};
+ return{bg:'#eef3f6',fg:'#34495e'};
 }
-function treatBrDate(iso){
- if(!iso)return 'Sem data';
- const p=iso.split('-');
- return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:iso;
+function fdRR(ctx,x,y,w,h,r,fill,stroke,lw=1){
+ ctx.beginPath();ctx.roundRect(x,y,w,h,r);
+ if(fill){ctx.fillStyle=fill;ctx.fill()}
+ if(stroke){ctx.lineWidth=lw;ctx.strokeStyle=stroke;ctx.stroke()}
 }
-function refreshTreatDs(){
- const s=treatSup.value;
- fillSelect(treatDs,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs');
- refreshTreatDates();
+function fdReportRows(){
+ const sup=imgSup.value||'',ds=imgDs.value||'';
+ return DATA.filter(x=>(!sup||x.supervisor===sup)&&(!ds||x.ds===ds));
 }
-function selectedTreatDates(){
- return [...treatDate.selectedOptions].map(o=>o.value).filter(Boolean);
+function fdFit(ctx,text,maxWidth){
+ let s=String(text||'');
+ if(ctx.measureText(s).width<=maxWidth)return s;
+ while(s.length>3&&ctx.measureText(s+'…').width>maxWidth)s=s.slice(0,-1);
+ return s+'…';
 }
-function refreshTreatDates(){
- const s=treatSup.value,d=treatDs.value;
- const dates=unique(DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d)).map(x=>treatDateKey(x.lastRead)).filter(Boolean)).sort().reverse();
- const selected=new Set(selectedTreatDates());
- treatDate.innerHTML=dates.map(v=>`<option value="${v}" ${selected.has(v)?'selected':''}>${treatBrDate(v)}</option>`).join('');
-}
-function treatFiltered(){
- const s=treatSup.value,d=treatDs.value,dates=selectedTreatDates(),q=norm(treatSearch.value||'');
- let rows=DATA.filter(x=>
-   (!s||x.supervisor===s)&&
-   (!d||x.ds===d)&&
-   (!dates.length||dates.includes(treatDateKey(x.lastRead)))&&
-   (!q||norm(x.awb).includes(q))
- );
- if(treatMode==='route'){
-   rows=rows.filter(x=>norm(x.status)==='em rota de entrega'&&String(x.driver||'').trim());
- }else{
-   rows=rows.filter(x=>{const st=norm(x.status);return st==='recebido no ds'||st==='leitura do inventario';});
- }
- return rows;
-}
-function renderTreatments(){
- const rows=treatFiltered();
- treatTotal.textContent=fmt(rows.length);
- treatDrivers.textContent=fmt(new Set(rows.map(x=>String(x.driver||'').trim()).filter(Boolean)).size);
- treatBases.textContent=fmt(new Set(rows.map(x=>x.ds).filter(Boolean)).size);
+function buildFdFullReport(targetCanvas=null,autoDownload=false){
+ const rows=fdReportRows();
+ if(!rows.length){alert('Nenhum pedido encontrado para os filtros atuais.');return}
 
- const sorted=[...rows].sort((a,b)=>{
-   const da=treatDateKey(a.lastRead),db=treatDateKey(b.lastRead);
-   if(da!==db)return db.localeCompare(da);
-   return String(a.ds).localeCompare(String(b.ds),'pt-BR');
+ const sup=imgSup.value||'Regional SP',dsSel=imgDs.value||'';
+ const dsList=unique(rows.map(x=>x.ds)).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ const statuses=unique(rows.map(x=>x.status)).sort((a,b)=>{
+   const ord=['Entregue','Em rota de entrega','Leitura do inventário','recebido no DS','em transferência','devolução consolidada','Transferência concluída'];
+   const ia=ord.findIndex(v=>norm(v)===norm(a)), ib=ord.findIndex(v=>norm(v)===norm(b));
+   if(ia>=0||ib>=0)return (ia<0?99:ia)-(ib<0?99:ib);
+   return String(a).localeCompare(String(b),'pt-BR');
  });
 
- if(treatMode==='route'){
-   treatTitle.textContent='TRATATIVAS BASES · MOTORISTAS EM ROTA';
-   treatSub.textContent='Data extraída de “Horário da última leitura”. O horário não é exibido. Somente “Em rota de entrega” com motorista preenchido.';
-   treatHead.innerHTML='<tr><th>Data</th><th>AWB</th><th>Motorista</th><th>DS</th><th>Supervisor</th><th>Status</th></tr>';
-   treatBody.innerHTML=sorted.map(x=>`<tr><td><strong>${treatBrDate(treatDateKey(x.lastRead))}</strong></td><td><strong>${esc(x.awb||'-')}</strong></td><td>${esc(x.driver||'-')}</td><td>${esc(x.ds||'-')}</td><td>${esc(x.supervisor||'-')}</td><td>${esc(x.status||'-')}</td></tr>`).join('');
- }else{
-   treatTitle.textContent='TRATATIVAS BASES · RECEBIDO NO DS / INVENTÁRIO';
-   treatSub.textContent='Data extraída de “Horário da última leitura”. O horário não é exibido. Somente “recebido no DS” ou “Leitura do inventário”.';
-   treatHead.innerHTML='<tr><th>Data</th><th>AWB</th><th>DS</th><th>Supervisor</th><th>Status</th><th>Última estação</th></tr>';
-   treatBody.innerHTML=sorted.map(x=>`<tr><td><strong>${treatBrDate(treatDateKey(x.lastRead))}</strong></td><td><strong>${esc(x.awb||'-')}</strong></td><td>${esc(x.ds||'-')}</td><td>${esc(x.supervisor||'-')}</td><td>${esc(x.status||'-')}</td><td>${esc(x.lastStation||'-')}</td></tr>`).join('');
- }
-}
-function setTreatMode(mode){
- treatMode=mode;
- treatRouteBtn.classList.toggle('active',mode==='route');
- treatDsInvBtn.classList.toggle('active',mode==='dsinv');
- renderTreatments();
-}
+ const total=rows.length;
+ const delivered=rows.filter(x=>norm(x.status)==='entregue').length;
+ const route=rows.filter(x=>norm(x.status)==='em rota de entrega').length;
+ const pending=Math.max(0,total-delivered-route);
+ const pctDelivered=total?delivered/total:0;
+ const volumes=dsList.map(ds=>({ds,total:rows.filter(r=>r.ds===ds).length})).sort((a,b)=>b.total-a.total||a.ds.localeCompare(b.ds,'pt-BR'));
+ const biggest=volumes[0]||{ds:'—',total:0};
+ const smallest=[...volumes].sort((a,b)=>a.total-b.total||a.ds.localeCompare(b.ds,'pt-BR'))[0]||{ds:'—',total:0};
 
+ // Matriz aprovada: Bases/DS nas linhas e Status nas colunas.
+ const outer=28,firstCol=238,statusCol=142,totalCol=112,pctCol=126;
+ const tableW=firstCol+statuses.length*statusCol+totalCol+pctCol;
+ const W=Math.max(1500,tableW+outer*2);
+ const rowH=58,headH=82,titleH=72;
+ const headerH=210,selectionH=76,cardsH=142,sectionGap=18;
+ const tableY=outer+headerH+selectionH+cardsH+sectionGap*3;
+ const tableH=titleH+headH+(dsList.length+1)*rowH;
+ const H=tableY+tableH+outer;
 
-function refreshFailFilters(){
- fillSelect(failSup,unique(DATA.map(x=>x.supervisor)),'Todos os supervisores');
- const sup=failSup.value;
- const base=DATA.filter(x=>!sup||x.supervisor===sup);
- fillSelect(failStation,unique(base.map(x=>x.lastStation)),'Todas as estações');
- fillSelect(failReason,unique(base.map(x=>x.failureReason)),'Todos os motivos');
-}
-function failRows(){
- const s=failSup.value,st=failStation.value,r=failReason.value;
- return DATA.filter(x=>
-   (!s||x.supervisor===s)&&
-   (!st||x.lastStation===st)&&
-   (!r||x.failureReason===r)&&
-   String(x.lastStation||'').trim()&&
-   String(x.failureReason||'').trim()
- );
-}
-function renderFailures(){
- const rows=failRows();
- failTotal.textContent=fmt(rows.length);
- failStations.textContent=fmt(new Set(rows.map(x=>x.lastStation)).size);
-
- const byStation={},byReason={},byBase={},cross={};
- rows.forEach(x=>{
-   byStation[x.lastStation]=(byStation[x.lastStation]||0)+1;
-   byReason[x.failureReason]=(byReason[x.failureReason]||0)+1;
-   byBase[x.ds||'Sem DS']=(byBase[x.ds||'Sem DS']||0)+1;
-   const k=x.lastStation+'|||'+x.failureReason;
-   cross[k]=(cross[k]||0)+1;
- });
- const stations=Object.entries(byStation).sort((a,b)=>b[1]-a[1]);
- const reasons=Object.entries(byReason).sort((a,b)=>b[1]-a[1]);
- const bases=Object.entries(byBase).sort((a,b)=>b[1]-a[1]);
- failTopStation.textContent=stations[0]?.[0]||'--';
- failTopReason.textContent=reasons[0]?.[0]||'--';
- barChart('failStationChart',stations.slice(0,15),false,200,'#52b788');
- barChart('failReasonChart',reasons.slice(0,15),false,240,'#ffd21f');
- barChart('failBaseChart',bases.slice(0,15),false,130,'#22c6d9');
-
- const matrix=Object.entries(cross).map(([k,v])=>{const [st,r]=k.split('|||');return [st,r,v]}).sort((a,b)=>b[2]-a[2]);
- failBody.innerHTML=matrix.map(x=>`<tr><td><strong>${esc(x[0])}</strong></td><td>${esc(x[1])}</td><td><strong>${fmt(x[2])}</strong></td></tr>`).join('');
-}
-
-
-function drawFailStatusReasonImage(){
- const rows=failRows();
- if(!rows.length){
-   alert('Nenhum registro de insucesso para os filtros atuais.');
-   return;
- }
- const map={};
- rows.forEach(x=>{
-   const status=String(x.status||'Sem status').trim()||'Sem status';
-   const reason=String(x.failureReason||'Sem motivo').trim()||'Sem motivo';
-   const key=status+'|||'+reason;
-   map[key]=(map[key]||0)+1;
- });
- const matrix=Object.entries(map)
-   .map(([k,v])=>{const [status,reason]=k.split('|||');return {status,reason,count:v}})
-   .sort((a,b)=>b.count-a.count);
-
- const W=1550,rowH=42,headerH=165,tableTop=190,H=Math.max(650,tableTop+48+matrix.length*rowH+65);
- const c=document.createElement('canvas');c.width=W;c.height=H;
+ const c=targetCanvas||document.createElement('canvas');
+ c.width=W;c.height=H;
  const ctx=c.getContext('2d');
+ ctx.clearRect(0,0,W,H);
+ ctx.fillStyle='#eef4fa';ctx.fillRect(0,0,W,H);
 
- ctx.fillStyle='#f7faf9';ctx.fillRect(0,0,W,H);
- ctx.fillStyle='#0755a8';ctx.fillRect(48,36,160,72);
- ctx.fillStyle='#fff';ctx.font='bold 34px Segoe UI';ctx.fillText('iMile',76,76);
- ctx.font='13px Segoe UI';ctx.fillText('Delivery',99,98);
+ // Cabeçalho azul premium, mantendo o bloco de logo funcional já usado no projeto.
+ fdRR(ctx,outer,outer,W-outer*2,headerH,18,'#0755a8');
+ fdRR(ctx,outer+24,outer+31,170,112,14,'#064486','rgba(255,255,255,.28)');
+ ctx.fillStyle='#fff';ctx.font='900 47px Segoe UI';ctx.fillText('iMile',outer+48,outer+87);
+ ctx.font='700 14px Segoe UI';ctx.fillText('D E L I V E R Y',outer+50,outer+116);
 
- ctx.fillStyle='#17382f';ctx.font='bold 31px Segoe UI';
- ctx.fillText('CONSOLIDAÇÃO · STATUS × MOTIVO DO INSUCESSO',240,70);
- ctx.fillStyle='#60736d';ctx.font='18px Segoe UI';
- ctx.fillText((failSup.value||'Todos os supervisores')+' · '+(failStation.value||'Todas as estações'),240,106);
- ctx.fillText('Motivo: '+(failReason.value||'Todos')+' · Total: '+fmt(rows.length),240,136);
+ const centerX=W/2;
+ ctx.textAlign='center';ctx.fillStyle='#d9eaff';ctx.font='800 18px Segoe UI';
+ ctx.fillText('TIKTOK SHOP OPERATIONS',centerX,outer+47);
+ ctx.fillStyle='#fff';ctx.font='900 38px Segoe UI';ctx.fillText('ACOMPANHAMENTO FD TIKTOK',centerX,outer+96);
+ ctx.fillStyle='#d9eaff';ctx.font='600 17px Segoe UI';
+ ctx.fillText('Prioridades do dia • Último Status × Última estação de leitura',centerX,outer+130);
 
- ctx.fillStyle='#0d6a91';ctx.fillRect(48,tableTop,W-96,46);
- ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';
- ctx.fillText('ÚLTIMO STATUS',65,tableTop+29);
- ctx.fillText('ÚLTIMO MOTIVO DO INSUCESSO',565,tableTop+29);
- ctx.fillText('QUANTIDADE',1350,tableTop+29);
+ const now=new Date(),date=now.toLocaleDateString('pt-BR'),time=now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+ const updateW=250,updateX=W-outer-updateW-24;
+ fdRR(ctx,updateX,outer+31,updateW,112,14,'rgba(255,255,255,.12)','rgba(255,255,255,.30)');
+ ctx.textAlign='left';ctx.fillStyle='#d9eaff';ctx.font='800 14px Segoe UI';ctx.fillText('ÚLTIMA ATUALIZAÇÃO',updateX+20,outer+61);
+ ctx.fillStyle='#fff';ctx.font='900 24px Segoe UI';ctx.fillText(date,updateX+20,outer+94);
+ ctx.font='700 17px Segoe UI';ctx.fillText(time,updateX+20,outer+121);
 
- let y=tableTop+46;
- matrix.forEach((r,i)=>{
-   ctx.fillStyle=i%2===0?'#eef6f2':'#e3f0e9';ctx.fillRect(48,y,W-96,rowH);
-   ctx.strokeStyle='#c5d9cf';ctx.strokeRect(48,y,W-96,rowH);
-   ctx.fillStyle='#17382f';ctx.font='15px Segoe UI';
-   ctx.fillText(String(r.status).slice(0,55),65,y+27);
-   ctx.fillText(String(r.reason).slice(0,78),565,y+27);
-   ctx.font='bold 15px Segoe UI';ctx.fillText(fmt(r.count),1385,y+27);
+ // Faixa de seleção.
+ const selectionY=outer+headerH+sectionGap;
+ fdRR(ctx,outer,selectionY,W-outer*2,selectionH,14,'#fff','#cfdeec');
+ ctx.fillStyle='#62809a';ctx.font='800 13px Segoe UI';ctx.fillText('SELEÇÃO',outer+24,selectionY+28);
+ ctx.fillStyle='#123b62';ctx.font='900 20px Segoe UI';ctx.fillText('Supervisor: '+sup,outer+24,selectionY+56);
+ ctx.fillStyle='#476a88';ctx.font='800 18px Segoe UI';ctx.textAlign='right';
+ ctx.fillText('DS: '+(dsSel||'Todas as bases'),W-outer-24,selectionY+49);ctx.textAlign='left';
+
+ // Cinco cards do modelo aprovado, com cor apenas nos valores importantes.
+ const cardY=selectionY+selectionH+sectionGap,cardGap=14,cardW=(W-outer*2-cardGap*4)/5;
+ const cards=[
+   ['TOTAL DE PEDIDOS',String(total),'Pedidos na seleção atual','#0755a8'],
+   ['DS ENVOLVIDOS',String(dsList.length),'Bases com pedidos','#0755a8'],
+   ['PEDIDOS ENTREGUES',String(delivered),(total?(delivered/total*100):0).toFixed(1).replace('.',',')+'% do total','#16845b'],
+   ['MAIOR VOLUME',biggest.ds,biggest.total+' pedidos','#0755a8'],
+   ['MENOR VOLUME',smallest.ds,smallest.total+' pedidos','#0755a8']
+ ];
+ cards.forEach(([label,value,sub,accent],i)=>{
+   const x=outer+i*(cardW+cardGap);
+   fdRR(ctx,x,cardY,cardW,cardsH,14,'#fff','#cfdeec');
+   ctx.fillStyle=accent;ctx.fillRect(x,cardY,7,cardsH);
+   ctx.fillStyle='#62809a';ctx.font='800 14px Segoe UI';ctx.fillText(label,x+22,cardY+31);
+   ctx.fillStyle=accent;ctx.font=(i>2?'900 25px':'900 38px')+' Segoe UI';
+   ctx.fillText(fdFit(ctx,value,cardW-42),x+22,cardY+82);
+   ctx.fillStyle='#6f879a';ctx.font='700 15px Segoe UI';ctx.fillText(fdFit(ctx,sub,cardW-42),x+22,cardY+114);
+ });
+
+ // Painel e tabela compacta. A imagem termina imediatamente após TOTAL FD.
+ fdRR(ctx,outer,tableY,W-outer*2,tableH,16,'#fff','#c5d8e8');
+ ctx.fillStyle='#e8f2fb';ctx.fillRect(outer+1,tableY+1,W-outer*2-2,titleH-1);
+ ctx.fillStyle='#0755a8';ctx.font='900 25px Segoe UI';ctx.fillText('TOTAL FINAL POR STATUS',outer+24,tableY+35);
+ ctx.fillStyle='#5d7890';ctx.font='700 15px Segoe UI';ctx.fillText('Bases/DS nas linhas • Status nas colunas',outer+24,tableY+59);
+
+ let y=tableY+titleH;
+ const tableX=outer;
+ ctx.fillStyle='#0755a8';ctx.fillRect(tableX,y,W-outer*2,headH);
+ ctx.fillStyle='#fff';ctx.font='900 17px Segoe UI';ctx.textAlign='left';ctx.fillText('BASE / DS',tableX+20,y+49);
+ statuses.forEach((st,i)=>{
+   const x=tableX+firstCol+i*statusCol;
+   const n=norm(st),special=n==='entregue'?'#e8f7f0':n==='em rota de entrega'?'#fff5dc':'#eaf3fb';
+   fdRR(ctx,x+5,y+10,statusCol-10,headH-20,9,special,'rgba(255,255,255,.35)');
+   ctx.fillStyle=n==='entregue'?'#14704d':n==='em rota de entrega'?'#946700':'#174f7c';
+   ctx.font='900 15px Segoe UI';ctx.textAlign='center';
+   const words=String(st).split(' '),line1=fdFit(ctx,words.slice(0,Math.ceil(words.length/2)).join(' '),statusCol-22),line2=fdFit(ctx,words.slice(Math.ceil(words.length/2)).join(' '),statusCol-22);
+   ctx.fillText(line1,x+statusCol/2,y+37);if(line2)ctx.fillText(line2,x+statusCol/2,y+57);
+ });
+ let totalsX=tableX+firstCol+statuses.length*statusCol;
+ ctx.fillStyle='#fff';ctx.font='900 16px Segoe UI';ctx.textAlign='center';
+ ctx.fillText('TOTAL',totalsX+totalCol/2,y+39);ctx.fillText('GERAL',totalsX+totalCol/2,y+59);
+ ctx.fillText('% DO',totalsX+totalCol+pctCol/2,y+39);ctx.fillText('TOTAL',totalsX+totalCol+pctCol/2,y+59);
+ y+=headH;
+
+ const statusTotals={};statuses.forEach(st=>statusTotals[st]=0);
+ dsList.forEach((ds,ri)=>{
+   const baseRows=rows.filter(r=>r.ds===ds),baseTotal=baseRows.length;
+   ctx.fillStyle=ri%2===0?'#f7fafc':'#eef4f9';ctx.fillRect(tableX,y,W-outer*2,rowH);
+   ctx.strokeStyle='#d7e3ed';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(tableX,y+rowH);ctx.lineTo(W-outer,y+rowH);ctx.stroke();
+   ctx.fillStyle='#173d60';ctx.font='900 18px Segoe UI';ctx.textAlign='left';ctx.fillText(fdFit(ctx,ds,firstCol-36),tableX+20,y+37);
+   statuses.forEach((st,i)=>{
+     const n=baseRows.filter(r=>r.status===st).length;statusTotals[st]+=n;
+     ctx.fillStyle=n?'#163f63':'#9aabba';ctx.font=n?'900 18px Segoe UI':'700 16px Segoe UI';ctx.textAlign='center';
+     ctx.fillText(n?String(n):'–',tableX+firstCol+i*statusCol+statusCol/2,y+37);
+   });
+   ctx.fillStyle='#0755a8';ctx.font='900 19px Segoe UI';ctx.fillText(String(baseTotal),totalsX+totalCol/2,y+37);
+   ctx.fillStyle='#466b89';ctx.font='900 17px Segoe UI';ctx.fillText((baseTotal/total*100).toFixed(1).replace('.',',')+'%',totalsX+totalCol+pctCol/2,y+37);
    y+=rowH;
  });
 
- ctx.fillStyle='#0b4d3d';ctx.fillRect(48,y,W-96,48);
- ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';
- ctx.fillText('TOTAL DE REGISTROS: '+fmt(rows.length),65,y+30);
+ ctx.fillStyle='#064486';ctx.fillRect(tableX,y,W-outer*2,rowH);
+ ctx.fillStyle='#fff';ctx.font='900 19px Segoe UI';ctx.textAlign='left';ctx.fillText('TOTAL FD',tableX+20,y+38);
+ statuses.forEach((st,i)=>{ctx.textAlign='center';ctx.fillText(String(statusTotals[st]),tableX+firstCol+i*statusCol+statusCol/2,y+38)});
+ ctx.fillText(String(total),totalsX+totalCol/2,y+38);ctx.fillText('100,0%',totalsX+totalCol+pctCol/2,y+38);ctx.textAlign='left';
 
- const a=document.createElement('a');
- a.href=c.toDataURL('image/png');
- a.download='Consolidacao_Status_x_Motivo_Insucesso_'+(failSup.value||'Regional').replace(/\s+/g,'_')+'.png';
- a.click();
+ if(autoDownload){
+   const a=document.createElement('a');
+   a.href=c.toDataURL('image/png');
+   a.download='Acompanhamento_FD_TIKTOK_'+String(sup).replace(/[^\w]+/g,'_')+'.png';
+   a.click();
+ }
+ return {canvas:c,total,delivered,route,pending,pctDelivered,sup,dsSel,dsCount:dsList.length};
 }
-
+function renderFinalReportPreview(){
+ const canvas=document.getElementById('finalReportPreviewCanvas');
+ const result=buildFdFullReport(canvas,false);
+ if(!result)return;
+ finalPreviewSummary.textContent=`${result.total} pedidos · ${result.delivered} entregues · ${result.route} em rota · ${result.pending} pendentes · ${result.dsCount} DS`;
+}
+function downloadFinalReport(){
+ buildFdFullReport(document.getElementById('finalReportPreviewCanvas'),true);
+}
 
 function render(){
  const rows=filtered(),total=rows.length,del=rows.filter(x=>isDelivered(x.status)).length,rec=rows.filter(x=>isReceived(x.status)).length,other=Math.max(0,total-del-rec);
@@ -880,152 +770,36 @@ function render(){
  renderDriverReport();
  renderAwbView();
 }
-
-function imageMatrixData(){
- const rows=filteredImage();
- const preferred=[
-   'Entregue','Em rota de entrega','Leitura do inventário','recebido no DS',
-   'devolução consolidada','Transferência concluída','retorno de insucesso','unseal vehicle'
- ];
- const statusTotals={};
- const baseMap={};
- rows.forEach(x=>{
-   const base=imageBaseOf(x);
-   const status=String(x.status||'Sem status').trim()||'Sem status';
-   statusTotals[status]=(statusTotals[status]||0)+1;
-   if(!baseMap[base])baseMap[base]={};
-   baseMap[base][status]=(baseMap[base][status]||0)+1;
- });
- const allStatuses=Object.keys(statusTotals);
- const statusOrder=[];
- preferred.forEach(p=>{
-   const found=allStatuses.find(s=>norm(s)===norm(p));
-   if(found && !statusOrder.includes(found))statusOrder.push(found);
- });
- allStatuses
-   .filter(s=>!statusOrder.includes(s))
-   .sort((a,b)=>(statusTotals[b]||0)-(statusTotals[a]||0))
-   .forEach(s=>statusOrder.push(s));
- const bases=Object.keys(baseMap).sort((a,b)=>a.localeCompare(b,'pt-BR'));
- return {rows,statusTotals,baseMap,statusOrder,bases,total:rows.length};
-}
-
 function renderImage(){
- const m=imageMatrixData();
- imageSupName.textContent=imgSup.value||'Regional SP';
- imageDsName.textContent=imgDs.value||'Todas as DSs';
-
- imageMatrixHead.innerHTML='<tr><th>BASE</th>'+
-   m.statusOrder.map(s=>`<th>${esc(s)}</th>`).join('')+
-   '<th>TOTAL</th></tr>';
-
- imageMatrixBody.innerHTML=m.bases.map(base=>{
-   const total=m.statusOrder.reduce((sum,s)=>sum+(m.baseMap[base][s]||0),0);
-   return '<tr><td><strong>'+esc(base)+'</strong></td>'+
-     m.statusOrder.map(s=>`<td>${m.baseMap[base][s]?fmt(m.baseMap[base][s]):'-'}</td>`).join('')+
-     `<td><strong>${fmt(total)}</strong></td></tr>`;
- }).join('');
-
- imageMatrixFoot.innerHTML='<tr><th>TOTAL FD</th>'+
-   m.statusOrder.map(s=>`<th>${m.statusTotals[s]?fmt(m.statusTotals[s]):'-'}</th>`).join('')+
-   `<th>${fmt(m.total)}</th></tr>`;
-}
-
-function wrapTextLines(ctx,text,maxWidth){
- const words=String(text||'').split(/\s+/),lines=[];let line='';
- words.forEach(w=>{
-   const test=line?line+' '+w:w;
-   if(ctx.measureText(test).width>maxWidth && line){lines.push(line);line=w}else line=test;
- });
- if(line)lines.push(line);
- return lines.slice(0,3);
+ const rows=filteredImage(),total=rows.length,del=rows.filter(x=>isDelivered(x.status)).length,rec=rows.filter(x=>isReceived(x.status)).length;const st={};rows.forEach(x=>st[x.status]=(st[x.status]||0)+1);const entries=Object.entries(st).sort((a,b)=>b[1]-a[1]);
+ imageSupName.textContent=imgSup.value||'Regional SP';imageDsName.textContent=imgDs.value||'Todas as DSs';imageTotal.textContent=fmt(total)+' pedidos';imageGrandTotal.textContent=fmt(total);imageDelivered.textContent=fmt(del);imageReceived.textContent=fmt(rec);imagePct.textContent=rec?pct(del/rec):'0,00%';
+ imageStatusTable.innerHTML=entries.map(([s,v])=>`<tr style="${isDelivered(s)?'background:#e2f6e9;':isReceived(s)?'background:#fff1aa;':''}"><td><strong>${esc(s)}</strong></td><td>${fmt(v)}</td><td>${pct(v/Math.max(total,1))}</td></tr>`).join('');
 }
 
 function drawImage(){
- const m=imageMatrixData();
- if(!m.total){alert('Nenhum pedido para os filtros atuais.');return}
-
- const baseW=190,statusW=160,totalW=110,left=40,right=40;
- const W=Math.max(1450,left+baseW+m.statusOrder.length*statusW+totalW+right);
- const rowH=52,headerY=210,headH=88,footerH=58;
- const H=Math.max(700,headerY+headH+m.bases.length*rowH+footerH+50);
+ const rows=filteredImage(),total=rows.length,del=rows.filter(x=>isDelivered(x.status)).length,rec=rows.filter(x=>isReceived(x.status)).length;const st={};rows.forEach(x=>st[x.status]=(st[x.status]||0)+1);const entries=Object.entries(st).sort((a,b)=>b[1]-a[1]);
+ const W=1500,rowH=44,header=190,tableTop=205,H=Math.max(650,tableTop+100+entries.length*rowH);
  const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
-
  ctx.fillStyle='#f7faf9';ctx.fillRect(0,0,W,H);
+ ctx.fillStyle='#0b4c88';ctx.fillRect(0,0,W,12);
+ ctx.fillStyle='#0755a8';ctx.fillRect(55,34,150,70);ctx.fillStyle='#fff';ctx.font='bold 32px Segoe UI';ctx.fillText('iMile',80,69);ctx.font='12px Segoe UI';ctx.fillText('Delivery',100,90);ctx.fillStyle='#111';ctx.font='bold 34px Segoe UI';ctx.fillText('ACOMPANHAMENTO PRIORIDADES FD TIKTOK',235,72);
+ ctx.fillStyle='#0b6c8a';ctx.font='bold 28px Segoe UI';ctx.fillText(imgSup.value||'Regional SP',55,116);
+ ctx.fillStyle='#66736f';ctx.font='20px Segoe UI';ctx.fillText(imgDs.value||'Todas as DSs',55,150);
+ ctx.textAlign='right';ctx.fillStyle='#17332d';ctx.font='bold 26px Segoe UI';ctx.fillText(fmt(total)+' pedidos',W-55,92);ctx.textAlign='left';
 
- // Logo / header exactly in the approved matrix style
- ctx.fillStyle='#0755a8';ctx.fillRect(40,32,150,82);
- ctx.fillStyle='#fff';ctx.font='bold 34px Segoe UI';ctx.fillText('iMile',64,75);
- ctx.font='13px Segoe UI';ctx.fillText('Delivery',90,99);
+ const left=55,tableW=820,summaryX=930;
+ ctx.fillStyle='#4f86bd';ctx.fillRect(left,tableTop,tableW,46);ctx.fillStyle='#fff';ctx.font='bold 18px Segoe UI';ctx.fillText('STATUS',left+16,tableTop+29);ctx.fillText('QTDADE',left+570,tableTop+29);ctx.fillText('%',left+730,tableTop+29);
+ let y=tableTop+46;ctx.font='17px Segoe UI';
+ entries.forEach(([s,v])=>{ctx.fillStyle=isDelivered(s)?'#dff5e9':isReceived(s)?'#fff0a8':'#f4f7f6';ctx.fillRect(left,y,tableW,rowH);ctx.strokeStyle='#c4d3cf';ctx.strokeRect(left,y,tableW,rowH);ctx.fillStyle='#152c26';ctx.fillText(s,left+16,y+29);ctx.textAlign='right';ctx.fillText(fmt(v),left+650,y+29);ctx.fillText(pct(v/Math.max(total,1)),left+800,y+29);ctx.textAlign='left';y+=rowH});
+ ctx.fillStyle='#4f86bd';ctx.fillRect(left,y,tableW,46);ctx.fillStyle='#fff';ctx.font='bold 18px Segoe UI';ctx.fillText('TOTAL GERAL',left+16,y+29);ctx.textAlign='right';ctx.fillText(fmt(total),left+650,y+29);ctx.fillText('100,00%',left+800,y+29);ctx.textAlign='left';
 
- ctx.fillStyle='#17382f';ctx.font='bold 34px Segoe UI';
- ctx.fillText('TOTAL POR BASE · STATUS EM COLUNAS',225,64);
- ctx.fillStyle='#0d6a91';ctx.font='bold 25px Segoe UI';
- ctx.fillText(imgSup.value||'Regional SP',225,99);
- ctx.fillStyle='#65736f';ctx.font='18px Segoe UI';
- ctx.fillText(imgDs.value||'Todas as DSs',225,130);
+ ctx.fillStyle='#17332d';ctx.font='bold 22px Segoe UI';ctx.fillText('ENTREGUES EM RELAÇÃO A RECEBIDOS NO DS',summaryX,tableTop+25);
+ ctx.fillStyle='#188f50';ctx.font='bold 28px Segoe UI';ctx.fillText('Entregues: '+fmt(del),summaryX,tableTop+90);
+ ctx.fillStyle='#e9c400';ctx.fillRect(summaryX,tableTop+118,460,64);ctx.fillStyle='#222';ctx.font='bold 24px Segoe UI';ctx.fillText('Recebidos no DS: '+fmt(rec),summaryX+18,tableTop+158);
+ ctx.fillStyle='#188f50';ctx.font='bold 54px Segoe UI';ctx.fillText(rec?pct(del/rec):'0,00%',summaryX,tableTop+250);
+ ctx.fillStyle='#4c615b';ctx.font='20px Segoe UI';
 
- ctx.fillStyle='#d8ece7';ctx.fillRect(left,155,W-left-right,46);
- ctx.fillStyle='#0d6173';ctx.font='bold 20px Segoe UI';
- ctx.fillText('▣  Pedidos alocados pela Última estação de leitura',left+16,185);
-
- // Header
- let x=left;
- ctx.fillStyle='#11848a';ctx.fillRect(x,headerY,baseW,headH);
- ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';ctx.textAlign='left';
- ctx.fillText('BASE',x+16,headerY+52);x+=baseW;
-
- ctx.textAlign='center';
- m.statusOrder.forEach(s=>{
-   ctx.fillStyle='#11848a';ctx.fillRect(x,headerY,statusW,headH);
-   ctx.fillStyle='#fff';ctx.font='bold 14px Segoe UI';
-   const lines=wrapTextLines(ctx,s,statusW-16);
-   const startY=headerY+34-(lines.length-1)*9;
-   lines.forEach((line,i)=>ctx.fillText(line,x+statusW/2,startY+i*19));
-   x+=statusW;
- });
- ctx.fillStyle='#11848a';ctx.fillRect(x,headerY,totalW,headH);
- ctx.fillStyle='#fff';ctx.font='bold 15px Segoe UI';ctx.fillText('TOTAL',x+totalW/2,headerY+52);
-
- // Body
- let y=headerY+headH;
- m.bases.forEach((base,ri)=>{
-   x=left;
-   ctx.fillStyle=ri%2===0?'#f7faf9':'#eaf4f0';
-   ctx.fillRect(left,y,W-left-right,rowH);
-   ctx.strokeStyle='#d5e5df';ctx.beginPath();ctx.moveTo(left,y+rowH);ctx.lineTo(W-right,y+rowH);ctx.stroke();
-
-   ctx.fillStyle='#17382f';ctx.textAlign='left';ctx.font='16px Segoe UI';
-   ctx.fillText(base,x+16,y+33);x+=baseW;
-
-   ctx.textAlign='center';
-   let rowTotal=0;
-   m.statusOrder.forEach(s=>{
-     const v=m.baseMap[base][s]||0;rowTotal+=v;
-     ctx.fillStyle='#213d36';ctx.font='15px Segoe UI';
-     ctx.fillText(v?fmt(v):'-',x+statusW/2,y+33);x+=statusW;
-   });
-   ctx.fillStyle='#0d6173';ctx.font='bold 16px Segoe UI';
-   ctx.fillText(fmt(rowTotal),x+totalW/2,y+33);
-   y+=rowH;
- });
-
- // Footer TOTAL FD
- x=left;
- ctx.fillStyle='#0b6d57';ctx.fillRect(left,y,W-left-right,footerH);
- ctx.fillStyle='#fff';ctx.textAlign='left';ctx.font='bold 16px Segoe UI';
- ctx.fillText('TOTAL FD',x+16,y+36);x+=baseW;
- ctx.textAlign='center';
- m.statusOrder.forEach(s=>{
-   ctx.font='bold 17px Segoe UI';
-   ctx.fillText(fmt(m.statusTotals[s]||0),x+statusW/2,y+36);x+=statusW;
- });
- ctx.font='bold 18px Segoe UI';ctx.fillText(fmt(m.total),x+totalW/2,y+36);
-
- const a=document.createElement('a');
- a.href=c.toDataURL('image/png');
- a.download='Total_por_Base_Status_em_Colunas_'+(imgSup.value||'Regional').replace(/\s+/g,'_')+'.png';
- a.click();
+ const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='Acompanhamento_Prioridades_FD_TIKTOK_'+(imgSup.value||'Regional').replace(/\s+/g,'_')+'.png';a.click();
 }
 
 function colIdx(ref){const m=String(ref||'').match(/^([A-Z]+)/);if(!m)return-1;let n=0;for(const ch of m[1])n=n*26+ch.charCodeAt(0)-64;return n-1}
@@ -1038,34 +812,26 @@ async function parseExcel(file){
  function readRow(row){const arr=[];[...row.getElementsByTagNameNS('*','c')].forEach((c,j)=>{const ci=colIdx(c.getAttribute('r')),ix=ci>=0?ci:j,t=c.getAttribute('t');let val='';if(t==='inlineStr')val=[...c.getElementsByTagNameNS('*','t')].map(x=>x.textContent||'').join('');else{const v=c.getElementsByTagNameNS('*','v')[0];if(v)val=t==='s'?shared[+v.textContent]:v.textContent}arr[ix]=val});return arr}
  for(const name of sheets){const d=new DOMParser().parseFromString(await zip.file(name).async('text'),'application/xml'),rs=[...d.getElementsByTagNameNS('*','row')];for(let ri=0;ri<Math.min(25,rs.length);ri++){const arr=readRow(rs[ri]);if(arr.some(x=>norm(x)==='ultimo status')&&arr.some(x=>norm(x)==='station')){doc=d;headerI=ri;headers=arr;break}}if(doc)break}
  if(!doc)throw new Error('Não encontrei as colunas Último status e Station.');
- const find=t=>headers.findIndex(x=>norm(x)===norm(t));const idxStatus=find('Último status'),idxStation=find('Station'),idxAwb=find('AWB principal'),idxDriver=find('Motorista'),idxRead=find('Horário da última leitura'),idxLastStation=find('Última estação de leitura'),idxRecv=find('Base de recebimento'),idxFailure=find('Último motivo do Insucesso');
- const out=[];[...doc.getElementsByTagNameNS('*','row')].slice(headerI+1).forEach(row=>{const arr=readRow(row),ds=String(arr[idxStation]||arr[idxLastStation]||'').trim();if(!ds)return;out.push({awb:String(arr[idxAwb]||''),ds,supervisor:SUPERVISOR_MAP[ds]||'Sem supervisor definido',status:String(arr[idxStatus]||'Sem status').trim()||'Sem status',driver:String(arr[idxDriver]||''),lastRead:String(arr[idxRead]||''),lastStation:String(arr[idxLastStation]||''),receivingBase:String(arr[idxRecv]||''),failureReason:idxFailure>=0?String(arr[idxFailure]||'').trim():''})});return out;
+ const find=t=>headers.findIndex(x=>norm(x)===norm(t));const idxStatus=find('Último status'),idxStation=find('Station'),idxAwb=find('AWB principal'),idxDriver=find('Motorista'),idxRead=find('Horário da última leitura'),idxLastStation=find('Última estação de leitura'),idxRecv=find('Base de recebimento');
+ const out=[];[...doc.getElementsByTagNameNS('*','row')].slice(headerI+1).forEach(row=>{const arr=readRow(row),ds=String(arr[idxStation]||arr[idxLastStation]||'').trim();if(!ds)return;out.push({awb:String(arr[idxAwb]||''),ds,supervisor:SUPERVISOR_MAP[ds]||'Sem supervisor definido',status:String(arr[idxStatus]||'Sem status').trim()||'Sem status',driver:String(arr[idxDriver]||''),lastRead:String(arr[idxRead]||''),lastStation:String(arr[idxLastStation]||''),receivingBase:String(arr[idxRecv]||'')})});return out;
 }
 
 supFilter.addEventListener('change',()=>{refreshDs();render()});dsFilter.addEventListener('change',render);
-imgSup.addEventListener('change',()=>{refreshImgDs();renderImage()});imgDs.addEventListener('change',renderImage);driverSup.addEventListener('change',()=>{refreshDriverDs();renderDriverReport()});driverDs.addEventListener('change',renderDriverReport);downloadDriverReportBtn.addEventListener('click',drawDriverReportImage);
+imgSup.addEventListener('change',()=>{refreshImgDs();renderImage();renderFinalReportPreview()});imgDs.addEventListener('change',()=>{renderImage();renderFinalReportPreview()});driverSup.addEventListener('change',()=>{refreshDriverDs();renderDriverReport()});driverDs.addEventListener('change',renderDriverReport);downloadDriverReportBtn.addEventListener('click',drawDriverReportImage);
 awbSup.addEventListener('change',()=>{refreshAwbDs();renderAwbView()});
 awbDs.addEventListener('change',renderAwbView);
 awbSearch.addEventListener('input',renderAwbView);
 awbRouteBtn.addEventListener('click',()=>setAwbMode('route'));
 awbDsInvBtn.addEventListener('click',()=>setAwbMode('dsinv'));
-treatSup.addEventListener('change',()=>{refreshTreatDs();renderTreatments()});
-treatDs.addEventListener('change',()=>{refreshTreatDates();renderTreatments()});
-treatDate.addEventListener('change',renderTreatments);
-treatSearch.addEventListener('input',renderTreatments);
-treatRouteBtn.addEventListener('click',()=>setTreatMode('route'));
-treatDsInvBtn.addEventListener('click',()=>setTreatMode('dsinv'));
-failSup.addEventListener('change',()=>{refreshFailFilters();renderFailures()});
-failStation.addEventListener('change',renderFailures);
-failReason.addEventListener('change',renderFailures);
-failStatusReasonImageBtn.addEventListener('click',drawFailStatusReasonImage);
 downloadAwbDsInvImageBtn.addEventListener('click',drawAwbDsInventoryImage);
 downloadAwbDriversImageBtn.addEventListener('click',drawAwbDriversImage);
 loadBtn.addEventListener('click',()=>fileInput.click());
-fileInput.addEventListener('change',async()=>{const f=fileInput.files[0];if(!f)return;try{DATA=await parseExcel(f);refreshFilters();render();}catch(e){alert('Erro ao carregar: '+e.message)}});
+fileInput.addEventListener('change',async()=>{const f=fileInput.files[0];if(!f)return;try{DATA=await parseExcel(f);refreshFilters();render();setTimeout(renderFinalReportPreview,50);}catch(e){alert('Erro ao carregar: '+e.message)}});
 downloadImageBtn.addEventListener('click',drawImage);
+refreshFinalPreviewBtn.addEventListener('click',renderFinalReportPreview);
+downloadFinalReportBtn.addEventListener('click',downloadFinalReport);
 goImageBtn.addEventListener('click',()=>{document.querySelector('[data-view="image"]').click()});
-document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('view-'+b.dataset.view).classList.add('active');if(b.dataset.view==='dashboard')setTimeout(render,30);else if(b.dataset.view==='drivers')setTimeout(renderDriverReport,30);else if(b.dataset.view==='awb')setTimeout(renderAwbView,30);else if(b.dataset.view==='treatments')setTimeout(renderTreatments,30);else if(b.dataset.view==='failures')setTimeout(renderFailures,30);else renderImage();}));
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('view-'+b.dataset.view).classList.add('active');if(b.dataset.view==='dashboard')setTimeout(render,30);else if(b.dataset.view==='drivers')setTimeout(renderDriverReport,30);else if(b.dataset.view==='awb')setTimeout(renderAwbView,30);else {renderImage();setTimeout(renderFinalReportPreview,30);}}));
 window.addEventListener('resize',()=>{if(document.getElementById('view-dashboard').classList.contains('active'))render()});
 refreshFilters();render();
 </script>
