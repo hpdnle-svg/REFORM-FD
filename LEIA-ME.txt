@@ -1,11 +1,7 @@
-ACOMPANHAMENTO PRIORIDADES FD TIKTOK — FINAL V4
+ACOMPANHAMENTO PRIORIDADES FD TIKTOK - FINAL V4
 
-1. Mantenha index.html e jszip.min.js na mesma pasta.
-2. Abra index.html no Google Chrome ou Microsoft Edge.
-3. Importe a planilha Excel pela área de importação do painel.
-4. Use as abas e filtros normalmente.
-5. No GERADOR FINAL, selecione Supervisor e DS, atualize a prévia e baixe a imagem PNG.
-
-O Gerador Final mantém Bases/DS nas linhas e Status nas colunas. A imagem usa o visual executivo aprovado, com tipografia maior, paleta predominantemente azul/branco e término imediato após TOTAL FD.
-
-Não altere o nome nem remova jszip.min.js: ele é necessário para a importação de arquivos Excel.
+- Modelo aprovado replicado com visual mais sóbrio.
+- Menos cores e tipografia maior.
+- Bases/DS nas linhas e Status nas colunas.
+- Cards, data/hora, Total Geral, percentual e TOTAL FD preservados.
+- Cálculos, filtros e alimentação Excel mantidos.
