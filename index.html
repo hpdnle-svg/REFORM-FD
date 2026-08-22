@@ -224,6 +224,48 @@ canvas.chart{display:block;width:100%;height:280px}
 .finalGenTable tbody td[data-status="em rota de entrega"] strong{color:#176bd0!important}
 .finalGenTable tfoot th[data-status]{color:#fff!important}
 .pctBar{font-size:14px!important}.pctFill{background:#176bd0!important}
+.finalGenTable tbody td strong{color:#0b2f63!important}
+.finalGenTable tbody td[data-status] strong{color:#0b2f63!important}
+.finalGenTable tfoot th{background:#0a4298!important;color:#fff!important;border-top:2px solid #0b4eaf!important}
+.finalGenTable tfoot th[data-status]{color:#fff!important}
+
+/* V7 · Tema executivo iMile aplicado a todas as abas */
+:root{--imile-navy:#06255f;--imile-blue:#0a49a7;--imile-bright:#0c63d8;--imile-yellow:#ffd21f;--imile-ink:#0b2b5e;--imile-muted:#5e718e;--imile-line:#d7e1ed;--imile-soft:#f2f6fb;--shadow:0 10px 24px rgba(20,55,110,.10)!important}
+html,body{background:#edf3f9!important;color:var(--imile-ink)!important;font-family:Segoe UI,Arial,sans-serif!important}
+.header{grid-template-columns:190px 1fr 270px!important;min-height:94px!important;padding:14px 24px!important;border:0!important;background:linear-gradient(110deg,#001c56 0%,#073c8d 58%,#0b58c4 100%)!important;box-shadow:0 5px 18px rgba(4,34,86,.24)!important}
+.logo{padding:0!important;background:transparent!important;border-radius:0!important;text-align:left!important;font-size:42px!important;line-height:.9!important;letter-spacing:-1.5px!important}.logo small{text-align:left!important;font-size:13px!important;margin:8px 0 0 19px!important}
+.title{font-size:31px!important;color:#fff!important;letter-spacing:.2px!important}.title span{color:var(--imile-yellow)!important}
+.dateBox{color:#fff!important;border:1px solid rgba(255,255,255,.72)!important;border-radius:13px!important;padding:10px 14px!important;text-align:center!important;font-size:17px!important;background:rgba(0,24,72,.16)!important}.dateBox small{color:#dceaff!important;font-size:11px!important}
+.body{grid-template-columns:165px 1fr!important;min-height:calc(100vh - 94px)!important}
+.sidebar{padding:20px 12px!important;border:0!important;background:linear-gradient(180deg,#03265f 0%,#074392 100%)!important;box-shadow:5px 0 18px rgba(12,52,110,.12)!important}
+.navbtn{min-height:72px!important;margin-bottom:10px!important;padding:11px 8px!important;border:1px solid rgba(255,255,255,.13)!important;border-radius:13px!important;background:rgba(255,255,255,.055)!important;color:#e7f0ff!important;font-size:12px!important;line-height:1.35!important;transition:.18s ease!important}
+.navbtn:hover{transform:translateY(-1px)!important;background:rgba(255,255,255,.11)!important}.navbtn.active{background:#fff!important;color:var(--imile-navy)!important;border-color:#fff!important;box-shadow:0 8px 18px rgba(0,20,65,.23),inset 5px 0 var(--imile-yellow)!important}
+.sideCard{margin-top:22px!important;padding:14px 8px!important;border:1px solid rgba(255,255,255,.28)!important;border-radius:13px!important;background:rgba(0,20,60,.18)!important;color:#dceaff!important;font-size:11px!important}.sideCard strong{font-size:32px!important;color:#fff!important}
+.main{max-width:1700px!important;padding:22px 24px 30px!important}
+.toolbar,.driverControls,.imageControls,.opsControls,.treatControls,.insightControls{gap:14px!important;margin-bottom:18px!important}
+.filter{min-height:74px!important;padding:11px 14px!important;border:1px solid var(--imile-line)!important;border-radius:13px!important;background:#fff!important;box-shadow:0 5px 14px rgba(24,58,110,.07)!important}
+.filter label{margin-bottom:7px!important;color:var(--imile-navy)!important;font-size:12px!important;letter-spacing:.25px!important}
+select,input[type=file],input[type=text],.multiDateSelect{width:100%!important;padding:10px 11px!important;border:1px solid #c8d6e6!important;border-radius:9px!important;background:#f7f9fc!important;color:var(--imile-ink)!important;outline:none!important}select:focus,input:focus,.multiDateSelect:focus{border-color:#4385d5!important;box-shadow:0 0 0 3px rgba(26,102,201,.12)!important}
+.action,.opsImageBtn,.failImageBtn{min-height:45px!important;border-radius:10px!important;box-shadow:0 5px 13px rgba(9,67,151,.14)!important;transition:.18s ease!important}.action:hover,.opsImageBtn:hover,.failImageBtn:hover{transform:translateY(-1px)!important;filter:brightness(1.04)!important}
+.blue,.opsImageBtn.blue{background:linear-gradient(135deg,#083a88,#0c62d4)!important;color:#fff!important}.yellowBtn,.opsImageBtn.yellow,.failImageBtn{background:var(--imile-yellow)!important;color:#312b00!important}
+.cards,.driverSummary,.opsCards,.insightCards{gap:14px!important;margin-bottom:18px!important}
+.card,.driverStat,.opsCard,.insightCard{position:relative!important;overflow:hidden!important;min-height:118px!important;padding:18px 20px!important;border:1px solid var(--imile-line)!important;border-top:5px solid var(--imile-blue)!important;border-radius:15px!important;background:#fff!important;color:var(--imile-ink)!important;box-shadow:0 8px 20px rgba(21,55,108,.09)!important}
+.card:after,.driverStat:after,.opsCard:after,.insightCard:after{content:""!important;position:absolute!important;right:-26px!important;top:-30px!important;width:92px!important;height:92px!important;border-radius:50%!important;background:#edf4ff!important}
+.card.yellow,.card.blueCard{border-color:var(--imile-line)!important;border-top-color:var(--imile-blue)!important;background:#fff!important}
+.card .label,.driverStat>div:first-child,.opsCard>div:first-child,.insightCard>div:first-child{position:relative!important;z-index:1!important;color:var(--imile-navy)!important;font-size:13px!important;font-weight:900!important}.card .value{position:relative!important;z-index:1!important;margin:8px 0 4px!important;color:var(--imile-navy)!important;font-size:44px!important}.card .sub{position:relative!important;z-index:1!important;color:var(--imile-muted)!important;font-size:13px!important}.driverStat .n,.opsCard .n,.insightCard .n{position:relative!important;z-index:1!important;color:var(--imile-navy)!important;font-size:34px!important}
+.greenText,.yellowText,.blueText{color:var(--imile-navy)!important}
+.grid2{gap:16px!important;margin-bottom:16px!important}
+.panel{padding:18px!important;border:1px solid var(--imile-line)!important;border-radius:16px!important;background:#fff!important;color:var(--imile-ink)!important;box-shadow:0 8px 21px rgba(21,55,108,.08)!important}.panel h2{color:var(--imile-navy)!important;font-size:21px!important;font-weight:900!important}.panel p{margin:6px 0 15px!important;color:var(--imile-muted)!important;font-size:13px!important}
+.statusWrap{grid-template-columns:205px minmax(0,1fr)!important;gap:12px!important}.donut{width:205px!important;height:205px!important}.centerText{color:var(--imile-navy)!important;font-size:25px!important}.centerText span{color:var(--imile-muted)!important}.statusWrap th,.statusWrap td{padding:9px 7px!important;font-size:10.5px!important}
+.tableWrap,.driverTableWrap,.opsTableWrap,.insightTableWrap{border:1px solid var(--imile-line)!important;border-radius:12px!important;background:#fff!important;box-shadow:none!important}
+table{color:var(--imile-ink)!important}th,.driverTable th,.opsTable th,.insightTable th,.matrixTable th{padding:12px 11px!important;background:linear-gradient(110deg,#07377e,#0b55ba)!important;color:#fff!important;font-size:12px!important;font-weight:900!important;border-right:1px solid rgba(255,255,255,.18)!important}td,.driverTable td,.opsTable td,.insightTable td,.matrixTable td{padding:11px!important;border-bottom:1px solid #e1e8f1!important;color:var(--imile-ink)!important;font-size:12px!important;background:#fff!important}tbody tr:nth-child(even) td,.driverTable tr:nth-child(even) td,.opsTable tr:nth-child(even) td,.insightTable tr:nth-child(even) td,.matrixTable tbody tr:nth-child(even) td{background:#f5f8fc!important}tbody tr:hover td,.driverTable tr:hover td,.opsTable tr:hover td,.insightTable tr:hover td{background:#eaf2ff!important}
+.opsBtn,.treatBtn{padding:11px 17px!important;border:1px solid #c9d9eb!important;border-radius:10px!important;background:#f1f6fc!important;color:var(--imile-navy)!important}.opsBtn.active,.treatBtn.active{border-color:var(--imile-blue)!important;background:linear-gradient(135deg,#083a88,#0c62d4)!important;color:#fff!important;box-shadow:0 5px 13px rgba(10,73,167,.17)!important}
+.treatControls,.insightControls{align-items:start!important}.treatDateRow td{background:#0a4298!important;color:#fff!important;font-size:13px!important}.multiDateSelect{min-height:112px!important}
+.matrixPreview{padding:20px!important;border:1px solid var(--imile-line)!important;border-radius:16px!important;background:#fff!important;box-shadow:0 8px 21px rgba(21,55,108,.08)!important}.matrixPreviewLogo{border-radius:10px!important;background:linear-gradient(135deg,#063374,#0c5bc8)!important}.matrixPreviewTitle h2{color:var(--imile-navy)!important;font-size:27px!important}.matrixPreviewTitle .sup{color:var(--imile-blue)!important}.matrixPreviewTitle .ds{color:var(--imile-muted)!important}.matrixBand{border:1px solid #cbdced!important;background:#edf4ff!important;color:var(--imile-navy)!important}.matrixTable tfoot th{background:#073a87!important;color:#fff!important}
+.logoBadgeBlue{background:linear-gradient(135deg,#063374,#0c5bc8)!important}
+canvas.chart{height:300px!important}
+@media(max-width:1050px){.body{grid-template-columns:1fr!important}.sidebar{display:none!important}.header{grid-template-columns:1fr!important}.logo,.dateBox{display:none!important}.toolbar,.cards,.grid2,.imageGrid{grid-template-columns:1fr 1fr!important}}
+@media(max-width:700px){.toolbar,.cards,.grid2,.imageControls,.driverControls,.driverSummary,.imageGrid,.statusWrap,.opsControls,.opsCards,.treatControls,.insightControls,.insightCards{grid-template-columns:1fr!important}.title{font-size:21px!important}.main{padding:13px!important}}
 </style></head>
 <body>
 <div class="shell">
@@ -454,7 +496,7 @@ canvas.chart{display:block;width:100%;height:280px}
         <div class="eyebrow">TIKTOK SHOP OPERATIONS</div>
         <h2>ACOMPANHAMENTO <span>FD TIKTOK</span></h2>
         <div>Relatório de Prioridades do Dia</div>
-        <div id="finalSelection" class="sel">SELEÇÃO: Regional SP</div>
+        <div id="finalSelection" class="sel">SUPERVISOR: Regional SP</div>
       </div>
       <div class="finalGenUpdate">
         <div style="font-size:11px;font-weight:800">ÚLTIMA ATUALIZAÇÃO</div>
@@ -500,7 +542,7 @@ const fmt=n=>new Intl.NumberFormat('pt-BR').format(Number(n)||0);
 const pct=n=>(Number(n||0)*100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 const unique=a=>[...new Set(a.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
-const STATUS_COLORS=['#55b64c','#ffd21f','#1e8bd1','#14a77c','#8b5cf6','#ff7a20','#e83e8c','#20c2c9','#8da19b','#f1a84b','#5cc8ff'];
+const STATUS_COLORS=['#0b4eaf','#1f6fd0','#3b8be0','#68a7e8','#09519a','#2e78bd','#73b4ef','#164685','#8ac5f3','#ffd21f','#4d91d0'];
 
 function fillSelect(el,vals,first){const cur=el.value;el.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('');if(vals.includes(cur))el.value=cur}
 function refreshFilters(){
@@ -527,11 +569,11 @@ function filteredImage(){
 
 function prep(id,h=280){const c=document.getElementById(id),r=c.getBoundingClientRect(),dpr=devicePixelRatio||1,w=Math.max(320,r.width);c.width=w*dpr;c.height=h*dpr;const ctx=c.getContext('2d');ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);return[ctx,w,h]}
 function rr(ctx,x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
-function barChart(id,data,percentage=false,left=110,color='#34c759'){
+function barChart(id,data,percentage=false,left=110,color='#0b55ba'){
  const [ctx,w,h]=prep(id);if(!data.length)return;
  const right=45,top=14,rowH=Math.min(30,(h-20)/data.length),max=Math.max(...data.map(x=>x[1]),.001);
  ctx.font='11px Segoe UI';ctx.textBaseline='middle';
- data.forEach((x,i)=>{const y=top+i*rowH+rowH/2,bw=(w-left-right)*(x[1]/max);ctx.fillStyle='#355b51';ctx.textAlign='right';ctx.fillText(String(x[0]).slice(0,24),left-8,y);ctx.fillStyle='#c6e4d4';rr(ctx,left,y-7,w-left-right,14,6);ctx.fill();ctx.fillStyle=color;rr(ctx,left,y-7,bw,14,6);ctx.fill();ctx.fillStyle='#173c33';ctx.textAlign='left';ctx.font='bold 11px Segoe UI';ctx.fillText(percentage?pct(x[1]):fmt(x[1]),left+bw+6,y);ctx.font='11px Segoe UI'});
+ data.forEach((x,i)=>{const y=top+i*rowH+rowH/2,bw=(w-left-right)*(x[1]/max);ctx.fillStyle='#385679';ctx.textAlign='right';ctx.fillText(String(x[0]).slice(0,24),left-8,y);ctx.fillStyle='#dfe8f3';rr(ctx,left,y-7,w-left-right,14,6);ctx.fill();ctx.fillStyle=color;rr(ctx,left,y-7,bw,14,6);ctx.fill();ctx.fillStyle='#0b2b5e';ctx.textAlign='left';ctx.font='bold 11px Segoe UI';ctx.fillText(percentage?pct(x[1]):fmt(x[1]),left+bw+6,y);ctx.font='11px Segoe UI'});
 }
 function donutChart(entries,total){
  const [ctx,w,h]=prep('donutCanvas',260);const cx=w/2,cy=h/2,r=Math.min(w,h)*.38,inner=r*.55;let a=-Math.PI/2;
@@ -541,12 +583,12 @@ function donutChart(entries,total){
 function lineStatusChart(id,data){
  const [ctx,w,h]=prep(id);if(!data.length)return;
  const left=48,right=22,top=28,bottom=70,max=Math.max(...data.map(x=>x[1]),1),usableW=w-left-right,usableH=h-top-bottom;
- ctx.strokeStyle='#a9d2bd';ctx.lineWidth=1;
+ ctx.strokeStyle='#d6e1ed';ctx.lineWidth=1;
  for(let i=0;i<5;i++){const y=top+usableH*i/4;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke()}
- ctx.strokeStyle='#22c6d9';ctx.lineWidth=3;ctx.beginPath();
+ ctx.strokeStyle='#0b55ba';ctx.lineWidth=3;ctx.beginPath();
  data.forEach((x,i)=>{const px=left+usableW*(i/Math.max(1,data.length-1)),py=top+usableH*(1-x[1]/max);if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py)});
  ctx.stroke();
- data.forEach((x,i)=>{const px=left+usableW*(i/Math.max(1,data.length-1)),py=top+usableH*(1-x[1]/max);ctx.fillStyle=STATUS_COLORS[i%STATUS_COLORS.length];ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#173c33';ctx.textAlign='center';ctx.font='bold 11px Segoe UI';ctx.fillText(fmt(x[1]),px,py-11);ctx.save();ctx.translate(px,h-18);ctx.rotate(-0.55);ctx.fillStyle='#49685f';ctx.font='10px Segoe UI';ctx.textAlign='right';ctx.fillText(String(x[0]).slice(0,22),0,0);ctx.restore()});
+ data.forEach((x,i)=>{const px=left+usableW*(i/Math.max(1,data.length-1)),py=top+usableH*(1-x[1]/max);ctx.fillStyle=STATUS_COLORS[i%STATUS_COLORS.length];ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#0b2b5e';ctx.textAlign='center';ctx.font='bold 11px Segoe UI';ctx.fillText(fmt(x[1]),px,py-11);ctx.save();ctx.translate(px,h-18);ctx.rotate(-0.55);ctx.fillStyle='#5e718e';ctx.font='10px Segoe UI';ctx.textAlign='right';ctx.fillText(String(x[0]).slice(0,22),0,0);ctx.restore()});
 }
 
 
@@ -576,7 +618,7 @@ function renderDriverReport(){
  driverPendingTotal.textContent=fmt(rep.reduce((s,x)=>s+x.route,0));
  driverRouteTotal.textContent=fmt(rep.reduce((s,x)=>s+x.route,0));
  driverReceivedTotal.textContent='0';
- barChart('driverReportChart',rep.slice(0,15).map(x=>[x.driver,x.pending]),false,200,'#52b788');
+ barChart('driverReportChart',rep.slice(0,15).map(x=>[x.driver,x.pending]),false,200,'#0b55ba');
  driverReportBody.innerHTML=rep.map(x=>`<tr><td><strong>${esc(x.driver)}</strong></td><td>${esc(x.ds)}</td><td><strong>${fmt(x.route)}</strong></td></tr>`).join('');
 }
 function drawDriverReportImage(){
@@ -888,9 +930,9 @@ function renderFailures(){
  const bases=Object.entries(byBase).sort((a,b)=>b[1]-a[1]);
  failTopStation.textContent=stations[0]?.[0]||'--';
  failTopReason.textContent=reasons[0]?.[0]||'--';
- barChart('failStationChart',stations.slice(0,15),false,200,'#52b788');
- barChart('failReasonChart',reasons.slice(0,15),false,240,'#ffd21f');
- barChart('failBaseChart',bases.slice(0,15),false,130,'#22c6d9');
+ barChart('failStationChart',stations.slice(0,15),false,200,'#0b55ba');
+ barChart('failReasonChart',reasons.slice(0,15),false,240,'#2f7fd0');
+ barChart('failBaseChart',bases.slice(0,15),false,130,'#083a88');
 
  const matrix=Object.entries(cross).map(([k,v])=>{const [st,r]=k.split('|||');return [st,r,v]}).sort((a,b)=>b[2]-a[2]);
  failBody.innerHTML=matrix.map(x=>`<tr><td><strong>${esc(x[0])}</strong></td><td>${esc(x[1])}</td><td><strong>${fmt(x[2])}</strong></td></tr>`).join('');
@@ -973,12 +1015,12 @@ function render(){
    byDriver[d]=(byDriver[d]||0)+1;
  });
  const driverRows=Object.entries(byDriver).sort((a,b)=>b[1]-a[1]).slice(0,12);
- barChart('driverOffenderChart',driverRows,false,190,'#ff7a20');
+ barChart('driverOffenderChart',driverRows,false,190,'#0b55ba');
 
  const byDsReceived={};
  rows.filter(x=>isReceived(x.status)).forEach(x=>byDsReceived[x.ds]=(byDsReceived[x.ds]||0)+1);
  const dsReceivedRows=Object.entries(byDsReceived).sort((a,b)=>b[1]-a[1]).slice(0,15);
- barChart('dsReceivedChart',dsReceivedRows,false,110,'#ffd21f');
+ barChart('dsReceivedChart',dsReceivedRows,false,110,'#2f7fd0');
  renderImage();
  renderDriverReport();
  renderAwbView();
@@ -996,6 +1038,7 @@ const GEN_DESC={
  'devolucao consolidada':'Devolução consolidada',
  'unseal vehicle':'Evento operacional do veículo'
 };
+const GEN_STATUS_ORDER=['entregue','em rota de entrega','devolucao consolidada','recebido no ds','retorno de insucesso','leitura do inventario','transferencia concluida','atribuido'];
 function genStatusClass(s){const n=norm(s);if(n==='entregue')return'stDelivered';if(n==='em rota de entrega')return'stRoute';if(n==='recebido no ds')return'stReceived';if(n==='transferencia concluida')return'stTransfer';return'stOther'}
 function genDesc(s){return GEN_DESC[norm(s)]||'Status operacional registrado no último evento'}
 
@@ -1008,7 +1051,11 @@ function genData(){
    if(!baseMap[b])baseMap[b]={};
    baseMap[b][st]=(baseMap[b][st]||0)+1;
  });
- const statuses=Object.keys(statusTotals).sort((a,b)=>statusTotals[b]-statusTotals[a]);
+  const statuses=Object.keys(statusTotals).sort((a,b)=>{
+    const ia=GEN_STATUS_ORDER.indexOf(norm(a)),ib=GEN_STATUS_ORDER.indexOf(norm(b));
+    const pa=ia<0?999:ia,pb=ib<0?999:ib;
+    return pa-pb||statusTotals[b]-statusTotals[a]||a.localeCompare(b,'pt-BR');
+  });
  const bases=Object.keys(baseMap).sort((a,b)=>a.localeCompare(b,'pt-BR'));
  const baseTotals=bases.map(b=>[b,statuses.reduce((s,st)=>s+(baseMap[b][st]||0),0)]).sort((a,b)=>b[1]-a[1]);
  const delivered=statuses.filter(s=>norm(s)==='entregue').reduce((n,s)=>n+(statusTotals[s]||0),0);
@@ -1019,7 +1066,7 @@ function renderImage(){
  const m=genData(),now=new Date(),date=now.toLocaleDateString('pt-BR'),time=now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
  finalDate.textContent=date;
  finalTime.textContent=time;
- finalSelection.textContent='SELEÇÃO: '+(imgSup.value||'Regional SP')+(imgDs.value?' · '+imgDs.value:'');
+  finalSelection.textContent='SUPERVISOR: '+(imgSup.value||'Regional SP')+(imgDs.value?' · '+imgDs.value:'');
  gTotal.textContent=fmt(m.total);
  gDs.textContent=fmt(m.bases.length);
  gDelivered.textContent=fmt(m.delivered);
@@ -1032,7 +1079,7 @@ function renderImage(){
  gMin.textContent=min[0];
  gMinSub.textContent=fmt(min[1])+' pedidos'+(m.total?' ('+pct(min[1]/m.total)+')':'');
 
- gSub.textContent='Status distribuídos por DS · '+(imgSup.value||'Regional SP');
+  gSub.textContent='Bases por status · '+(imgSup.value||'Regional SP');
 
  gHead.innerHTML='<tr><th>Bases (DS)</th>'+
    m.statuses.map(st=>`<th>${esc(st)}</th>`).join('')+
@@ -1040,46 +1087,55 @@ function renderImage(){
 
  gBody.innerHTML=m.bases.map(base=>{
    const total=m.baseTotals.find(x=>x[0]===base)?.[1]||0;
-   const p=m.total?total/m.total:0;
+    const delivered=m.statuses.reduce((sum,st)=>sum+(norm(st)==='entregue'?(m.baseMap[base][st]||0):0),0);
+    const p=total?delivered/total:0;
    return '<tr><td><strong>'+esc(base)+'</strong></td>'+
      m.statuses.map(st=>`<td data-status="${norm(st)}"><strong>${m.baseMap[base][st]?fmt(m.baseMap[base][st]):'-'}</strong></td>`).join('')+
      `<td><strong>${fmt(total)}</strong></td>`+
      `<td><div class="pctBar"><strong>${pct(p)}</strong><div class="pctTrack"><div class="pctFill" style="width:${Math.max(0,Math.min(100,p*100))}%"></div></div></div></td></tr>`;
  }).join('');
 
- gFoot.innerHTML='<tr><th>TOTAL FD</th>'+
-   m.statuses.map(st=>`<th data-status="${norm(st)}">${fmt(m.statusTotals[st]||0)}</th>`).join('')+
-   `<th>${fmt(m.total)}</th><th>100%</th></tr>`;
+  const totalPct=m.total?m.delivered/m.total:0;
+  gFoot.innerHTML='<tr><th>TOTAL FD</th>'+ 
+    m.statuses.map(st=>`<th data-status="${norm(st)}">${fmt(m.statusTotals[st]||0)}</th>`).join('')+
+    `<th>${fmt(m.total)}</th><th>${pct(totalPct)}</th></tr>`;
 }
 
 
 
 function drawImage(){
- const m=genData(); if(!m.total){alert('Nenhum pedido para os filtros atuais.');return}
- const now=new Date(),date=now.toLocaleDateString('pt-BR'),time=now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
- const W=1800,left=34,headerH=205,cardsY=224,cardH=112,gap=12,cardW=(W-left*2-gap*4)/5;
- const baseW=225,statusW=Math.max(116,Math.min(158,970/Math.max(1,m.statuses.length))),totalW=145,pctW=180;
- const tableW=baseW+m.statuses.length*statusW+totalW+pctW,tableX=Math.max(30,(W-tableW)/2);
- const panelY=355,titleY=382,headY=445,headH=68,rowH=62,footH=54,H=Math.max(850,headY+headH+m.bases.length*rowH+footH+28);
- const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
- ctx.fillStyle='#eef5ff';ctx.fillRect(0,0,W,H);ctx.fillStyle='#0b4eaf';ctx.fillRect(0,0,W,headerH);
- ctx.fillStyle='#fff';ctx.textAlign='left';ctx.font='900 45px Segoe UI';ctx.fillText('iMile',34,70);ctx.font='17px Segoe UI';ctx.fillText('Delivery',62,101);
- ctx.textAlign='center';ctx.fillStyle='#dceaff';ctx.font='16px Segoe UI';ctx.fillText('TIKTOK SHOP OPERATIONS',W/2,31);
- ctx.fillStyle='#fff';ctx.font='900 45px Segoe UI';ctx.fillText('ACOMPANHAMENTO FD TIKTOK',W/2,82);ctx.font='20px Segoe UI';ctx.fillText('Relatório de Prioridades do Dia',W/2,119);
- ctx.fillStyle='#176bd0';rr(ctx,W/2-210,139,420,38,8);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 16px Segoe UI';ctx.fillText('SELEÇÃO: '+(imgSup.value||'Regional SP')+(imgDs.value?' · '+imgDs.value:''),W/2,164);
- const ux=W-290,uy=23,uw=245,uh=145;ctx.strokeStyle='rgba(255,255,255,.68)';ctx.lineWidth=1.4;rr(ctx,ux,uy,uw,uh,14);ctx.stroke();
- ctx.fillStyle='#fff';ctx.font='900 13px Segoe UI';ctx.fillText('ÚLTIMA ATUALIZAÇÃO',ux+uw/2,uy+27);ctx.font='900 28px Segoe UI';ctx.fillText(date,ux+uw/2,uy+73);ctx.font='900 24px Segoe UI';ctx.fillText(time,ux+uw/2,uy+111);
- const max=m.baseTotals[0]||['--',0],min=m.baseTotals.length?m.baseTotals[m.baseTotals.length-1]:['--',0];
- const cards=[['TOTAL DE PEDIDOS',fmt(m.total),''],['DS ENVOLVIDOS',fmt(m.bases.length),''],['PEDIDOS ENTREGUES',fmt(m.delivered),m.total?pct(m.delivered/m.total):'0,0%'],['MAIOR VOLUME',max[0],fmt(max[1])+' pedidos'+(m.total?' ('+pct(max[1]/m.total)+')':'')],['MENOR VOLUME',min[0],fmt(min[1])+' pedidos'+(m.total?' ('+pct(min[1]/m.total)+')':'')]];
- cards.forEach((d,i)=>{const x=left+i*(cardW+gap);ctx.fillStyle='#fff';rr(ctx,x,cardsY,cardW,cardH,13);ctx.fill();ctx.strokeStyle='#d3e0f2';rr(ctx,x,cardsY,cardW,cardH,13);ctx.stroke();ctx.textAlign='left';ctx.fillStyle='#0b4eaf';ctx.font='900 14px Segoe UI';ctx.fillText(d[0],x+17,cardsY+28);ctx.fillStyle='#10214a';ctx.font='900 31px Segoe UI';ctx.fillText(d[1],x+17,cardsY+70);if(d[2]){ctx.fillStyle='#53617a';ctx.font='15px Segoe UI';ctx.fillText(d[2],x+17,cardsY+96)}});
- ctx.fillStyle='#fff';rr(ctx,18,panelY,W-36,H-panelY-16,15);ctx.fill();ctx.strokeStyle='#d3e0f2';rr(ctx,18,panelY,W-36,H-panelY-16,15);ctx.stroke();
- ctx.textAlign='left';ctx.fillStyle='#0b4eaf';ctx.font='900 31px Segoe UI';ctx.fillText('TOTAL FINAL POR STATUS',tableX,titleY+16);ctx.fillStyle='#53617a';ctx.font='17px Segoe UI';ctx.fillText('Status distribuídos por DS · '+(imgSup.value||'Regional SP'),tableX,titleY+44);
- let x=tableX,y=headY;
- function header(label,w,dark=false){ctx.fillStyle=dark?'#083d8f':'#0b4eaf';ctx.fillRect(x,y,w,headH);ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='900 14px Segoe UI';const words=String(label).split(/\s+/),lines=[];let line='';words.forEach(word=>{const t=line?line+' '+word:word;if(ctx.measureText(t).width>w-16&&line){lines.push(line);line=word}else line=t});if(line)lines.push(line);const show=lines.slice(0,3),sy=y+31-(show.length-1)*9;show.forEach((ln,j)=>ctx.fillText(ln,x+w/2,sy+j*19));x+=w}
- header('Bases (DS)',baseW,true);m.statuses.forEach(st=>header(st,statusW));header('Total Geral',totalW,true);header('% do Total',pctW,true);y+=headH;
- m.bases.forEach((base,ri)=>{x=tableX;ctx.fillStyle=ri%2===0?'#fff':'#f5f8fc';ctx.fillRect(tableX,y,tableW,rowH);ctx.strokeStyle='#e3ebf6';ctx.beginPath();ctx.moveTo(tableX,y+rowH);ctx.lineTo(tableX+tableW,y+rowH);ctx.stroke();ctx.textAlign='left';ctx.fillStyle='#10214a';ctx.font='900 16px Segoe UI';ctx.fillText(base,x+13,y+38);x+=baseW;ctx.textAlign='center';m.statuses.forEach(st=>{const v=m.baseMap[base][st]||0,n=norm(st);ctx.fillStyle=n==='entregue'?'#16844c':n==='recebido no ds'?'#c77800':n==='em rota de entrega'?'#176bd0':'#10214a';ctx.font='900 16px Segoe UI';ctx.fillText(v?fmt(v):'-',x+statusW/2,y+38);x+=statusW});const total=m.baseTotals.find(v=>v[0]===base)?.[1]||0,p=m.total?total/m.total:0;ctx.fillStyle='#0b4eaf';ctx.font='900 17px Segoe UI';ctx.fillText(fmt(total),x+totalW/2,y+38);x+=totalW;ctx.fillStyle='#10214a';ctx.font='900 15px Segoe UI';ctx.fillText(pct(p),x+52,y+38);ctx.fillStyle='#e4eaf2';rr(ctx,x+98,y+27,62,8,4);ctx.fill();ctx.fillStyle='#176bd0';rr(ctx,x+98,y+27,62*Math.max(0,Math.min(1,p)),8,4);ctx.fill();y+=rowH});
- x=tableX;ctx.fillStyle='#083d8f';ctx.fillRect(tableX,y,tableW,footH);ctx.fillStyle='#fff';ctx.textAlign='left';ctx.font='900 16px Segoe UI';ctx.fillText('TOTAL FD',x+13,y+35);x+=baseW;ctx.textAlign='center';m.statuses.forEach(st=>{const n=norm(st);ctx.fillStyle=n==='entregue'?'#55dc94':n==='recebido no ds'?'#ffd25a':n==='em rota de entrega'?'#77adff':'#fff';ctx.font='900 17px Segoe UI';ctx.fillText(fmt(m.statusTotals[st]||0),x+statusW/2,y+35);x+=statusW});ctx.fillStyle='#fff';ctx.fillText(fmt(m.total),x+totalW/2,y+35);x+=totalW;ctx.fillText('100%',x+pctW/2,y+35);
- const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='Acompanhamento_FD_TIKTOK_'+(imgSup.value||'Regional').replace(/\s+/g,'_')+'.png';a.click();
+  const m=genData(); if(!m.total){alert('Nenhum pedido para os filtros atuais.');return}
+  const now=new Date(),date=now.toLocaleDateString('pt-BR'),time=now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  const baseW=175,statusW=Math.max(124,Math.min(150,1070/Math.max(1,m.statuses.length))),totalW=110,pctW=180;
+  const tableW=baseW+m.statuses.length*statusW+totalW+pctW;
+  const W=Math.max(1620,tableW+84),left=20,headerH=188,cardsY=212,cardH=128,gap=16,cardW=(W-left*2-gap*4)/5;
+  const tableX=(W-tableW)/2,panelY=354,titleY=370,headY=441,headH=62,rowH=44,footH=47,H=Math.max(720,headY+headH+m.bases.length*rowH+footH+27);
+  const SCALE=2,c=document.createElement('canvas');c.width=W*SCALE;c.height=H*SCALE;c.style.width=W+'px';c.style.height=H+'px';const ctx=c.getContext('2d');ctx.scale(SCALE,SCALE);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.lineJoin='round';ctx.lineCap='round';
+  const navy='#08255f',blue='#0a43a0',blue2='#0c57c7',line='#dbe4ef';
+  function circle(cx,cy,r,fill){ctx.fillStyle=fill;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill()}
+  function building(cx,cy,s,color=blue){ctx.fillStyle=color;ctx.fillRect(cx-s*.28,cy-s*.34,s*.56,s*.68);ctx.fillRect(cx-s*.46,cy-s*.12,s*.18,s*.46);ctx.fillRect(cx+s*.28,cy-s*.2,s*.18,s*.54);ctx.fillStyle='#fff';for(let r=0;r<3;r++)for(let k=0;k<2;k++)ctx.fillRect(cx-s*.18+k*s*.2,cy-s*.22+r*s*.18,s*.08,s*.08);ctx.fillRect(cx-s*.39,cy, s*.07,s*.08);ctx.fillRect(cx+s*.34,cy-s*.06,s*.07,s*.08);ctx.fillStyle=color;ctx.fillRect(cx-s*.52,cy+s*.33,s*1.04,s*.09)}
+  function packageIcon(cx,cy,s){ctx.strokeStyle=blue;ctx.lineWidth=4;ctx.fillStyle='#e8f0fb';ctx.beginPath();ctx.moveTo(cx-s*.38,cy-s*.12);ctx.lineTo(cx,cy-s*.34);ctx.lineTo(cx+s*.38,cy-s*.12);ctx.lineTo(cx,cy+s*.12);ctx.closePath();ctx.fill();ctx.stroke();ctx.beginPath();ctx.moveTo(cx-s*.38,cy-s*.12);ctx.lineTo(cx-s*.38,cy+s*.3);ctx.lineTo(cx,cy+s*.52);ctx.lineTo(cx,cy+s*.12);ctx.moveTo(cx+s*.38,cy-s*.12);ctx.lineTo(cx+s*.38,cy+s*.3);ctx.lineTo(cx,cy+s*.52);ctx.stroke();ctx.beginPath();ctx.moveTo(cx-s*.18,cy-s*.23);ctx.lineTo(cx+s*.18,cy-s*.03);ctx.stroke()}
+  function checkIcon(cx,cy,r){circle(cx,cy,r,blue);ctx.strokeStyle='#fff';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(cx-r*.48,cy);ctx.lineTo(cx-r*.12,cy+r*.34);ctx.lineTo(cx+r*.55,cy-r*.42);ctx.stroke()}
+  function trendIcon(cx,cy,s,down=false){ctx.fillStyle=blue;const hs=down?[.68,.48,.3]:[.3,.48,.68];for(let i=0;i<3;i++)ctx.fillRect(cx-s*.44+i*s*.3,cy+s*.38-hs[i]*s,s*.18,hs[i]*s);ctx.strokeStyle=blue;ctx.lineWidth=5;ctx.beginPath();if(down){ctx.moveTo(cx-s*.45,cy-s*.35);ctx.lineTo(cx-s*.08,cy-s*.08);ctx.lineTo(cx+s*.17,cy-s*.22);ctx.lineTo(cx+s*.48,cy+s*.08)}else{ctx.moveTo(cx-s*.45,cy+s*.05);ctx.lineTo(cx-s*.08,cy-s*.3);ctx.lineTo(cx+s*.14,cy-s*.12);ctx.lineTo(cx+s*.48,cy-s*.5)}ctx.stroke();ctx.beginPath();if(down){ctx.moveTo(cx+s*.33,cy+s*.02);ctx.lineTo(cx+s*.5,cy+s*.1);ctx.lineTo(cx+s*.49,cy-s*.08)}else{ctx.moveTo(cx+s*.31,cy-s*.49);ctx.lineTo(cx+s*.51,cy-s*.52);ctx.lineTo(cx+s*.48,cy-s*.31)}ctx.stroke()}
+  function calendarIcon(cx,cy,s){ctx.strokeStyle='#fff';ctx.lineWidth=4;rr(ctx,cx-s*.45,cy-s*.35,s*.75,s*.66,6);ctx.stroke();ctx.beginPath();ctx.moveTo(cx-s*.45,cy-s*.15);ctx.lineTo(cx+s*.3,cy-s*.15);ctx.moveTo(cx-s*.27,cy-s*.45);ctx.lineTo(cx-s*.27,cy-s*.27);ctx.moveTo(cx+s*.1,cy-s*.45);ctx.lineTo(cx+s*.1,cy-s*.27);ctx.stroke();ctx.fillStyle='#fff';for(let r=0;r<2;r++)for(let k=0;k<3;k++)ctx.fillRect(cx-s*.3+k*s*.2,cy-s*.06+r*s*.17,s*.08,s*.08);ctx.beginPath();ctx.arc(cx+s*.34,cy+s*.27,s*.22,0,Math.PI*2);ctx.fill();ctx.strokeStyle=blue;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cx+s*.34,cy+s*.27);ctx.lineTo(cx+s*.34,cy+s*.14);ctx.moveTo(cx+s*.34,cy+s*.27);ctx.lineTo(cx+s*.22,cy+s*.27);ctx.stroke()}
+  ctx.fillStyle='#f8fafc';ctx.fillRect(0,0,W,H);const hg=ctx.createLinearGradient(0,0,W,0);hg.addColorStop(0,'#001d57');hg.addColorStop(.58,'#073d91');hg.addColorStop(1,'#0b55bd');ctx.fillStyle=hg;ctx.fillRect(0,0,W,headerH);
+  ctx.fillStyle='#79d8f4';ctx.beginPath();ctx.arc(36,40,7,0,Math.PI*2);ctx.fill();ctx.fillRect(29,50,14,35);ctx.fillStyle='#fff';ctx.textAlign='left';ctx.font='900 58px Segoe UI';ctx.fillText('Mile',45,82);ctx.font='900 25px Segoe UI';ctx.fillText('Delivery',48,118);
+  ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='700 19px Segoe UI';ctx.fillText('TIKTOK SHOP OPERATIONS',W/2,34);
+  ctx.font='900 54px Segoe UI';const titleA='ACOMPANHAMENTO ',titleB='FD TIKTOK',titleWidth=ctx.measureText(titleA).width+ctx.measureText(titleB).width;ctx.textAlign='left';ctx.fillStyle='#fff';ctx.fillText(titleA,(W-titleWidth)/2,87);ctx.fillStyle='#ffd21f';ctx.fillText(titleB,(W-titleWidth)/2+ctx.measureText(titleA).width,87);ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='700 25px Segoe UI';ctx.fillText('Relatório de Prioridades do Dia',W/2,121);
+  ctx.fillStyle='#0758d2';rr(ctx,W/2-245,135,490,41,9);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 21px Segoe UI';ctx.fillText('SUPERVISOR: '+(imgSup.value||'Regional SP')+(imgDs.value?' · '+imgDs.value:''),W/2,163);
+  const ux=W-350,uy=19,uw=330,uh=145;ctx.fillStyle='rgba(5,36,94,.2)';rr(ctx,ux,uy,uw,uh,15);ctx.fill();ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=1.5;rr(ctx,ux,uy,uw,uh,15);ctx.stroke();calendarIcon(ux+75,uy+75,68);ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='900 15px Segoe UI';ctx.fillText('ÚLTIMA ATUALIZAÇÃO',ux+220,uy+30);ctx.font='900 32px Segoe UI';ctx.fillText(date,ux+220,uy+76);ctx.font='900 31px Segoe UI';ctx.fillText(time,ux+220,uy+116);
+  const max=m.baseTotals[0]||['--',0],min=m.baseTotals.length?m.baseTotals[m.baseTotals.length-1]:['--',0];
+  const cards=[['TOTAL DE PEDIDOS',fmt(m.total),''],['DS ENVOLVIDOS',fmt(m.bases.length),''],['PEDIDOS ENTREGUES',fmt(m.delivered),m.total?pct(m.delivered/m.total):'0,0%'],['MAIOR VOLUME',max[0],fmt(max[1])+' pedidos'+(m.total?' ('+pct(max[1]/m.total)+')':'')],['MENOR VOLUME',min[0],fmt(min[1])+' pedidos'+(m.total?' ('+pct(min[1]/m.total)+')':'')]];
+  cards.forEach((d,i)=>{const x=left+i*(cardW+gap);ctx.fillStyle='#fff';rr(ctx,x,cardsY,cardW,cardH,11);ctx.fill();ctx.strokeStyle='#d7e1ec';ctx.lineWidth=1.2;rr(ctx,x,cardsY,cardW,cardH,11);ctx.stroke();circle(x+65,cardsY+64,42,'#f0f4fa');if(i===0)packageIcon(x+65,cardsY+60,56);else if(i===1)building(x+65,cardsY+65,62);else if(i===2)checkIcon(x+65,cardsY+64,36);else trendIcon(x+65,cardsY+64,64,i===4);const tx=x+135;ctx.textAlign='left';ctx.fillStyle=navy;ctx.font='900 16px Segoe UI';ctx.fillText(d[0],tx,cardsY+33);ctx.font='900 41px Segoe UI';const valueWidth=ctx.measureText(d[1]).width;ctx.fillText(d[1],tx,cardsY+81);if(i===2&&d[2]){ctx.font='900 19px Segoe UI';ctx.fillText('('+d[2]+')',tx+valueWidth+13,cardsY+81)}else if(d[2]){ctx.font='17px Segoe UI';ctx.fillText(d[2],tx,cardsY+109)}});
+  ctx.fillStyle='#fff';rr(ctx,20,panelY,W-40,H-panelY-14,11);ctx.fill();ctx.strokeStyle='#d7e1ec';ctx.lineWidth=1.2;rr(ctx,20,panelY,W-40,H-panelY-14,11);ctx.stroke();
+  ctx.textAlign='left';ctx.fillStyle=navy;ctx.font='900 36px Segoe UI';ctx.fillText('TOTAL FINAL POR STATUS',tableX+7,titleY+28);ctx.font='18px Segoe UI';ctx.fillText('Status distribuídos por DS • Supervisor: '+(imgSup.value||'Regional SP')+(imgDs.value?' · '+imgDs.value:''),tableX+7,titleY+58);
+  let x=tableX,y=headY;
+  const thg=ctx.createLinearGradient(tableX,y,tableX+tableW,y);thg.addColorStop(0,'#073578');thg.addColorStop(1,'#0c4dae');ctx.fillStyle=thg;rr(ctx,tableX,y,tableW,headH,10);ctx.fill();
+  function header(label,w){ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+headH);ctx.stroke();ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='900 16px Segoe UI';const words=String(label).split(/\s+/),lines=[];let lineText='';words.forEach(word=>{const test=lineText?lineText+' '+word:word;if(ctx.measureText(test).width>w-16&&lineText){lines.push(lineText);lineText=word}else lineText=test});if(lineText)lines.push(lineText);const show=lines.slice(0,3),sy=y+35-(show.length-1)*9;show.forEach((ln,j)=>ctx.fillText(ln,x+w/2,sy+j*19));x+=w}
+  header('Bases (DS)',baseW);m.statuses.forEach(st=>header(st,statusW));header('Total Geral',totalW);header('% do Total',pctW);y+=headH;
+  m.bases.forEach((base,ri)=>{x=tableX;ctx.fillStyle=ri%2===0?'#ffffff':'#f5f7fa';ctx.fillRect(tableX,y,tableW,rowH);ctx.strokeStyle=line;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(tableX,y+rowH);ctx.lineTo(tableX+tableW,y+rowH);ctx.stroke();building(x+22,y+22,24,blue);ctx.textAlign='left';ctx.fillStyle=navy;ctx.font='900 17px Segoe UI';ctx.fillText(base,x+48,y+29);x+=baseW;ctx.textAlign='center';m.statuses.forEach(st=>{const v=m.baseMap[base][st]||0;ctx.strokeStyle=line;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+rowH);ctx.stroke();ctx.fillStyle=navy;ctx.font='900 19px Segoe UI';ctx.fillText(v?fmt(v):'-',x+statusW/2,y+29);x+=statusW});const total=m.baseTotals.find(v=>v[0]===base)?.[1]||0,delivered=m.statuses.reduce((sum,st)=>sum+(norm(st)==='entregue'?(m.baseMap[base][st]||0):0),0),p=total?delivered/total:0;ctx.strokeStyle=line;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+rowH);ctx.stroke();ctx.fillStyle=navy;ctx.font='900 20px Segoe UI';ctx.fillText(fmt(total),x+totalW/2,y+29);x+=totalW;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+rowH);ctx.stroke();ctx.fillStyle=navy;ctx.font='900 17px Segoe UI';ctx.fillText(pct(p),x+45,y+29);ctx.fillStyle='#e5eaf0';rr(ctx,x+87,y+17,78,10,5);ctx.fill();ctx.fillStyle=blue2;rr(ctx,x+87,y+17,78*Math.max(0,Math.min(1,p)),10,5);ctx.fill();y+=rowH});
+  const totalPct=m.total?m.delivered/m.total:0;x=tableX;const fg=ctx.createLinearGradient(tableX,y,tableX+tableW,y);fg.addColorStop(0,'#073578');fg.addColorStop(1,'#0c4dae');ctx.fillStyle=fg;rr(ctx,tableX,y,tableW,footH,7);ctx.fill();ctx.fillStyle='#fff';ctx.textAlign='left';ctx.font='900 19px Segoe UI';ctx.fillText('TOTAL FD',x+24,y+31);x+=baseW;ctx.textAlign='center';m.statuses.forEach(st=>{ctx.strokeStyle='rgba(255,255,255,.5)';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+footH);ctx.stroke();ctx.fillStyle='#fff';ctx.font='900 21px Segoe UI';ctx.fillText(fmt(m.statusTotals[st]||0),x+statusW/2,y+31);x+=statusW});ctx.strokeStyle='rgba(255,255,255,.5)';ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+footH);ctx.stroke();ctx.fillStyle='#fff';ctx.fillText(fmt(m.total),x+totalW/2,y+31);x+=totalW;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+footH);ctx.stroke();ctx.font='900 18px Segoe UI';ctx.fillText(pct(totalPct),x+44,y+31);ctx.fillStyle='#2b76de';rr(ctx,x+86,y+18,78,10,5);ctx.fill();ctx.fillStyle='#fff';rr(ctx,x+86,y+18,78*Math.max(0,Math.min(1,totalPct)),10,5);ctx.fill();
+  const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download='Acompanhamento_FD_TIKTOK_'+(imgSup.value||'Regional').replace(/\s+/g,'_')+'.png';a.click();
 }
 
 function colIdx(ref){const m=String(ref||'').match(/^([A-Z]+)/);if(!m)return-1;let n=0;for(const ch of m[1])n=n*26+ch.charCodeAt(0)-64;return n-1}

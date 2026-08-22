@@ -1,7 +1,31 @@
-ACOMPANHAMENTO PRIORIDADES FD TIKTOK - FINAL V4
+ACOMPANHAMENTO PRIORIDADES FD TIKTOK — FINAL V7 VISUAL COMPLETO
 
-- Modelo aprovado replicado com visual mais sóbrio.
-- Menos cores e tipografia maior.
-- Bases/DS nas linhas e Status nas colunas.
-- Cards, data/hora, Total Geral, percentual e TOTAL FD preservados.
-- Cálculos, filtros e alimentação Excel mantidos.
+COMO ABRIR
+1. Extraia a pasta completa do arquivo ZIP.
+2. Mantenha index.html e jszip.min.js na mesma pasta.
+3. Abra index.html no Google Chrome ou Microsoft Edge.
+
+COMO ATUALIZAR OS DADOS
+1. Clique em "CARREGAR NOVO EXCEL".
+2. Selecione a planilha .xlsx.
+3. Use normalmente os filtros de SUPERVISOR, DS, datas e AWB.
+
+NOVO PADRÃO VISUAL V7
+- As seis abas receberam o mesmo estilo executivo da Imagem de Cobrança.
+- Cabeçalho e navegação em azul iMile.
+- Fundo claro, painéis brancos e bordas suaves.
+- Cards maiores, com números destacados e melhor contraste.
+- Filtros, botões e seleções padronizados.
+- Tabelas com cabeçalhos azuis, linhas alternadas e textos mais legíveis.
+- Gráficos atualizados para a paleta azul iMile.
+- Layout revisado nas abas Painel Geral, Motoristas, AWBs, Tratativas, Insucessos e Imagem de Cobrança.
+
+IMAGEM DE COBRANÇA
+- O gerador aprovado da V6 foi preservado.
+- Bases permanecem nas linhas e status nas colunas.
+- Para cada base: % do Total = Entregue da base / Total Geral da própria base.
+- Na linha TOTAL FD: total Entregue / Total Geral geral.
+- A exportação PNG continua em alta resolução.
+
+IMPORTANTE
+Não remova jszip.min.js. Ele é necessário para importar arquivos Excel.
