@@ -266,7 +266,39 @@ table{color:var(--imile-ink)!important}th,.driverTable th,.opsTable th,.insightT
 canvas.chart{height:300px!important}
 @media(max-width:1050px){.body{grid-template-columns:1fr!important}.sidebar{display:none!important}.header{grid-template-columns:1fr!important}.logo,.dateBox{display:none!important}.toolbar,.cards,.grid2,.imageGrid{grid-template-columns:1fr 1fr!important}}
 @media(max-width:700px){.toolbar,.cards,.grid2,.imageControls,.driverControls,.driverSummary,.imageGrid,.statusWrap,.opsControls,.opsCards,.treatControls,.insightControls,.insightCards{grid-template-columns:1fr!important}.title{font-size:21px!important}.main{padding:13px!important}}
-</style></head>
+</style><style>
+/* FLAG compacto de DSs - mantém o layout original */
+.multiDs{position:relative}
+.multiDsBtn{
+ width:100%;height:48px;border:1px solid #bfd0e7;border-radius:10px;background:#fff;
+ color:#10214a;padding:0 14px;display:flex;align-items:center;justify-content:space-between;
+ font:600 14px "Segoe UI",sans-serif;cursor:pointer;text-align:left
+}
+.multiDsBtn:after{content:"⌄";font-size:18px;color:#315d7a}
+.multiDsMenu{
+ display:none;position:absolute;z-index:1000;top:54px;left:0;width:100%;min-width:260px;
+ background:#fff;border:1px solid #bfd0e7;border-radius:10px;box-shadow:0 12px 28px rgba(0,35,85,.18);
+ overflow:hidden
+}
+.multiDs.open .multiDsMenu{display:block}
+.multiDsTools{display:flex;gap:6px;padding:8px;border-bottom:1px solid #e3ebf5}
+.multiDsTools button{
+ flex:1;border:1px solid #c9d7e9;background:#f7fbff;color:#0b4eaf;border-radius:7px;
+ padding:6px 7px;font-size:11px;font-weight:800;cursor:pointer
+}
+.multiDsSearch{padding:8px;border-bottom:1px solid #e3ebf5}
+.multiDsSearch input{
+ width:100%;border:1px solid #d4dfed;border-radius:7px;padding:7px 9px;font-size:12px
+}
+.multiDsList{max-height:240px;overflow:auto;padding:5px 0}
+.multiDsItem{
+ display:flex;align-items:center;gap:8px;padding:7px 11px;color:#172b4d;
+ font-size:12px;font-weight:700;cursor:pointer
+}
+.multiDsItem:hover{background:#edf5ff}
+.multiDsItem input{width:15px;height:15px;accent-color:#0b4eaf}
+</style>
+</head>
 <body>
 <div class="shell">
 <header class="header">
@@ -485,7 +517,21 @@ canvas.chart{height:300px!important}
 <section id="view-image" class="view">
   <div class="imageControls">
     <div class="filter"><label>SUPERVISOR</label><select id="imgSup"></select></div>
-    <div class="filter"><label>DS</label><select id="imgDs"></select></div>
+    <div class="filter">
+      <label>BASES / DS</label>
+      <div id="imgDsMulti" class="multiDs">
+        <button id="imgDsMultiBtn" class="multiDsBtn" type="button">Todas as DSs</button>
+        <div class="multiDsMenu">
+          <div class="multiDsTools">
+            <button id="imgDsAll" type="button">Marcar todas</button>
+            <button id="imgDsNone" type="button">Limpar</button>
+          </div>
+          <div class="multiDsSearch"><input id="imgDsSearch" type="text" placeholder="Pesquisar DS"></div>
+          <div id="imgDsMultiList" class="multiDsList"></div>
+        </div>
+      </div>
+      <select id="imgDs" style="display:none"></select>
+    </div>
     <button id="downloadImageBtn" class="action yellowBtn">▧ BAIXAR IMAGEM PNG</button>
   </div>
 
@@ -546,7 +592,7 @@ const STATUS_COLORS=['#0b4eaf','#1f6fd0','#3b8be0','#68a7e8','#09519a','#2e78bd'
 
 function fillSelect(el,vals,first){const cur=el.value;el.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('');if(vals.includes(cur))el.value=cur}
 function refreshFilters(){
- const sups=unique(DATA.map(x=>x.supervisor));fillSelect(supFilter,sups,'Todos os supervisores');fillSelect(imgSup,sups,'Todos os supervisores');fillSelect(driverSup,sups,'Todos os supervisores');fillSelect(awbSup,sups,'Todos os supervisores');fillSelect(treatSup,sups,'Todos os supervisores');fillSelect(failSup,sups,'Todos os supervisores');refreshDs();refreshImgDs();refreshDriverDs();refreshAwbDs();refreshTreatDs();refreshFailFilters();
+ const sups=unique(DATA.map(x=>x.supervisor));fillSelect(supFilter,sups,'Todos os supervisores');fillSelect(imgSup,sups,'Todos os supervisores');fillSelect(driverSup,sups,'Todos os supervisores');fillSelect(awbSup,sups,'Todos os supervisores');fillSelect(treatSup,sups,'Todos os supervisores');fillSelect(failSup,sups,'Todos os supervisores');refreshDs();refreshImgDs();renderImgDsMulti(true);refreshDriverDs();refreshAwbDs();refreshTreatDs();refreshFailFilters();
 }
 function refreshDs(){const s=supFilter.value;fillSelect(dsFilter,unique(DATA.filter(x=>!s||x.supervisor===s).map(x=>x.ds)),'Todas as DSs')}
 function imageBaseOf(x){return String(x.lastStation||x.ds||'').trim()}
@@ -554,16 +600,39 @@ function imageSupervisorOf(x){
  const base=imageBaseOf(x);
  return SUPERVISOR_MAP[base]||x.supervisor||'Sem supervisor definido';
 }
+
+let IMG_SELECTED_DS=new Set();
+
+function imgAvailableDs(){
+ const s=imgSup.value;
+ return unique(DATA.filter(x=>!s||imageSupervisorOf(x)===s).map(imageBaseOf).filter(Boolean))
+   .sort((a,b)=>a.localeCompare(b,'pt-BR'));
+}
+function updateImgDsButton(){
+ const total=imgAvailableDs().length,n=IMG_SELECTED_DS.size;
+ imgDsMultiBtn.textContent=n===total?'Todas as DSs':(n===0?'Nenhuma DS':`${n} DS selecionadas`);
+}
+function renderImgDsMulti(reset=false){
+ const bases=imgAvailableDs();
+ if(reset || IMG_SELECTED_DS.size===0) IMG_SELECTED_DS=new Set(bases);
+ else IMG_SELECTED_DS=new Set([...IMG_SELECTED_DS].filter(b=>bases.includes(b)));
+ const q=(imgDsSearch?.value||'').trim().toLowerCase();
+ imgDsMultiList.innerHTML=bases.filter(b=>!q||b.toLowerCase().includes(q)).map(b=>
+   `<label class="multiDsItem"><input class="imgDsCheck" type="checkbox" value="${esc(b)}" ${IMG_SELECTED_DS.has(b)?'checked':''}><span>${esc(b)}</span></label>`
+ ).join('');
+ updateImgDsButton();
+}
+
 function refreshImgDs(){
  const s=imgSup.value;
  fillSelect(imgDs,unique(DATA.filter(x=>!s||imageSupervisorOf(x)===s).map(imageBaseOf).filter(Boolean)),'Todas as DSs');
 }
 function filtered(){const s=supFilter.value,d=dsFilter.value;return DATA.filter(x=>(!s||x.supervisor===s)&&(!d||x.ds===d))}
 function filteredImage(){
- const s=imgSup.value,d=imgDs.value;
+ const s=imgSup.value;
  return DATA.filter(x=>{
    const base=imageBaseOf(x),sup=imageSupervisorOf(x);
-   return base&&(!s||sup===s)&&(!d||base===d);
+   return base&&(!s||sup===s)&&IMG_SELECTED_DS.has(base);
  });
 }
 
@@ -1066,7 +1135,7 @@ function renderImage(){
  const m=genData(),now=new Date(),date=now.toLocaleDateString('pt-BR'),time=now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
  finalDate.textContent=date;
  finalTime.textContent=time;
-  finalSelection.textContent='SUPERVISOR: '+(imgSup.value||'Regional SP')+(imgDs.value?' · '+imgDs.value:'');
+  finalSelection.textContent='SUPERVISOR: '+(imgSup.value||'Regional SP')+(IMG_SELECTED_DS.size!==imgAvailableDs().length?' · '+IMG_SELECTED_DS.size+' DS':'');
  gTotal.textContent=fmt(m.total);
  gDs.textContent=fmt(m.bases.length);
  gDelivered.textContent=fmt(m.delivered);
@@ -1122,13 +1191,13 @@ function drawImage(){
   ctx.fillStyle='#79d8f4';ctx.beginPath();ctx.arc(36,40,7,0,Math.PI*2);ctx.fill();ctx.fillRect(29,50,14,35);ctx.fillStyle='#fff';ctx.textAlign='left';ctx.font='900 58px Segoe UI';ctx.fillText('Mile',45,82);ctx.font='900 25px Segoe UI';ctx.fillText('Delivery',48,118);
   ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='700 19px Segoe UI';ctx.fillText('TIKTOK SHOP OPERATIONS',W/2,34);
   ctx.font='900 54px Segoe UI';const titleA='ACOMPANHAMENTO ',titleB='FD TIKTOK',titleWidth=ctx.measureText(titleA).width+ctx.measureText(titleB).width;ctx.textAlign='left';ctx.fillStyle='#fff';ctx.fillText(titleA,(W-titleWidth)/2,87);ctx.fillStyle='#ffd21f';ctx.fillText(titleB,(W-titleWidth)/2+ctx.measureText(titleA).width,87);ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='700 25px Segoe UI';ctx.fillText('Relatório de Prioridades do Dia',W/2,121);
-  ctx.fillStyle='#0758d2';rr(ctx,W/2-245,135,490,41,9);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 21px Segoe UI';ctx.fillText('SUPERVISOR: '+(imgSup.value||'Regional SP')+(imgDs.value?' · '+imgDs.value:''),W/2,163);
+  ctx.fillStyle='#0758d2';rr(ctx,W/2-245,135,490,41,9);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 21px Segoe UI';ctx.fillText('SUPERVISOR: '+(imgSup.value||'Regional SP')+(IMG_SELECTED_DS.size!==imgAvailableDs().length?' · '+IMG_SELECTED_DS.size+' DS':''),W/2,163);
   const ux=W-350,uy=19,uw=330,uh=145;ctx.fillStyle='rgba(5,36,94,.2)';rr(ctx,ux,uy,uw,uh,15);ctx.fill();ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=1.5;rr(ctx,ux,uy,uw,uh,15);ctx.stroke();calendarIcon(ux+75,uy+75,68);ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='900 15px Segoe UI';ctx.fillText('ÚLTIMA ATUALIZAÇÃO',ux+220,uy+30);ctx.font='900 32px Segoe UI';ctx.fillText(date,ux+220,uy+76);ctx.font='900 31px Segoe UI';ctx.fillText(time,ux+220,uy+116);
   const max=m.baseTotals[0]||['--',0],min=m.baseTotals.length?m.baseTotals[m.baseTotals.length-1]:['--',0];
   const cards=[['TOTAL DE PEDIDOS',fmt(m.total),''],['DS ENVOLVIDOS',fmt(m.bases.length),''],['PEDIDOS ENTREGUES',fmt(m.delivered),m.total?pct(m.delivered/m.total):'0,0%'],['MAIOR VOLUME',max[0],fmt(max[1])+' pedidos'+(m.total?' ('+pct(max[1]/m.total)+')':'')],['MENOR VOLUME',min[0],fmt(min[1])+' pedidos'+(m.total?' ('+pct(min[1]/m.total)+')':'')]];
   cards.forEach((d,i)=>{const x=left+i*(cardW+gap);ctx.fillStyle='#fff';rr(ctx,x,cardsY,cardW,cardH,11);ctx.fill();ctx.strokeStyle='#d7e1ec';ctx.lineWidth=1.2;rr(ctx,x,cardsY,cardW,cardH,11);ctx.stroke();circle(x+65,cardsY+64,42,'#f0f4fa');if(i===0)packageIcon(x+65,cardsY+60,56);else if(i===1)building(x+65,cardsY+65,62);else if(i===2)checkIcon(x+65,cardsY+64,36);else trendIcon(x+65,cardsY+64,64,i===4);const tx=x+135;ctx.textAlign='left';ctx.fillStyle=navy;ctx.font='900 16px Segoe UI';ctx.fillText(d[0],tx,cardsY+33);ctx.font='900 41px Segoe UI';const valueWidth=ctx.measureText(d[1]).width;ctx.fillText(d[1],tx,cardsY+81);if(i===2&&d[2]){ctx.font='900 19px Segoe UI';ctx.fillText('('+d[2]+')',tx+valueWidth+13,cardsY+81)}else if(d[2]){ctx.font='17px Segoe UI';ctx.fillText(d[2],tx,cardsY+109)}});
   ctx.fillStyle='#fff';rr(ctx,20,panelY,W-40,H-panelY-14,11);ctx.fill();ctx.strokeStyle='#d7e1ec';ctx.lineWidth=1.2;rr(ctx,20,panelY,W-40,H-panelY-14,11);ctx.stroke();
-  ctx.textAlign='left';ctx.fillStyle=navy;ctx.font='900 36px Segoe UI';ctx.fillText('TOTAL FINAL POR STATUS',tableX+7,titleY+28);ctx.font='18px Segoe UI';ctx.fillText('Status distribuídos por DS • Supervisor: '+(imgSup.value||'Regional SP')+(imgDs.value?' · '+imgDs.value:''),tableX+7,titleY+58);
+  ctx.textAlign='left';ctx.fillStyle=navy;ctx.font='900 36px Segoe UI';ctx.fillText('TOTAL FINAL POR STATUS',tableX+7,titleY+28);ctx.font='18px Segoe UI';ctx.fillText('Status distribuídos por DS • Supervisor: '+(imgSup.value||'Regional SP')+(IMG_SELECTED_DS.size!==imgAvailableDs().length?' • '+IMG_SELECTED_DS.size+' DS selecionadas':''),tableX+7,titleY+58);
   let x=tableX,y=headY;
   const thg=ctx.createLinearGradient(tableX,y,tableX+tableW,y);thg.addColorStop(0,'#073578');thg.addColorStop(1,'#0c4dae');ctx.fillStyle=thg;rr(ctx,tableX,y,tableW,headH,10);ctx.fill();
   function header(label,w){ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+headH);ctx.stroke();ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='900 16px Segoe UI';const words=String(label).split(/\s+/),lines=[];let lineText='';words.forEach(word=>{const test=lineText?lineText+' '+word:word;if(ctx.measureText(test).width>w-16&&lineText){lines.push(lineText);lineText=word}else lineText=test});if(lineText)lines.push(lineText);const show=lines.slice(0,3),sy=y+35-(show.length-1)*9;show.forEach((ln,j)=>ctx.fillText(ln,x+w/2,sy+j*19));x+=w}
@@ -1153,7 +1222,18 @@ async function parseExcel(file){
 }
 
 supFilter.addEventListener('change',()=>{refreshDs();render()});dsFilter.addEventListener('change',render);
-imgSup.addEventListener('change',()=>{refreshImgDs();renderImage()});imgDs.addEventListener('change',renderImage);driverSup.addEventListener('change',()=>{refreshDriverDs();renderDriverReport()});driverDs.addEventListener('change',renderDriverReport);downloadDriverReportBtn.addEventListener('click',drawDriverReportImage);
+imgSup.addEventListener('change',()=>{refreshImgDs();renderImgDsMulti(true);renderImage()});
+imgDsMultiBtn.addEventListener('click',e=>{e.stopPropagation();imgDsMulti.classList.toggle('open')});
+imgDsMulti.addEventListener('click',e=>e.stopPropagation());
+document.addEventListener('click',()=>imgDsMulti.classList.remove('open'));
+imgDsMultiList.addEventListener('change',e=>{
+ if(!e.target.classList.contains('imgDsCheck'))return;
+ e.target.checked?IMG_SELECTED_DS.add(e.target.value):IMG_SELECTED_DS.delete(e.target.value);
+ updateImgDsButton();renderImage();
+});
+imgDsAll.addEventListener('click',()=>{IMG_SELECTED_DS=new Set(imgAvailableDs());renderImgDsMulti();renderImage()});
+imgDsNone.addEventListener('click',()=>{IMG_SELECTED_DS.clear();imgDsMultiList.querySelectorAll('.imgDsCheck').forEach(x=>x.checked=false);updateImgDsButton();renderImage()});
+imgDsSearch.addEventListener('input',()=>renderImgDsMulti());driverSup.addEventListener('change',()=>{refreshDriverDs();renderDriverReport()});driverDs.addEventListener('change',renderDriverReport);downloadDriverReportBtn.addEventListener('click',drawDriverReportImage);
 awbSup.addEventListener('change',()=>{refreshAwbDs();renderAwbView()});
 awbDs.addEventListener('change',renderAwbView);
 awbSearch.addEventListener('input',renderAwbView);
