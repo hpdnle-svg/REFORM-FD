@@ -1,4 +1,17 @@
-ACOMPANHAMENTO PRIORIDADES FD TIKTOK — FINAL V7 VISUAL COMPLETO
+REFORM FD — VERSÃO FINAL AJUSTADA
+
+ALTERAÇÕES SOLICITADAS — SOMENTE NA PRIMEIRA ABA
+- Número total centralizado dentro do gráfico de rosca.
+- Cores próprias e consistentes para os diferentes status.
+- Ranking de DS por % entregue colocado ao lado da distribuição por status.
+- Fórmula do ranking: pedidos entregues da DS ÷ total de pedidos da própria DS × 100.
+- Status em Linha movido para a posição anterior do ranking.
+- Nenhuma outra aba, filtro, cálculo, importação ou gerador foi alterado.
+
+AJUSTES COMPLEMENTARES
+- Aba Tratativas Bases removida da navegação.
+- Card % Entregue calculado por entregues ÷ total de pedidos do filtro atual.
+- Imagem Recebido no DS / Inventário compactada para aproximadamente 820 px de largura.
 
 COMO ABRIR
 1. Extraia a pasta completa do arquivo ZIP.

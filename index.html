@@ -46,7 +46,8 @@ select,input[type=file]{width:100%;background:#08251f;color:#fff;border:1px soli
 .panel h2{margin:0;color:#0b5b49;font-size:16px} .panel p{margin:4px 0 12px;color:#567168;font-size:11px}
 .statusWrap{display:grid;grid-template-columns:.72fr 1.28fr;gap:14px;align-items:center}
 .donut{width:260px;height:260px;margin:auto;position:relative} .donut canvas{width:100%;height:100%}
-.centerText{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:900;font-size:24px}
+.centerText{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:24px;line-height:1;pointer-events:none}
+.centerText strong{display:block;font-size:28px;line-height:1;color:#08275d}.centerText span{display:block;margin-top:6px;font-size:11px;line-height:1;color:#5e7393}
 .tableWrap{overflow:auto;max-height:360px}
 table{width:100%;border-collapse:collapse} th{background:#074b7a;color:white;text-align:left;padding:9px;font-size:11px} td{padding:8px 9px;border-bottom:1px solid #b9d7c8;font-size:11px}
 .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px}
@@ -256,7 +257,7 @@ select,input[type=file],input[type=text],.multiDateSelect{width:100%!important;p
 .greenText,.yellowText,.blueText{color:var(--imile-navy)!important}
 .grid2{gap:16px!important;margin-bottom:16px!important}
 .panel{padding:18px!important;border:1px solid var(--imile-line)!important;border-radius:16px!important;background:#fff!important;color:var(--imile-ink)!important;box-shadow:0 8px 21px rgba(21,55,108,.08)!important}.panel h2{color:var(--imile-navy)!important;font-size:21px!important;font-weight:900!important}.panel p{margin:6px 0 15px!important;color:var(--imile-muted)!important;font-size:13px!important}
-.statusWrap{grid-template-columns:205px minmax(0,1fr)!important;gap:12px!important}.donut{width:205px!important;height:205px!important}.centerText{color:var(--imile-navy)!important;font-size:25px!important}.centerText span{color:var(--imile-muted)!important}.statusWrap th,.statusWrap td{padding:9px 7px!important;font-size:10.5px!important}
+.statusWrap{grid-template-columns:205px minmax(0,1fr)!important;gap:12px!important}.donut{width:205px!important;height:205px!important}.centerText{color:var(--imile-navy)!important;font-size:25px!important}.centerText strong{color:var(--imile-navy)!important}.centerText span{color:var(--imile-muted)!important}.statusWrap th,.statusWrap td{padding:9px 7px!important;font-size:10.5px!important}
 .tableWrap,.driverTableWrap,.opsTableWrap,.insightTableWrap{border:1px solid var(--imile-line)!important;border-radius:12px!important;background:#fff!important;box-shadow:none!important}
 table{color:var(--imile-ink)!important}th,.driverTable th,.opsTable th,.insightTable th,.matrixTable th{padding:12px 11px!important;background:linear-gradient(110deg,#07377e,#0b55ba)!important;color:#fff!important;font-size:12px!important;font-weight:900!important;border-right:1px solid rgba(255,255,255,.18)!important}td,.driverTable td,.opsTable td,.insightTable td,.matrixTable td{padding:11px!important;border-bottom:1px solid #e1e8f1!important;color:var(--imile-ink)!important;font-size:12px!important;background:#fff!important}tbody tr:nth-child(even) td,.driverTable tr:nth-child(even) td,.opsTable tr:nth-child(even) td,.insightTable tr:nth-child(even) td,.matrixTable tbody tr:nth-child(even) td{background:#f5f8fc!important}tbody tr:hover td,.driverTable tr:hover td,.opsTable tr:hover td,.insightTable tr:hover td{background:#eaf2ff!important}
 .opsBtn,.treatBtn{padding:11px 17px!important;border:1px solid #c9d9eb!important;border-radius:10px!important;background:#f1f6fc!important;color:var(--imile-navy)!important}.opsBtn.active,.treatBtn.active{border-color:var(--imile-blue)!important;background:linear-gradient(135deg,#083a88,#0c62d4)!important;color:#fff!important;box-shadow:0 5px 13px rgba(10,73,167,.17)!important}
@@ -312,7 +313,6 @@ canvas.chart{height:300px!important}
   <button class="navbtn active" data-view="dashboard">⌂<br>PAINEL<br>GERAL</button>
   <button class="navbtn" data-view="drivers">🚚<br>RELATÓRIO<br>MOTORISTAS</button>
   <button class="navbtn" data-view="awb">🔎<br>AWBs<br>PENDENTES</button>
-  <button class="navbtn" data-view="treatments">🧾<br>TRATATIVAS<br>BASES</button>
   <button class="navbtn" data-view="failures">📍<br>INSUCESSOS<br>BASES</button>
   <button class="navbtn" data-view="image">▣<br>IMAGEM<br>COBRANÇA</button>
   <div class="sideCard">TOTAL DE PEDIDOS<strong id="sideTotal">0</strong></div>
@@ -332,7 +332,7 @@ canvas.chart{height:300px!important}
     <div class="card"><div class="label">ENTREGUES</div><div id="kDelivered" class="value greenText">0</div><div class="sub">Pedidos entregues</div></div>
     <div class="card yellow"><div class="label">RECEBIDOS NO DS</div><div id="kReceived" class="value yellowText">0</div><div class="sub">Pedidos recebidos no DS</div></div>
     <div class="card"><div class="label">DEMAIS STATUS</div><div id="kOther" class="value">0</div><div class="sub">Pedidos em outros status</div></div>
-    <div class="card blueCard"><div class="label">% ENTREGUE</div><div id="kPct" class="value blueText">0,00%</div><div class="sub">Entregues / Recebidos no DS</div></div>
+    <div class="card blueCard"><div class="label">% ENTREGUE</div><div id="kPct" class="value blueText">0,00%</div><div class="sub">Entregues / Total de pedidos</div></div>
   </div>
 
   <div class="grid2">
@@ -340,14 +340,14 @@ canvas.chart{height:300px!important}
       <h2>DISTRIBUIÇÃO POR STATUS</h2>
       <p>Todos os status da planilha, com quantidade e percentual sobre o total.</p>
       <div class="statusWrap">
-        <div class="donut"><canvas id="donutCanvas"></canvas><div class="centerText" id="donutCenter">0<br><span style="font-size:11px;color:#a9c0b9">pedidos</span></div></div>
+        <div class="donut"><canvas id="donutCanvas"></canvas><div class="centerText" id="donutCenter"><strong>0</strong><span>pedidos</span></div></div>
         <div class="tableWrap"><table><thead><tr><th>STATUS</th><th>QTDADE</th><th>% SOBRE TOTAL</th></tr></thead><tbody id="statusTable"></tbody><tfoot><tr><th>TOTAL GERAL</th><th id="statusTotal">0</th><th>100,00%</th></tr></tfoot></table></div>
       </div>
     </div>
     <div class="panel">
-      <h2>STATUS EM LINHA</h2>
-      <p>Quantidade de pedidos status por status, seguindo a distribuição atual.</p>
-      <canvas id="statusLineChart" class="chart"></canvas>
+      <h2>RANKING DE DS · % ENTREGUE</h2>
+      <p>Pedidos entregues da DS ÷ total de pedidos da própria DS × 100.</p>
+      <canvas id="dsReceivedChart" class="chart"></canvas>
     </div>
   </div>
 
@@ -358,9 +358,9 @@ canvas.chart{height:300px!important}
       <canvas id="driverOffenderChart" class="chart"></canvas>
     </div>
     <div class="panel">
-      <h2>RANKING DS · RECEBIDOS NO DS</h2>
-      <p>Da DS com mais pedidos em “recebido no DS” para a com menos.</p>
-      <canvas id="dsReceivedChart" class="chart"></canvas>
+      <h2>STATUS EM LINHA</h2>
+      <p>Quantidade de pedidos por status, com uma cor própria para cada situação.</p>
+      <canvas id="statusLineChart" class="chart"></canvas>
     </div>
   </div>
 </section>
@@ -588,7 +588,19 @@ const fmt=n=>new Intl.NumberFormat('pt-BR').format(Number(n)||0);
 const pct=n=>(Number(n||0)*100).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 const unique=a=>[...new Set(a.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
-const STATUS_COLORS=['#0b4eaf','#1f6fd0','#3b8be0','#68a7e8','#09519a','#2e78bd','#73b4ef','#164685','#8ac5f3','#ffd21f','#4d91d0'];
+const STATUS_COLORS=['#0b69d7','#0a9f6e','#ffb000','#7c5ce7','#20a4b8','#e55353','#4f86f7','#d96bc4','#f06449','#164685','#63a4df'];
+const STATUS_COLOR_MAP={
+  'entregue':'#0a9f6e',
+  'em rota de entrega':'#ffb000',
+  'recebido no ds':'#0b69d7',
+  'atribuido':'#7c5ce7',
+  'transferencia concluida':'#20a4b8',
+  'pedido finalizado anormal':'#e55353',
+  'leitura do inventario':'#4f86f7',
+  'devolucao consolidada':'#d96bc4',
+  'retorno de insucesso':'#f06449'
+};
+function statusColor(status,index=0){return STATUS_COLOR_MAP[norm(status)]||STATUS_COLORS[index%STATUS_COLORS.length]}
 
 function fillSelect(el,vals,first){const cur=el.value;el.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('');if(vals.includes(cur))el.value=cur}
 function refreshFilters(){
@@ -646,7 +658,7 @@ function barChart(id,data,percentage=false,left=110,color='#0b55ba'){
 }
 function donutChart(entries,total){
  const [ctx,w,h]=prep('donutCanvas',260);const cx=w/2,cy=h/2,r=Math.min(w,h)*.38,inner=r*.55;let a=-Math.PI/2;
- entries.forEach(([name,val],i)=>{const sweep=total?Math.PI*2*val/total:0;ctx.beginPath();ctx.arc(cx,cy,r,a,a+sweep);ctx.arc(cx,cy,inner,a+sweep,a,true);ctx.closePath();ctx.fillStyle=STATUS_COLORS[i%STATUS_COLORS.length];ctx.fill();a+=sweep});
+ entries.forEach(([name,val],i)=>{const sweep=total?Math.PI*2*val/total:0;ctx.beginPath();ctx.arc(cx,cy,r,a,a+sweep);ctx.arc(cx,cy,inner,a+sweep,a,true);ctx.closePath();ctx.fillStyle=statusColor(name,i);ctx.fill();a+=sweep});
 }
 
 function lineStatusChart(id,data){
@@ -654,10 +666,10 @@ function lineStatusChart(id,data){
  const left=48,right=22,top=28,bottom=70,max=Math.max(...data.map(x=>x[1]),1),usableW=w-left-right,usableH=h-top-bottom;
  ctx.strokeStyle='#d6e1ed';ctx.lineWidth=1;
  for(let i=0;i<5;i++){const y=top+usableH*i/4;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke()}
- ctx.strokeStyle='#0b55ba';ctx.lineWidth=3;ctx.beginPath();
- data.forEach((x,i)=>{const px=left+usableW*(i/Math.max(1,data.length-1)),py=top+usableH*(1-x[1]/max);if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py)});
- ctx.stroke();
- data.forEach((x,i)=>{const px=left+usableW*(i/Math.max(1,data.length-1)),py=top+usableH*(1-x[1]/max);ctx.fillStyle=STATUS_COLORS[i%STATUS_COLORS.length];ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#0b2b5e';ctx.textAlign='center';ctx.font='bold 11px Segoe UI';ctx.fillText(fmt(x[1]),px,py-11);ctx.save();ctx.translate(px,h-18);ctx.rotate(-0.55);ctx.fillStyle='#5e718e';ctx.font='10px Segoe UI';ctx.textAlign='right';ctx.fillText(String(x[0]).slice(0,22),0,0);ctx.restore()});
+ const points=data.map((x,i)=>({x:left+usableW*(i/Math.max(1,data.length-1)),y:top+usableH*(1-x[1]/max),item:x}));
+ ctx.lineWidth=4;ctx.lineCap='round';
+ points.slice(1).forEach((point,i)=>{const previous=points[i];ctx.strokeStyle=statusColor(point.item[0],i+1);ctx.beginPath();ctx.moveTo(previous.x,previous.y);ctx.lineTo(point.x,point.y);ctx.stroke()});
+ points.forEach((point,i)=>{const x=point.item,px=point.x,py=point.y;ctx.fillStyle=statusColor(x[0],i);ctx.beginPath();ctx.arc(px,py,6,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();ctx.fillStyle='#0b2b5e';ctx.textAlign='center';ctx.font='bold 11px Segoe UI';ctx.fillText(fmt(x[1]),px,py-12);ctx.save();ctx.translate(px,h-18);ctx.rotate(-0.55);ctx.fillStyle=statusColor(x[0],i);ctx.font='bold 10px Segoe UI';ctx.textAlign='right';ctx.fillText(String(x[0]).slice(0,22),0,0);ctx.restore()});
 }
 
 
@@ -782,38 +794,40 @@ function drawAwbDsInventoryImage(){
 
   if(!rows.length){alert('Nenhum pedido em Recebido no DS / Inventário para os filtros atuais.');return}
 
-  const W=1400,rowH=40,top=165,headerH=46,H=Math.max(520,top+headerH+rows.length*rowH+70);
+  const W=820,margin=16,rowH=40,top=151,headerH=46,footerH=48;
+  const showBase=!awbDs.value;
+  const H=top+headerH+rows.length*rowH+footerH+17;
   const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d');
 
   ctx.fillStyle='#f7faf9';ctx.fillRect(0,0,W,H);
-  ctx.fillStyle='#0755a8';ctx.fillRect(45,35,160,72);
-  ctx.fillStyle='#fff';ctx.font='bold 34px Segoe UI';ctx.fillText('iMile',73,75);
-  ctx.font='13px Segoe UI';ctx.fillText('Delivery',96,98);
+  ctx.fillStyle='#0755a8';ctx.fillRect(margin,21,160,72);
+  ctx.fillStyle='#fff';ctx.font='bold 34px Segoe UI';ctx.fillText('iMile',44,61);
+  ctx.font='13px Segoe UI';ctx.fillText('Delivery',67,84);
 
-  ctx.fillStyle='#17382f';ctx.font='bold 30px Segoe UI';ctx.fillText('AWBs · RECEBIDO NO DS / INVENTÁRIO',235,70);
+  ctx.fillStyle='#17382f';ctx.font='bold 26px Segoe UI';ctx.fillText('AWBs · RECEBIDO NO DS / INVENTÁRIO',207,56);
   ctx.fillStyle='#60736d';ctx.font='18px Segoe UI';
-  ctx.fillText((awbSup.value||'Todos os supervisores')+' · '+(awbDs.value||'Todas as DSs'),235,105);
+  ctx.fillText((awbSup.value||'Todos os supervisores')+' · '+(awbDs.value||'Todas as DSs'),207,91);
 
-  ctx.fillStyle='#4f86bd';ctx.fillRect(45,top,W-90,headerH);
+  ctx.fillStyle='#4f86bd';ctx.fillRect(margin,top,W-margin*2,headerH);
   ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';
-  ctx.fillText('AWB',65,top+29);
-  ctx.fillText('STATUS',570,top+29);
-  ctx.fillText('BASE',1050,top+29);
+  ctx.fillText('AWB',37,top+29);
+  ctx.fillText('STATUS',showBase?410:542,top+29);
+  if(showBase)ctx.fillText('BASE',680,top+29);
 
   let y=top+headerH;
   rows.forEach((r,i)=>{
-    ctx.fillStyle=i%2===0?'#eef6f2':'#e2efe8';ctx.fillRect(45,y,W-90,rowH);
-    ctx.strokeStyle='#c3d8cf';ctx.strokeRect(45,y,W-90,rowH);
+    ctx.fillStyle=i%2===0?'#eef6f2':'#e2efe8';ctx.fillRect(margin,y,W-margin*2,rowH);
+    ctx.strokeStyle='#c3d8cf';ctx.strokeRect(margin,y,W-margin*2,rowH);
     ctx.fillStyle='#17382f';ctx.font='15px Segoe UI';
-    ctx.fillText(String(r.awb||'-'),65,y+26);
-    ctx.fillText(String(r.status||'-'),570,y+26);
-    ctx.fillText(String(r.ds||'-'),1050,y+26);
+    ctx.fillText(String(r.awb||'-'),37,y+26);
+    ctx.fillText(String(r.status||'-'),showBase?410:542,y+26);
+    if(showBase)ctx.fillText(String(r.ds||'-'),680,y+26);
     y+=rowH;
   });
 
-  ctx.fillStyle='#0b4d3d';ctx.fillRect(45,y,W-90,48);
+  ctx.fillStyle='#0b4d3d';ctx.fillRect(margin,y,W-margin*2,footerH);
   ctx.fillStyle='#fff';ctx.font='bold 16px Segoe UI';
-  ctx.fillText('TOTAL: '+fmt(rows.length)+' AWBs',65,y+30);
+  ctx.fillText('TOTAL: '+fmt(rows.length)+' AWBs',37,y+30);
 
   const a=document.createElement('a');
   a.href=c.toDataURL('image/png');
@@ -1070,11 +1084,11 @@ function drawFailStatusReasonImage(){
 
 function render(){
  const rows=filtered(),total=rows.length,del=rows.filter(x=>isDelivered(x.status)).length,rec=rows.filter(x=>isReceived(x.status)).length,other=Math.max(0,total-del-rec);
- kDelivered.textContent=fmt(del);kReceived.textContent=fmt(rec);kOther.textContent=fmt(other);kPct.textContent=rec?pct(del/rec):'0,00%';sideTotal.textContent=fmt(DATA.length);
+ kDelivered.textContent=fmt(del);kReceived.textContent=fmt(rec);kOther.textContent=fmt(other);kPct.textContent=total?pct(del/total):'0,00%';sideTotal.textContent=fmt(DATA.length);
 
  const st={};rows.forEach(x=>st[x.status]=(st[x.status]||0)+1);const entries=Object.entries(st).sort((a,b)=>b[1]-a[1]);
- statusTable.innerHTML=entries.map(([s,v],i)=>`<tr><td><span class="dot" style="background:${STATUS_COLORS[i%STATUS_COLORS.length]}"></span>${esc(s)}</td><td><strong>${fmt(v)}</strong></td><td>${pct(v/Math.max(total,1))}</td></tr>`).join('');
- statusTotal.textContent=fmt(total);donutCenter.innerHTML=fmt(total)+'<br><span style="font-size:11px;color:#a9c0b9">pedidos</span>';donutChart(entries,total);
+ statusTable.innerHTML=entries.map(([s,v],i)=>`<tr><td><span class="dot" style="background:${statusColor(s,i)}"></span>${esc(s)}</td><td><strong>${fmt(v)}</strong></td><td>${pct(v/Math.max(total,1))}</td></tr>`).join('');
+ statusTotal.textContent=fmt(total);donutCenter.innerHTML='<strong>'+fmt(total)+'</strong><span>pedidos</span>';donutChart(entries,total);
 
  lineStatusChart('statusLineChart',entries);
 
@@ -1086,10 +1100,18 @@ function render(){
  const driverRows=Object.entries(byDriver).sort((a,b)=>b[1]-a[1]).slice(0,12);
  barChart('driverOffenderChart',driverRows,false,190,'#0b55ba');
 
- const byDsReceived={};
- rows.filter(x=>isReceived(x.status)).forEach(x=>byDsReceived[x.ds]=(byDsReceived[x.ds]||0)+1);
- const dsReceivedRows=Object.entries(byDsReceived).sort((a,b)=>b[1]-a[1]).slice(0,15);
- barChart('dsReceivedChart',dsReceivedRows,false,110,'#2f7fd0');
+ const byDsPerformance={};
+ rows.filter(x=>String(x.ds||'').trim()).forEach(x=>{
+   const ds=String(x.ds).trim();
+   if(!byDsPerformance[ds])byDsPerformance[ds]={total:0,delivered:0};
+   byDsPerformance[ds].total+=1;
+   if(isDelivered(x.status))byDsPerformance[ds].delivered+=1;
+ });
+ const dsReceivedRows=Object.entries(byDsPerformance)
+   .map(([ds,v])=>[ds,v.total?v.delivered/v.total:0,v.total])
+   .sort((a,b)=>b[1]-a[1]||b[2]-a[2]||a[0].localeCompare(b[0],'pt-BR'))
+   .slice(0,15);
+ barChart('dsReceivedChart',dsReceivedRows,true,110,'#0b69d7');
  renderImage();
  renderDriverReport();
  renderAwbView();
