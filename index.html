@@ -48,7 +48,7 @@ select,input[type=file]{width:100%;background:#08251f;color:#fff;border:1px soli
 .donut{width:260px;height:260px;margin:auto;position:relative} .donut canvas{width:100%;height:100%}
 .centerText{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:24px;line-height:1;pointer-events:none}
 .centerText strong{display:block;font-size:28px;line-height:1;color:#08275d}.centerText span{display:block;margin-top:6px;font-size:11px;line-height:1;color:#5e7393}
-.tableWrap{overflow:auto;max-height:360px}
+.tableWrap{overflow:visible;max-height:none}
 table{width:100%;border-collapse:collapse} th{background:#074b7a;color:white;text-align:left;padding:9px;font-size:11px} td{padding:8px 9px;border-bottom:1px solid #b9d7c8;font-size:11px}
 .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px}
 canvas.chart{display:block;width:100%;height:280px}
@@ -258,6 +258,7 @@ select,input[type=file],input[type=text],.multiDateSelect{width:100%!important;p
 .grid2{gap:16px!important;margin-bottom:16px!important}
 .panel{padding:18px!important;border:1px solid var(--imile-line)!important;border-radius:16px!important;background:#fff!important;color:var(--imile-ink)!important;box-shadow:0 8px 21px rgba(21,55,108,.08)!important}.panel h2{color:var(--imile-navy)!important;font-size:21px!important;font-weight:900!important}.panel p{margin:6px 0 15px!important;color:var(--imile-muted)!important;font-size:13px!important}
 .statusWrap{grid-template-columns:205px minmax(0,1fr)!important;gap:12px!important}.donut{width:205px!important;height:205px!important}.centerText{color:var(--imile-navy)!important;font-size:25px!important}.centerText strong{color:var(--imile-navy)!important}.centerText span{color:var(--imile-muted)!important}.statusWrap th,.statusWrap td{padding:9px 7px!important;font-size:10.5px!important}
+.statusWrap .tableWrap{overflow:visible!important;max-height:none!important}
 .tableWrap,.driverTableWrap,.opsTableWrap,.insightTableWrap{border:1px solid var(--imile-line)!important;border-radius:12px!important;background:#fff!important;box-shadow:none!important}
 table{color:var(--imile-ink)!important}th,.driverTable th,.opsTable th,.insightTable th,.matrixTable th{padding:12px 11px!important;background:linear-gradient(110deg,#07377e,#0b55ba)!important;color:#fff!important;font-size:12px!important;font-weight:900!important;border-right:1px solid rgba(255,255,255,.18)!important}td,.driverTable td,.opsTable td,.insightTable td,.matrixTable td{padding:11px!important;border-bottom:1px solid #e1e8f1!important;color:var(--imile-ink)!important;font-size:12px!important;background:#fff!important}tbody tr:nth-child(even) td,.driverTable tr:nth-child(even) td,.opsTable tr:nth-child(even) td,.insightTable tr:nth-child(even) td,.matrixTable tbody tr:nth-child(even) td{background:#f5f8fc!important}tbody tr:hover td,.driverTable tr:hover td,.opsTable tr:hover td,.insightTable tr:hover td{background:#eaf2ff!important}
 .opsBtn,.treatBtn{padding:11px 17px!important;border:1px solid #c9d9eb!important;border-radius:10px!important;background:#f1f6fc!important;color:var(--imile-navy)!important}.opsBtn.active,.treatBtn.active{border-color:var(--imile-blue)!important;background:linear-gradient(135deg,#083a88,#0c62d4)!important;color:#fff!important;box-shadow:0 5px 13px rgba(10,73,167,.17)!important}
@@ -353,9 +354,12 @@ canvas.chart{height:300px!important}
 
   <div class="grid2">
     <div class="panel">
-      <h2>MOTORISTAS MAIS OFENSORES</h2>
-      <p>Ranking dos motoristas com maior quantidade de pedidos ainda não entregues.</p>
-      <canvas id="driverOffenderChart" class="chart"></canvas>
+      <h2>DISTRIBUIÇÃO POR MOTIVO DE INSUCESSO</h2>
+      <p>Motivos registrados no filtro atual, com quantidade e percentual sobre o total de insucessos.</p>
+      <div class="statusWrap">
+        <div class="donut"><canvas id="failureReasonDonutCanvas"></canvas><div class="centerText" id="failureReasonDonutCenter"><strong>0</strong><span>insucessos</span></div></div>
+        <div class="tableWrap"><table><thead><tr><th>MOTIVO</th><th>QTDADE</th><th>% SOBRE MOTIVOS</th></tr></thead><tbody id="failureReasonTable"></tbody><tfoot><tr><th>TOTAL DE MOTIVOS</th><th id="failureReasonTotal">0</th><th id="failureReasonTotalPct">0,00%</th></tr></tfoot></table></div>
+      </div>
     </div>
     <div class="panel">
       <h2>STATUS EM LINHA</h2>
@@ -601,6 +605,12 @@ const STATUS_COLOR_MAP={
   'retorno de insucesso':'#f06449'
 };
 function statusColor(status,index=0){return STATUS_COLOR_MAP[norm(status)]||STATUS_COLORS[index%STATUS_COLORS.length]}
+const FAILURE_REASON_COLORS=['#d64545','#ef7f36','#f2b134','#7c5ce7','#0b69d7','#20a4b8','#0a9f6e','#d96bc4','#52677d','#2f8bd8','#9b6fd6'];
+function failureReasonColor(reason,index=0){
+  const key=norm(reason);let hash=0;
+  for(let i=0;i<key.length;i++)hash=((hash<<5)-hash+key.charCodeAt(i))|0;
+  return FAILURE_REASON_COLORS[Math.abs(hash||index)%FAILURE_REASON_COLORS.length];
+}
 
 function fillSelect(el,vals,first){const cur=el.value;el.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('');if(vals.includes(cur))el.value=cur}
 function refreshFilters(){
@@ -656,10 +666,11 @@ function barChart(id,data,percentage=false,left=110,color='#0b55ba'){
  ctx.font='11px Segoe UI';ctx.textBaseline='middle';
  data.forEach((x,i)=>{const y=top+i*rowH+rowH/2,bw=(w-left-right)*(x[1]/max);ctx.fillStyle='#385679';ctx.textAlign='right';ctx.fillText(String(x[0]).slice(0,24),left-8,y);ctx.fillStyle='#dfe8f3';rr(ctx,left,y-7,w-left-right,14,6);ctx.fill();ctx.fillStyle=color;rr(ctx,left,y-7,bw,14,6);ctx.fill();ctx.fillStyle='#0b2b5e';ctx.textAlign='left';ctx.font='bold 11px Segoe UI';ctx.fillText(percentage?pct(x[1]):fmt(x[1]),left+bw+6,y);ctx.font='11px Segoe UI'});
 }
-function donutChart(entries,total){
- const [ctx,w,h]=prep('donutCanvas',260);const cx=w/2,cy=h/2,r=Math.min(w,h)*.38,inner=r*.55;let a=-Math.PI/2;
- entries.forEach(([name,val],i)=>{const sweep=total?Math.PI*2*val/total:0;ctx.beginPath();ctx.arc(cx,cy,r,a,a+sweep);ctx.arc(cx,cy,inner,a+sweep,a,true);ctx.closePath();ctx.fillStyle=statusColor(name,i);ctx.fill();a+=sweep});
+function distributionDonut(id,entries,total,colorResolver){
+ const [ctx,w,h]=prep(id,260);const cx=w/2,cy=h/2,r=Math.min(w,h)*.38,inner=r*.55;let a=-Math.PI/2;
+ entries.forEach(([name,val],i)=>{const sweep=total?Math.PI*2*val/total:0;ctx.beginPath();ctx.arc(cx,cy,r,a,a+sweep);ctx.arc(cx,cy,inner,a+sweep,a,true);ctx.closePath();ctx.fillStyle=colorResolver(name,i);ctx.fill();a+=sweep});
 }
+function donutChart(entries,total){distributionDonut('donutCanvas',entries,total,statusColor)}
 
 function lineStatusChart(id,data){
  const [ctx,w,h]=prep(id);if(!data.length)return;
@@ -1092,13 +1103,20 @@ function render(){
 
  lineStatusChart('statusLineChart',entries);
 
- const byDriver={};
- rows.filter(x=>norm(x.status)==='em rota de entrega' && String(x.driver||'').trim()).forEach(x=>{
-   const d=String(x.driver).trim();
-   byDriver[d]=(byDriver[d]||0)+1;
+ const byFailureReason={};
+ rows.forEach(x=>{
+   const reason=String(x.failureReason||'').trim();
+   if(reason)byFailureReason[reason]=(byFailureReason[reason]||0)+1;
  });
- const driverRows=Object.entries(byDriver).sort((a,b)=>b[1]-a[1]).slice(0,12);
- barChart('driverOffenderChart',driverRows,false,190,'#0b55ba');
+ const failureReasonEntries=Object.entries(byFailureReason).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'pt-BR'));
+ const failureReasonCount=failureReasonEntries.reduce((sum,item)=>sum+item[1],0);
+ failureReasonTable.innerHTML=failureReasonEntries.length
+   ?failureReasonEntries.map(([reason,count],i)=>`<tr><td><span class="dot" style="background:${failureReasonColor(reason,i)}"></span>${esc(reason)}</td><td><strong>${fmt(count)}</strong></td><td>${pct(count/failureReasonCount)}</td></tr>`).join('')
+   :'<tr><td colspan="3">Nenhum motivo de insucesso informado no filtro atual.</td></tr>';
+ failureReasonTotal.textContent=fmt(failureReasonCount);
+ failureReasonTotalPct.textContent=failureReasonCount?'100,00%':'0,00%';
+ failureReasonDonutCenter.innerHTML='<strong>'+fmt(failureReasonCount)+'</strong><span>insucessos</span>';
+ distributionDonut('failureReasonDonutCanvas',failureReasonEntries,failureReasonCount,failureReasonColor);
 
  const byDsPerformance={};
  rows.filter(x=>String(x.ds||'').trim()).forEach(x=>{

@@ -12,6 +12,7 @@ AJUSTES COMPLEMENTARES
 - Aba Tratativas Bases removida da navegação.
 - Card % Entregue calculado por entregues ÷ total de pedidos do filtro atual.
 - Imagem Recebido no DS / Inventário compactada para aproximadamente 820 px de largura.
+- Painel Geral: Motoristas Mais Ofensores substituído pela Distribuição por Motivo de Insucesso.
 
 COMO ABRIR
 1. Extraia a pasta completa do arquivo ZIP.
@@ -32,6 +33,7 @@ NOVO PADRÃO VISUAL V7
 - Tabelas com cabeçalhos azuis, linhas alternadas e textos mais legíveis.
 - Gráficos atualizados para a paleta azul iMile.
 - Layout revisado nas abas Painel Geral, Motoristas, AWBs, Tratativas, Insucessos e Imagem de Cobrança.
+- No Painel Geral, as distribuições por status e por motivo de insucesso exibem todas as opções sem barra de rolagem.
 
 IMAGEM DE COBRANÇA
 - O gerador aprovado da V6 foi preservado.
